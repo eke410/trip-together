@@ -80,8 +80,7 @@ Social Travel organizer where users can plan trips with friends and view an orga
   => None
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://scontent-bos3-1.xx.fbcdn.net/v/t1.15752-9/211070028_341136337392533_7048821287326844631_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=ae9488&_nc_ohc=SU98cAuCXaEAX8RDnR5&_nc_ht=scontent-bos3-1.xx&_nc_rmd=260&oh=9713584be5a493aa54c75df8509376ce&oe=60EB8440" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
