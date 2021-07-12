@@ -8,6 +8,7 @@
 #import "CreateGroupViewController.h"
 #import "Group.h"
 #import "UserCell.h"
+#import "GroupDetailsViewController.h"
 
 @interface CreateGroupViewController () <UserCellDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -107,14 +108,19 @@
     [users sortUsingDescriptors:[NSArray arrayWithObject:nameSorter]];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"newGroupDetailsSegue"]) {
+        // new group was just created, segue to details page of new group
+        GroupDetailsViewController *groupDetailsViewController = [segue destinationViewController];
+        groupDetailsViewController.group = sender;
+    }
 }
-*/
+
 
 @end

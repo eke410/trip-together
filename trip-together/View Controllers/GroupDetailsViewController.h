@@ -6,10 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Group.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GroupDetailsViewController : UIViewController
+
+@property (strong, nonatomic) Group *group; 
 
 @end
 

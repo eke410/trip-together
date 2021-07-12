@@ -6,8 +6,12 @@
 //
 
 #import "GroupDetailsViewController.h"
+#import "UserCell.h"
 
-@interface GroupDetailsViewController ()
+@interface GroupDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UILabel *groupName;
+@property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 
 @end
 
@@ -15,7 +19,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.groupName.text = self.group.name;
+    
+    self.usersTableView.dataSource = self;
+    self.usersTableView.delegate = self;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.group.users.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UserCell *cell = [self.usersTableView dequeueReusableCellWithIdentifier:@"UserCell"];
+    PFUser *user = self.group.users[indexPath.row];
+    cell.user = user;
+    cell.usernameLabel.text = user.username;
+    [cell.button setHidden:true];
+    return cell;
 }
 
 /*
