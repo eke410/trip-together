@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		049ED5FD269CD8F600F85217 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FC269CD8F600F85217 /* ProfileViewController.m */; };
 		04BAE761269CD21A00C21ED5 /* GroupDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE760269CD21A00C21ED5 /* GroupDetailsViewController.m */; };
 		04BAE764269CD28C00C21ED5 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE763269CD28C00C21ED5 /* EventDetailsViewController.m */; };
 		04BAE767269CD29600C21ED5 /* BookEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE766269CD29600C21ED5 /* BookEventViewController.m */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		049ED5FB269CD8F600F85217 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		049ED5FC269CD8F600F85217 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		04BAE75F269CD21A00C21ED5 /* GroupDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupDetailsViewController.h; sourceTree = "<group>"; };
 		04BAE760269CD21A00C21ED5 /* GroupDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupDetailsViewController.m; sourceTree = "<group>"; };
 		04BAE762269CD28C00C21ED5 /* EventDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				04BAE763269CD28C00C21ED5 /* EventDetailsViewController.m */,
 				04BAE765269CD29600C21ED5 /* BookEventViewController.h */,
 				04BAE766269CD29600C21ED5 /* BookEventViewController.m */,
+				049ED5FB269CD8F600F85217 /* ProfileViewController.h */,
+				049ED5FC269CD8F600F85217 /* ProfileViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -228,7 +233,6 @@
 				2F4AAEFF68AAD1D00022C0A2 /* Pods-trip-togetherTests.debug.xcconfig */,
 				48EAA27F76E903DC3D2F524C /* Pods-trip-togetherTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -477,6 +481,7 @@
 				04D818F7269CAE8600C3A9D8 /* main.m in Sources */,
 				04BAE767269CD29600C21ED5 /* BookEventViewController.m in Sources */,
 				04BAE764269CD28C00C21ED5 /* EventDetailsViewController.m in Sources */,
+				049ED5FD269CD8F600F85217 /* ProfileViewController.m in Sources */,
 				04D81924269CBF1D00C3A9D8 /* GroupsViewController.m in Sources */,
 				04D818E9269CAE8400C3A9D8 /* SceneDelegate.m in Sources */,
 			);

@@ -11,24 +11,46 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trip Together" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAg-A3-758">
-                                <rect key="frame" x="135" y="283" width="102" height="21"/>
+                                <rect key="frame" x="105" y="233" width="180" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFP-V6-5pU">
-                                <rect key="frame" x="167" y="469" width="38" height="30"/>
+                                <rect key="frame" x="52" y="467" width="286" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fuO-od-iTH"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C5U-j6-rqK">
+                                <rect key="frame" x="52" y="323" width="286" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nV7-aE-rHX">
+                                <rect key="frame" x="52" y="381" width="286" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldh-5y-aJn">
+                                <rect key="frame" x="169" y="527" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign up"/>
+                                <connections>
+                                    <action selector="registerUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gjS-KA-gOK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -36,12 +58,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="passwordField" destination="nV7-aE-rHX" id="zgO-Wy-tN1"/>
+                        <outlet property="usernameField" destination="C5U-j6-rqK" id="VDV-xu-O0N"/>
                         <segue destination="xCG-hb-diz" kind="show" identifier="loginSegue" id="ycD-sX-h2w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-946" y="-1032"/>
+            <point key="canvasLocation" x="-946.15384615384608" y="-1032.2274881516587"/>
         </scene>
         <!--Explore-->
         <scene sceneID="xCj-Ii-yY0">
@@ -79,7 +103,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="63v-Me-aTm">
             <objects>
-                <tabBarController id="xCG-hb-diz" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="xCG-hb-diz" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="9XJ-vk-jNE"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IM7-TY-1bc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -89,6 +113,7 @@
                     <connections>
                         <segue destination="MyO-4c-amR" kind="relationship" relationship="viewControllers" id="bgO-Kl-w7F"/>
                         <segue destination="5n9-FV-ISu" kind="relationship" relationship="viewControllers" id="5bI-ed-T4P"/>
+                        <segue destination="syF-ee-yRK" kind="relationship" relationship="viewControllers" id="cIe-bz-I55"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9a-iO-kux" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -135,6 +160,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FxX-bn-Iiv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="877" y="-296"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="e6h-zI-m6b">
+            <objects>
+                <viewController id="S1f-jj-GR4" customClass="ProfileViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rsb-Mi-Ziz">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1l-gt-CFj">
+                                <rect key="frame" x="45" y="99" width="49" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2bU-Im-iWV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Profile" id="zCy-K3-lir">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="XWL-eg-c2d">
+                            <connections>
+                                <action selector="logoutUser:" destination="S1f-jj-GR4" id="DhO-RT-2AA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="usernameLabel" destination="M1l-gt-CFj" id="z6v-dh-c44"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B3H-x3-ugr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2409.2307692307691" y="-296.44549763033172"/>
         </scene>
         <!--Book Event-->
         <scene sceneID="fyz-jW-4E8">
@@ -248,10 +307,30 @@
             </objects>
             <point key="canvasLocation" x="217" y="-296"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Jo4-5e-JDV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="syF-ee-yRK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="person.circle" catalog="system" id="3rO-4Z-Us7"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3hV-P2-h5c">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="S1f-jj-GR4" kind="relationship" relationship="rootViewController" id="msO-qZ-yCc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UpK-16-oJM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684.6153846153845" y="-296.44549763033172"/>
+        </scene>
     </scenes>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
