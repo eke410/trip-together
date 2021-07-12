@@ -1,0 +1,6 @@
+framework module Pods_trip_together_trip_togetherUITests {
+  umbrella header "Pods-trip-together-trip-togetherUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
