@@ -21,9 +21,11 @@
 }
 
 - (IBAction)clickedButton:(id)sender {
-    // TODO: add user to group (set up protocol)?
-    NSLog(@"clicked button");
-    
+    if (self.button.imageView.image == [UIImage systemImageNamed:@"plus"]) {
+        [self.delegate addUserToGroup:self.user];
+    } else if (self.button.imageView.image == [UIImage systemImageNamed:@"minus"]) {
+        [self.delegate removeUserFromGroup:self.user];
+    }
 }
 
 @end

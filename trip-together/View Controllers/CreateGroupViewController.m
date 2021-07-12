@@ -9,13 +9,14 @@
 #import "Group.h"
 #import "UserCell.h"
 
-@interface CreateGroupViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface CreateGroupViewController () <UserCellDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *groupNameField;
 @property (weak, nonatomic) IBOutlet UITableView *usersInGroupTableView;
 @property (weak, nonatomic) IBOutlet UITableView *usersToAddTableView;
 
-@property (strong, nonatomic) NSArray *usersInGroup;
-@property (strong, nonatomic) NSArray *usersToAdd;
+@property (strong, nonatomic) NSMutableArray *usersInGroup;
+@property (strong, nonatomic) NSMutableArray *usersToAdd;
 
 @end
 
@@ -29,26 +30,28 @@
     self.usersToAddTableView.dataSource = self;
     self.usersToAddTableView.delegate = self;
     
-    self.usersInGroup = [[NSArray alloc] initWithObjects:PFUser.currentUser, nil];
+    self.usersInGroup = [[NSMutableArray alloc] initWithObjects:PFUser.currentUser, nil];
 
     PFQuery *query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:PFUser.currentUser.objectId];
     [query orderByAscending:@"username"];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable users, NSError * _Nullable error) {
-        self.usersToAdd = users;
+        self.usersToAdd = (NSMutableArray *)users;
         [self.usersToAddTableView reloadData];
     }];
 }
 
 
 - (IBAction)createGroup:(id)sender {
-    [Group postGroupWithUsers:[NSArray new] withName:@"placeholder_name" withLocation:@"placeholder_location" withStartDate:[NSDate new] withEndDate:[NSDate new] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [self sortByUsername:self.usersInGroup];
+    Group *newGroup = [Group postGroupWithUsers:self.usersInGroup withName:self.groupNameField.text withLocation:@"placeholder_location" withStartDate:[NSDate new] withEndDate:[NSDate new] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Failed to create group: %@", error.localizedDescription);
         } else {
             NSLog(@"Created group successfully");
         }
     }];
+    [self performSegueWithIdentifier:@"newGroupDetailsSegue" sender:newGroup];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,16 +66,45 @@
     if (tableView == self.usersInGroupTableView) {
         UserCell *cell = [self.usersInGroupTableView dequeueReusableCellWithIdentifier:@"UserCell"];
         PFUser *user = self.usersInGroup[indexPath.row];
+        cell.user = user;
         cell.usernameLabel.text = user.username;
         [cell.button setImage:[UIImage systemImageNamed:@"minus"] forState:UIControlStateNormal];
+        cell.delegate = self;
+        if (user == PFUser.currentUser) {
+            [cell.button setHidden:true];
+        }
         return cell;
     } else {
         UserCell *cell = [self.usersToAddTableView dequeueReusableCellWithIdentifier:@"UserCell"];
         PFUser *user = self.usersToAdd[indexPath.row];
+        cell.user = user;
         cell.usernameLabel.text = user.username;
         [cell.button setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
+        cell.delegate = self;
         return cell;
     }
+}
+
+- (void)addUserToGroup:(PFUser *)user {
+    [self.usersInGroup addObject:user];
+    [self.usersToAdd removeObject:user];
+    
+    [self.usersInGroupTableView reloadData];
+    [self.usersToAddTableView reloadData];
+}
+
+- (void)removeUserFromGroup:(PFUser *)user {
+    [self.usersInGroup removeObject:user];
+    [self.usersToAdd addObject:user];
+    [self sortByUsername:self.usersToAdd];
+        
+    [self.usersInGroupTableView reloadData];
+    [self.usersToAddTableView reloadData];
+}
+
+- (void)sortByUsername:(NSMutableArray *)users {
+    NSSortDescriptor *nameSorter = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:true];
+    [users sortUsingDescriptors:[NSArray arrayWithObject:nameSorter]];
 }
 
 /*

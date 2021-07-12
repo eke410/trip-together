@@ -19,7 +19,7 @@
     return @"Group";
 }
 
-+ (void)postGroupWithUsers:(NSArray * _Nullable)users withName:(NSString * _Nullable)name withLocation:(NSString * _Nullable)location withStartDate:(NSDate * _Nullable)startDate withEndDate:(NSDate * _Nullable)endDate withCompletion:(PFBooleanResultBlock _Nullable)completion {
++ (Group *)postGroupWithUsers:(NSArray * _Nullable)users withName:(NSString * _Nullable)name withLocation:(NSString * _Nullable)location withStartDate:(NSDate * _Nullable)startDate withEndDate:(NSDate * _Nullable)endDate withCompletion:(PFBooleanResultBlock _Nullable)completion {
     Group *newGroup = [Group new];
     newGroup.users = users;
     newGroup.name = name;
@@ -28,6 +28,8 @@
     newGroup.endDate = endDate;
 
     [newGroup saveInBackgroundWithBlock:completion];
+    
+    return newGroup;
 }
 
 @end
