@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04BAE761269CD21A00C21ED5 /* GroupDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE760269CD21A00C21ED5 /* GroupDetailsViewController.m */; };
+		04BAE764269CD28C00C21ED5 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE763269CD28C00C21ED5 /* EventDetailsViewController.m */; };
+		04BAE767269CD29600C21ED5 /* BookEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE766269CD29600C21ED5 /* BookEventViewController.m */; };
 		04D818E6269CAE8400C3A9D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D818E5269CAE8400C3A9D8 /* AppDelegate.m */; };
 		04D818E9269CAE8400C3A9D8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D818E8269CAE8400C3A9D8 /* SceneDelegate.m */; };
-		04D818EC269CAE8400C3A9D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D818EB269CAE8400C3A9D8 /* ViewController.m */; };
 		04D818EF269CAE8400C3A9D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D818ED269CAE8400C3A9D8 /* Main.storyboard */; };
 		04D818F1269CAE8600C3A9D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04D818F0269CAE8600C3A9D8 /* Assets.xcassets */; };
 		04D818F4269CAE8600C3A9D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D818F2269CAE8600C3A9D8 /* LaunchScreen.storyboard */; };
 		04D818F7269CAE8600C3A9D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D818F6269CAE8600C3A9D8 /* main.m */; };
 		04D81901269CAE8600C3A9D8 /* trip_togetherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81900269CAE8600C3A9D8 /* trip_togetherTests.m */; };
 		04D8190C269CAE8600C3A9D8 /* trip_togetherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D8190B269CAE8600C3A9D8 /* trip_togetherUITests.m */; };
+		04D8191E269CB34800C3A9D8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D8191D269CB34800C3A9D8 /* LoginViewController.m */; };
+		04D81921269CBF0A00C3A9D8 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81920269CBF0A00C3A9D8 /* EventsViewController.m */; };
+		04D81924269CBF1D00C3A9D8 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81923269CBF1D00C3A9D8 /* GroupsViewController.m */; };
+		04D81927269CC12000C3A9D8 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81926269CC12000C3A9D8 /* CreateGroupViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,13 +42,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04BAE75F269CD21A00C21ED5 /* GroupDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupDetailsViewController.h; sourceTree = "<group>"; };
+		04BAE760269CD21A00C21ED5 /* GroupDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupDetailsViewController.m; sourceTree = "<group>"; };
+		04BAE762269CD28C00C21ED5 /* EventDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
+		04BAE763269CD28C00C21ED5 /* EventDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
+		04BAE765269CD29600C21ED5 /* BookEventViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookEventViewController.h; sourceTree = "<group>"; };
+		04BAE766269CD29600C21ED5 /* BookEventViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookEventViewController.m; sourceTree = "<group>"; };
 		04D818E1269CAE8400C3A9D8 /* trip-together.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "trip-together.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D818E4269CAE8400C3A9D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04D818E5269CAE8400C3A9D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		04D818E7269CAE8400C3A9D8 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		04D818E8269CAE8400C3A9D8 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		04D818EA269CAE8400C3A9D8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		04D818EB269CAE8400C3A9D8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		04D818EE269CAE8400C3A9D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04D818F0269CAE8600C3A9D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04D818F3269CAE8600C3A9D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,6 +64,14 @@
 		04D81907269CAE8600C3A9D8 /* trip-togetherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "trip-togetherUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D8190B269CAE8600C3A9D8 /* trip_togetherUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = trip_togetherUITests.m; sourceTree = "<group>"; };
 		04D8190D269CAE8600C3A9D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04D8191C269CB34800C3A9D8 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		04D8191D269CB34800C3A9D8 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		04D8191F269CBF0A00C3A9D8 /* EventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
+		04D81920269CBF0A00C3A9D8 /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
+		04D81922269CBF1D00C3A9D8 /* GroupsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
+		04D81923269CBF1D00C3A9D8 /* GroupsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
+		04D81925269CC12000C3A9D8 /* CreateGroupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateGroupViewController.h; sourceTree = "<group>"; };
+		04D81926269CC12000C3A9D8 /* CreateGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,12 +122,13 @@
 		04D818E3269CAE8400C3A9D8 /* trip-together */ = {
 			isa = PBXGroup;
 			children = (
+				04D8191A269CB30800C3A9D8 /* View Controllers */,
+				04D81919269CB2F900C3A9D8 /* Views */,
+				04D8191B269CB30E00C3A9D8 /* Models */,
 				04D818E4269CAE8400C3A9D8 /* AppDelegate.h */,
 				04D818E5269CAE8400C3A9D8 /* AppDelegate.m */,
 				04D818E7269CAE8400C3A9D8 /* SceneDelegate.h */,
 				04D818E8269CAE8400C3A9D8 /* SceneDelegate.m */,
-				04D818EA269CAE8400C3A9D8 /* ViewController.h */,
-				04D818EB269CAE8400C3A9D8 /* ViewController.m */,
 				04D818ED269CAE8400C3A9D8 /* Main.storyboard */,
 				04D818F0269CAE8600C3A9D8 /* Assets.xcassets */,
 				04D818F2269CAE8600C3A9D8 /* LaunchScreen.storyboard */,
@@ -135,6 +154,41 @@
 				04D8190D269CAE8600C3A9D8 /* Info.plist */,
 			);
 			path = "trip-togetherUITests";
+			sourceTree = "<group>";
+		};
+		04D81919269CB2F900C3A9D8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		04D8191A269CB30800C3A9D8 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				04D8191C269CB34800C3A9D8 /* LoginViewController.h */,
+				04D8191D269CB34800C3A9D8 /* LoginViewController.m */,
+				04D8191F269CBF0A00C3A9D8 /* EventsViewController.h */,
+				04D81920269CBF0A00C3A9D8 /* EventsViewController.m */,
+				04D81922269CBF1D00C3A9D8 /* GroupsViewController.h */,
+				04D81923269CBF1D00C3A9D8 /* GroupsViewController.m */,
+				04D81925269CC12000C3A9D8 /* CreateGroupViewController.h */,
+				04D81926269CC12000C3A9D8 /* CreateGroupViewController.m */,
+				04BAE75F269CD21A00C21ED5 /* GroupDetailsViewController.h */,
+				04BAE760269CD21A00C21ED5 /* GroupDetailsViewController.m */,
+				04BAE762269CD28C00C21ED5 /* EventDetailsViewController.h */,
+				04BAE763269CD28C00C21ED5 /* EventDetailsViewController.m */,
+				04BAE765269CD29600C21ED5 /* BookEventViewController.h */,
+				04BAE766269CD29600C21ED5 /* BookEventViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		04D8191B269CB30E00C3A9D8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,9 +320,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04D818EC269CAE8400C3A9D8 /* ViewController.m in Sources */,
+				04D8191E269CB34800C3A9D8 /* LoginViewController.m in Sources */,
+				04BAE761269CD21A00C21ED5 /* GroupDetailsViewController.m in Sources */,
+				04D81927269CC12000C3A9D8 /* CreateGroupViewController.m in Sources */,
+				04D81921269CBF0A00C3A9D8 /* EventsViewController.m in Sources */,
 				04D818E6269CAE8400C3A9D8 /* AppDelegate.m in Sources */,
 				04D818F7269CAE8600C3A9D8 /* main.m in Sources */,
+				04BAE767269CD29600C21ED5 /* BookEventViewController.m in Sources */,
+				04BAE764269CD28C00C21ED5 /* EventDetailsViewController.m in Sources */,
+				04D81924269CBF1D00C3A9D8 /* GroupsViewController.m in Sources */,
 				04D818E9269CAE8400C3A9D8 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
