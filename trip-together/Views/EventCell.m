@@ -6,6 +6,7 @@
 //
 
 #import "EventCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation EventCell
 
@@ -24,8 +25,8 @@
     self.nameLabel.text = self.event.name;
     self.summaryLabel.text = self.event.summary;
     
-//    NSURL *url = [NSURL URLWithString:self.event.imageURLString];
-//    [self.profileImageView setImageWithURL:url];
+    NSURL *url = [NSURL URLWithString:self.event.imageURLString];
+    [self.photoImageView setImageWithURL:url];
 }
 
 @end

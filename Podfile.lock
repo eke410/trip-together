@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
   - Bolts/Tasks (1.9.1)
   - Parse (1.19.2):
     - Parse/Core (= 1.19.2)
@@ -6,17 +21,20 @@ PODS:
     - Bolts/Tasks (= 1.9.1)
 
 DEPENDENCIES:
+  - AFNetworking
   - Parse
 
 SPEC REPOS:
   trunk:
+    - AFNetworking
     - Bolts
     - Parse
 
 SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   Parse: 081fb8755c3000fd11df817eec235def233d0af3
 
-PODFILE CHECKSUM: 3e8f80e24734f53f5b9afc759f2a17c62859b772
+PODFILE CHECKSUM: cbde5f2a4a40366c36fe5010d604a7f79b08366d
 
 COCOAPODS: 1.10.1
