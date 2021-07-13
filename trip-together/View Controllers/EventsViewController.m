@@ -7,10 +7,12 @@
 
 #import "EventsViewController.h"
 #import "Event.h"
+#import "EventCell.h"
 
-@interface EventsViewController ()
+@interface EventsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *events;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -18,8 +20,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     [self queryEvents];
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 }
 
 - (void)queryEvents {
@@ -43,11 +48,25 @@
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                self.events = [Event eventsWithArray:dataDictionary[@"events"]];
-               NSLog(@"%@", self.events);
+               [self.tableView reloadData];
+//               NSLog(@"%@", self.events);
            }
        }];
     [task resume];
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.events.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    EventCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    cell.event = self.events[indexPath.row];
+    [cell refreshData];
+    return cell;
+}
+
+
 
 /*
 #pragma mark - Navigation
