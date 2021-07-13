@@ -277,6 +277,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vij-iE-w60">
+                                <rect key="frame" x="26" y="163" width="339" height="183"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XdL-or-E2W"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -284,6 +288,7 @@
                     <navigationItem key="navigationItem" title="Book Event" id="UlE-Nq-CTW"/>
                     <connections>
                         <outlet property="eventNameLabel" destination="oYN-6w-Vc6" id="rkg-xG-Tub"/>
+                        <outlet property="groupPicker" destination="vij-iE-w60" id="EfX-5U-weT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ul6-vd-5vl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

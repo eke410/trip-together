@@ -9,9 +9,11 @@
 #import "Event.h"
 #import "Group.h"
 
-@interface BookEventViewController ()
+@interface BookEventViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
+@property (weak, nonatomic) IBOutlet UIPickerView *groupPicker;
+@property (strong, nonatomic) NSArray *groups;
 
 @end
 
@@ -23,6 +25,22 @@
     if (self.event) {
         [self refreshData];
     }
+    
+    self.groupPicker.delegate = self;
+    self.groupPicker.dataSource = self;
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Group"];
+    [query orderByDescending:@"startDate"];
+    [query includeKey:@"users"];
+    [query whereKey:@"users" containsAllObjectsInArray:[[NSArray alloc] initWithObjects:PFUser.currentUser, nil]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *groups, NSError *error) {
+        if (groups != nil) {
+            self.groups = (NSMutableArray *)groups;
+            [self.groupPicker reloadAllComponents];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 - (void)refreshData {
@@ -30,11 +48,28 @@
 }
 
 - (IBAction)bookEvent:(id)sender {
-    [Event postEventWithName:@"1st event" withSummary:@"fake" withGroup:[Group new] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        NSLog(@"booked fake event");
-    }];
+    NSInteger row = (NSInteger)[self.groupPicker selectedRowInComponent:0];
+    self.event.group = self.groups[row];
+    [self.event saveInBackground];
+    [self.navigationController popViewControllerAnimated:true];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.groups.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    Group *group = self.groups[row];
+    return group.name;
+}
 
 /*
 #pragma mark - Navigation
