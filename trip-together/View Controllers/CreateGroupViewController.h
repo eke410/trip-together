@@ -6,10 +6,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Group.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol CreateGroupViewControllerDelegate <NSObject>
+
+- (void)didCreateGroup:(Group *)group;
+
+@end
+
 @interface CreateGroupViewController : UIViewController
+
+@property (nonatomic, weak) id<CreateGroupViewControllerDelegate> delegate;
 
 @end
 

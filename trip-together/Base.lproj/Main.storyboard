@@ -156,7 +156,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Group name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57P-qP-zu1">
-                                                    <rect key="frame" x="20" y="12" width="94" height="21"/>
+                                                    <rect key="frame" x="20" y="12" width="318" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -303,7 +303,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSm-jy-bkl">
-                                <rect key="frame" x="46" y="157" width="306" height="29"/>
+                                <rect key="frame" x="42" y="103" width="306" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
@@ -440,7 +440,6 @@
                         <outlet property="groupNameField" destination="DnU-Wg-oiX" id="9cw-kM-JQK"/>
                         <outlet property="usersInGroupTableView" destination="dRh-HH-t6i" id="Bah-0I-Rgb"/>
                         <outlet property="usersToAddTableView" destination="nPe-mc-Zjk" id="5Kh-Q2-lwh"/>
-                        <segue destination="rnB-wN-SnK" kind="show" identifier="newGroupDetailsSegue" id="1NK-5f-tBt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yo0-tU-sAy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -505,9 +504,6 @@
             <point key="canvasLocation" x="1684.6153846153845" y="-296.44549763033172"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Q3o-6s-icp"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="minus" catalog="system" width="128" height="24"/>

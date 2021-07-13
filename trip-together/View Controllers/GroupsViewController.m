@@ -8,10 +8,11 @@
 #import "GroupsViewController.h"
 #import "GroupCell.h"
 #import "GroupDetailsViewController.h"
+#import "CreateGroupViewController.h"
 
-@interface GroupsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface GroupsViewController () <CreateGroupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSArray *groups;
+@property (strong, nonatomic) NSMutableArray *groups;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -27,7 +28,7 @@
     [query whereKey:@"users" containsAllObjectsInArray:[[NSArray alloc] initWithObjects:PFUser.currentUser, nil]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *groups, NSError *error) {
         if (groups != nil) {
-            self.groups = groups;
+            self.groups = (NSMutableArray *)groups;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -49,6 +50,12 @@
     return cell;
 }
 
+- (void)didCreateGroup:(Group *)group {
+    [self.groups insertObject:group atIndex:0];
+    [self.tableView reloadData];
+    [self performSegueWithIdentifier:@"groupDetailsSegue" sender:group];
+}
+
 
 #pragma mark - Navigation
 
@@ -58,11 +65,16 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"groupDetailsSegue"]) {
         GroupDetailsViewController *groupDetailsViewController = [segue destinationViewController];
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        groupDetailsViewController.group = self.groups[indexPath.row];
+        if ([sender isKindOfClass:[GroupCell class]]) { // segue sent from table view cell being clicked
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            groupDetailsViewController.group = self.groups[indexPath.row];
+        } else if ([sender isKindOfClass:[Group class]]) { // segue sent from create group delegate method
+            groupDetailsViewController.group = sender;
+        }
+    } else if ([segue.identifier isEqualToString: @"createGroupSegue"]) {
+        CreateGroupViewController *createGroupViewController = [segue destinationViewController];
+        createGroupViewController.delegate = self;
     }
-
-
 }
 
 
