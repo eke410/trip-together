@@ -24,6 +24,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
     [query orderByDescending:@"startDate"];
     [query includeKey:@"users"];
+    [query whereKey:@"users" containsAllObjectsInArray:[[NSArray alloc] initWithObjects:PFUser.currentUser, nil]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *groups, NSError *error) {
         if (groups != nil) {
             self.groups = groups;
