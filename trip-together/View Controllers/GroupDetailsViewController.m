@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
+@property (strong, nonatomic) NSArray *events;
 
 @end
 
@@ -20,10 +21,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.groupName.text = self.group.name;
+    [self refreshData];
     
     self.usersTableView.dataSource = self;
     self.usersTableView.delegate = self;
+}
+
+- (void)refreshData {
+    self.groupName.text = self.group.name;
+    [self queryEvents];
+}
+
+- (void)queryEvents {
+    PFQuery *query = [PFQuery queryWithClassName:@"Event"];
+    [query orderByDescending:@"startTime"];
+    [query whereKey:@"group" equalTo:self.group];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
+        if (events != nil) {
+            self.events = events;
+//            [self.eventsTableView reloadData];
+            NSLog(@"%@", events);
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

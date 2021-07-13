@@ -50,7 +50,6 @@
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                self.events = [Event eventsWithArray:dataDictionary[@"events"]];
                [self.tableView reloadData];
-//               NSLog(@"%@", self.events);
            }
        }];
     [task resume];
