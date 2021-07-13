@@ -23,6 +23,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
     [query orderByDescending:@"startDate"];
+    [query includeKey:@"users"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *groups, NSError *error) {
         if (groups != nil) {
             self.groups = groups;
@@ -54,14 +55,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    GroupDetailsViewController *groupDetailsViewController = [segue destinationViewController];
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    if ([segue.identifier isEqualToString:@"groupDetailsSegue"]) {
+        GroupDetailsViewController *groupDetailsViewController = [segue destinationViewController];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        groupDetailsViewController.group = self.groups[indexPath.row];
+    }
 
-    NSLog(@"%@", self.groups);
-    NSLog(@"%@", indexPath.row);
-    // TODO: figure out why indexPath.row returning (null) in GroupsViewController
-    
-    groupDetailsViewController.group = self.groups[indexPath.row];
 
 }
 
