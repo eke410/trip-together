@@ -221,10 +221,20 @@
         <!--Book Event-->
         <scene sceneID="fyz-jW-4E8">
             <objects>
-                <viewController id="P1i-Dv-zUR" sceneMemberID="viewController">
+                <viewController id="P1i-Dv-zUR" customClass="BookEventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y2L-wW-c1W">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWE-Jj-pLB">
+                                <rect key="frame" x="156" y="649" width="78" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Book Event"/>
+                                <connections>
+                                    <action selector="bookEvent:" destination="P1i-Dv-zUR" eventType="touchUpInside" id="83O-76-U8X"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="XdL-or-E2W"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -237,15 +247,15 @@
         <!--Event Details-->
         <scene sceneID="F2g-YH-cRY">
             <objects>
-                <viewController id="EaE-Ne-Z8W" sceneMemberID="viewController">
+                <viewController id="EaE-Ne-Z8W" customClass="EventDetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rbG-rM-IZE">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pq-Xb-7fX">
-                                <rect key="frame" x="157" y="380" width="77" height="30"/>
+                                <rect key="frame" x="138" y="380" width="116" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Book event"/>
+                                <state key="normal" title="Book Event Page"/>
                                 <connections>
                                     <segue destination="P1i-Dv-zUR" kind="show" id="eDp-2z-do6"/>
                                 </connections>

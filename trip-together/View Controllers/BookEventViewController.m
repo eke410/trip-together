@@ -6,6 +6,8 @@
 //
 
 #import "BookEventViewController.h"
+#import "Event.h"
+#import "Group.h"
 
 @interface BookEventViewController ()
 
@@ -17,6 +19,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
+- (IBAction)bookEvent:(id)sender {
+    [Event postEventWithName:@"1st event" withSummary:@"fake" withGroup:[Group new] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        NSLog(@"booked fake event");
+    }];
+}
+
 
 /*
 #pragma mark - Navigation
