@@ -26,6 +26,7 @@
 		04D81921269CBF0A00C3A9D8 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81920269CBF0A00C3A9D8 /* EventsViewController.m */; };
 		04D81924269CBF1D00C3A9D8 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81923269CBF1D00C3A9D8 /* GroupsViewController.m */; };
 		04D81927269CC12000C3A9D8 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81926269CC12000C3A9D8 /* CreateGroupViewController.m */; };
+		04E89A61269DEF0D001593BA /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E89A60269DEF0D001593BA /* Event.m */; };
 		8F4331FB08DED8492EC640DD /* Pods_trip_togetherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44218E535CBA07A564C1ACD8 /* Pods_trip_togetherTests.framework */; };
 		ECAA1B2B4177EBC5EF1AF95C /* Pods_trip_together_trip_togetherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DAC9525131C5A0F00203B3 /* Pods_trip_together_trip_togetherUITests.framework */; };
 		F4FAC8BB68620D9C47D55F22 /* Pods_trip_together.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08321C2A08A738B3D200D575 /* Pods_trip_together.framework */; };
@@ -87,6 +88,8 @@
 		04D81923269CBF1D00C3A9D8 /* GroupsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
 		04D81925269CC12000C3A9D8 /* CreateGroupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateGroupViewController.h; sourceTree = "<group>"; };
 		04D81926269CC12000C3A9D8 /* CreateGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
+		04E89A5F269DEF0D001593BA /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		04E89A60269DEF0D001593BA /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		08321C2A08A738B3D200D575 /* Pods_trip_together.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trip_together.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD140C78699A33396DB80F7 /* Pods-trip-together-trip-togetherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trip-together-trip-togetherUITests.debug.xcconfig"; path = "Target Support Files/Pods-trip-together-trip-togetherUITests/Pods-trip-together-trip-togetherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		29EF4BE3495E39069FE35260 /* Pods-trip-together.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trip-together.debug.xcconfig"; path = "Target Support Files/Pods-trip-together/Pods-trip-together.debug.xcconfig"; sourceTree = "<group>"; };
@@ -224,6 +227,8 @@
 			children = (
 				049ED5FE269CDCF000F85217 /* Group.h */,
 				049ED5FF269CDCF000F85217 /* Group.m */,
+				04E89A5F269DEF0D001593BA /* Event.h */,
+				04E89A60269DEF0D001593BA /* Event.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -500,6 +505,7 @@
 				04BAE764269CD28C00C21ED5 /* EventDetailsViewController.m in Sources */,
 				049ED5FD269CD8F600F85217 /* ProfileViewController.m in Sources */,
 				04D81924269CBF1D00C3A9D8 /* GroupsViewController.m in Sources */,
+				04E89A61269DEF0D001593BA /* Event.m in Sources */,
 				04D818E9269CAE8400C3A9D8 /* SceneDelegate.m in Sources */,
 				04D324C7269CEF03000B4BE1 /* UserCell.m in Sources */,
 			);
