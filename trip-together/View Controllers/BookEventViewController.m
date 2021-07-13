@@ -11,13 +11,22 @@
 
 @interface BookEventViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
+
 @end
 
 @implementation BookEventViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    if (self.event) {
+        [self refreshData];
+    }
+}
+
+- (void)refreshData {
+    self.eventNameLabel.text = self.event.name;
 }
 
 - (IBAction)bookEvent:(id)sender {

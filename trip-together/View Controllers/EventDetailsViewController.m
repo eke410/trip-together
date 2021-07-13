@@ -6,8 +6,14 @@
 //
 
 #import "EventDetailsViewController.h"
+#import "UIImageView+AFNetworking.h"
+#import "BookEventViewController.h"
 
 @interface EventDetailsViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *summaryLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 
 @end
 
@@ -15,17 +21,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    if (self.event) {
+        [self refreshData];
+    }
 }
 
-/*
+- (void)refreshData {
+    self.nameLabel.text = self.event.name;
+    self.summaryLabel.text = self.event.summary;
+    
+    NSURL *url = [NSURL URLWithString:self.event.imageURLString];
+    [self.photoImageView setImageWithURL:url];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    BookEventViewController *bookEventViewController = [segue destinationViewController];
+    bookEventViewController.event = self.event;
 }
-*/
+
 
 @end

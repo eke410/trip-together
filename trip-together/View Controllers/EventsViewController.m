@@ -8,6 +8,7 @@
 #import "EventsViewController.h"
 #import "Event.h"
 #import "EventCell.h"
+#import "EventDetailsViewController.h"
 
 @interface EventsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -67,15 +68,17 @@
 }
 
 
-
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    Event *event = self.events[indexPath.row];
+    eventDetailsViewController.event = event;
 }
-*/
+
 
 @end

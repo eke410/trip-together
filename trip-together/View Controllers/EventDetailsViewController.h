@@ -6,10 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Event.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EventDetailsViewController : UIViewController
+
+@property (strong, nonatomic) Event *event;
 
 @end
 
