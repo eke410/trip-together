@@ -7,11 +7,13 @@
 
 #import "GroupDetailsViewController.h"
 #import "UserCell.h"
+#import "EventCell.h"
 
 @interface GroupDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
+@property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
 @property (strong, nonatomic) NSArray *events;
 
 @end
@@ -25,6 +27,8 @@
     
     self.usersTableView.dataSource = self;
     self.usersTableView.delegate = self;
+    self.eventsTableView.dataSource = self;
+    self.eventsTableView.delegate = self;
 }
 
 - (void)refreshData {
@@ -39,8 +43,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
         if (events != nil) {
             self.events = events;
-//            [self.eventsTableView reloadData];
-            NSLog(@"%@", events);
+            [self.eventsTableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -48,16 +51,28 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.group.users.count;
+    if (tableView == self.usersTableView) {
+        return self.group.users.count;
+    } else {
+        return self.events.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserCell *cell = [self.usersTableView dequeueReusableCellWithIdentifier:@"UserCell"];
-    PFUser *user = self.group.users[indexPath.row];
-    cell.user = user;
-    cell.usernameLabel.text = user.username;
-    [cell.button setHidden:true];
-    return cell;
+    if (tableView == self.usersTableView) {
+        UserCell *cell = [self.usersTableView dequeueReusableCellWithIdentifier:@"UserCell"];
+        PFUser *user = self.group.users[indexPath.row];
+        cell.user = user;
+        cell.usernameLabel.text = user.username;
+        [cell.button setHidden:true];
+        return cell;
+    } else {
+        EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"EventCell"];
+        cell.event = self.events[indexPath.row];
+        [cell refreshData];
+        return cell;
+    }
+    
 }
 
 /*
