@@ -27,6 +27,7 @@
 		04D81924269CBF1D00C3A9D8 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81923269CBF1D00C3A9D8 /* GroupsViewController.m */; };
 		04D81927269CC12000C3A9D8 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81926269CC12000C3A9D8 /* CreateGroupViewController.m */; };
 		04E89A61269DEF0D001593BA /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E89A60269DEF0D001593BA /* Event.m */; };
+		04E89A63269E16DA001593BA /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04E89A62269E16DA001593BA /* Keys.plist */; };
 		8F4331FB08DED8492EC640DD /* Pods_trip_togetherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44218E535CBA07A564C1ACD8 /* Pods_trip_togetherTests.framework */; };
 		ECAA1B2B4177EBC5EF1AF95C /* Pods_trip_together_trip_togetherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DAC9525131C5A0F00203B3 /* Pods_trip_together_trip_togetherUITests.framework */; };
 		F4FAC8BB68620D9C47D55F22 /* Pods_trip_together.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08321C2A08A738B3D200D575 /* Pods_trip_together.framework */; };
@@ -90,6 +91,7 @@
 		04D81926269CC12000C3A9D8 /* CreateGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
 		04E89A5F269DEF0D001593BA /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		04E89A60269DEF0D001593BA /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		04E89A62269E16DA001593BA /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		08321C2A08A738B3D200D575 /* Pods_trip_together.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trip_together.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD140C78699A33396DB80F7 /* Pods-trip-together-trip-togetherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trip-together-trip-togetherUITests.debug.xcconfig"; path = "Target Support Files/Pods-trip-together-trip-togetherUITests/Pods-trip-together-trip-togetherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		29EF4BE3495E39069FE35260 /* Pods-trip-together.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trip-together.debug.xcconfig"; path = "Target Support Files/Pods-trip-together/Pods-trip-together.debug.xcconfig"; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				04D818F2269CAE8600C3A9D8 /* LaunchScreen.storyboard */,
 				04D818F5269CAE8600C3A9D8 /* Info.plist */,
 				04D818F6269CAE8600C3A9D8 /* main.m */,
+				04E89A62269E16DA001593BA /* Keys.plist */,
 			);
 			path = "trip-together";
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E89A63269E16DA001593BA /* Keys.plist in Resources */,
 				04D818F4269CAE8600C3A9D8 /* LaunchScreen.storyboard in Resources */,
 				04D818F1269CAE8600C3A9D8 /* Assets.xcassets in Resources */,
 				04D818EF269CAE8400C3A9D8 /* Main.storyboard in Resources */,

@@ -6,8 +6,11 @@
 //
 
 #import "EventsViewController.h"
+#import "Event.h"
 
 @interface EventsViewController ()
+
+@property (nonatomic, strong) NSMutableArray *events;
 
 @end
 
@@ -16,6 +19,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self queryEvents];
+}
+
+- (void)queryEvents {
+    // get API Key from Keys.plist
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    NSString *APIKey= [dict objectForKey: @"yelpAPIKey"];
+    
+    // set request URL
+    NSURL *url = [NSURL URLWithString:@"https://api.yelp.com/v3/events?location=NYC&is_free=false"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", APIKey];
+    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+
+    // make request
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+           if (error != nil) {
+               NSLog(@"%@", [error localizedDescription]);
+           }
+           else {
+               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+               self.events = [Event eventsWithArray:dataDictionary[@"events"]];
+               NSLog(@"%@", self.events);
+           }
+       }];
+    [task resume];
 }
 
 /*

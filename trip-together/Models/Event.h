@@ -17,11 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) Group *group;
 @property (nonatomic, strong) NSString *eventSiteURLString;
 @property (nonatomic, strong) NSString *ticketsURLString;
-@property (nonatomic, strong) NSString *location;
-@property (nonatomic, strong) NSDate *startTime;
-@property (nonatomic, strong) NSDate *endTime;
+@property (nonatomic, strong) NSDictionary *location;
+@property (nonatomic, strong) NSString *startTime;
+@property (nonatomic, strong) NSString *endTime;
 @property (nonatomic, strong) NSString *imageURLString;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
++ (NSMutableArray *)eventsWithArray:(NSArray *)dictionaries;
 + (void) postEventWithName:(NSString * _Nullable)name withSummary:(NSString *)summary withGroup:(Group *)group withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
