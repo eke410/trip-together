@@ -9,26 +9,40 @@
 #import "Event.h"
 #import "EventCell.h"
 #import "EventDetailsViewController.h"
+@import GooglePlaces;
 
-@interface EventsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *events;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
+@property (nonatomic, strong) NSMutableArray *events;
 
 @end
 
-@implementation EventsViewController
+@implementation EventsViewController {
+    GMSAutocompleteTableDataSource *tableDataSource;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"location", @"is_free", @"limit", nil];
-    NSArray *values = [[NSArray alloc] initWithObjects:@"500+Memorial+Drive,+Cambridge,+MA,+US", @"true", @"20", nil];
-    NSDictionary *params = [[NSDictionary alloc] initWithObjects:values forKeys:keys];
-    [self queryEventsWithParams:params];
+    // filters only geocoding results (only locations) in autocomplete
+    GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
+    filter.type = kGMSPlacesAutocompleteTypeFilterGeocode;
     
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
+    // sets up location autocomplete tableview and search bar
+    tableDataSource = [[GMSAutocompleteTableDataSource alloc] init];
+    tableDataSource.delegate = self;
+    tableDataSource.autocompleteFilter = filter;
+    
+    self.tableView.delegate = tableDataSource;
+    self.tableView.dataSource = tableDataSource;
+    self.searchBar.delegate = self;
+    [self.tableView setHidden:true];
+    
+    self.eventsTableView.dataSource = self;
+    self.eventsTableView.delegate = self;
 }
 
 - (void)queryEventsWithURLString:(NSString *)URLString {
@@ -52,7 +66,7 @@
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                self.events = [Event eventsWithArray:dataDictionary[@"events"]];
-               [self.tableView reloadData];
+               [self.eventsTableView reloadData];
            }
        }];
     [task resume];
@@ -77,12 +91,55 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    EventCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"EventCell"];
     cell.event = self.events[indexPath.row];
     [cell refreshData];
     return cell;
 }
 
+#pragma mark - GMSAutocompleteTableDataSourceDelegate
+
+- (void)didUpdateAutocompletePredictionsForTableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource {
+    [self.tableView reloadData];
+}
+
+- (void)didRequestAutocompletePredictionsForTableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource {
+    [self.tableView reloadData];
+}
+
+- (void)tableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource didAutocompleteWithPlace:(GMSPlace *)place {
+    // updates UI view
+    [self.searchBar endEditing:true];
+    self.searchBar.text = place.formattedAddress;
+    [self.tableView setHidden:true];
+    
+    // queries events with selected location
+    NSString *location = [place.formattedAddress stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"location", @"limit", nil];
+    NSArray *values = [[NSArray alloc] initWithObjects:location, @"5", nil];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjects:values forKeys:keys];
+    [self queryEventsWithParams:params];
+}
+
+- (void)tableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource didFailAutocompleteWithError:(NSError *)error {
+    NSLog(@"Error %@", error.description);
+}
+
+- (BOOL)tableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource didSelectPrediction:(GMSAutocompletePrediction *)prediction {
+    return YES;
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText isEqualToString:@""]) {
+        [self.tableView setHidden:true];
+    } else {
+        [self.tableView setHidden:false];
+    }
+    // Update the GMSAutocompleteTableDataSource with the search text.
+    [tableDataSource sourceTextHasChanged:searchText];
+}
 
 #pragma mark - Navigation
 
@@ -91,7 +148,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
     Event *event = self.events[indexPath.row];
     eventDetailsViewController.event = event;
 }
