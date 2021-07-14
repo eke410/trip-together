@@ -276,6 +276,7 @@
 				04D818DE269CAE8400C3A9D8 /* Frameworks */,
 				04D818DF269CAE8400C3A9D8 /* Resources */,
 				6A4998DDC18EFBA7FF3FC8B5 /* [CP] Embed Pods Frameworks */,
+				9229A4AAF10CFD8D26DBD9CA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -314,6 +315,7 @@
 				04D81904269CAE8600C3A9D8 /* Frameworks */,
 				04D81905269CAE8600C3A9D8 /* Resources */,
 				BD86C8E7EC52424B6ECB68F1 /* [CP] Embed Pods Frameworks */,
+				C57401F82DE5B69BB017B655 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -434,6 +436,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trip-together/Pods-trip-together-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9229A4AAF10CFD8D26DBD9CA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-trip-together/Pods-trip-together-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-trip-together/Pods-trip-together-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trip-together/Pods-trip-together-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A4C9D2B82B6038AF64058CB6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -471,6 +490,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trip-together-trip-togetherUITests/Pods-trip-together-trip-togetherUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C57401F82DE5B69BB017B655 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-trip-together-trip-togetherUITests/Pods-trip-together-trip-togetherUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-trip-together-trip-togetherUITests/Pods-trip-together-trip-togetherUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trip-together-trip-togetherUITests/Pods-trip-together-trip-togetherUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FE097C80A3D5E8DF17626986 /* [CP] Check Pods Manifest.lock */ = {

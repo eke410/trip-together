@@ -8,6 +8,7 @@ target 'trip-together' do
   # Pods for trip-together
   pod 'Parse'
   pod 'AFNetworking'
+  pod 'GooglePlaces'
 
   target 'trip-togetherTests' do
     inherit! :search_paths
