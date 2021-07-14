@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol GroupDetailsViewControllerDelegate <NSObject>
 
-- (void)didDeleteGroup:(Group *)group;
+- (void)removeGroup:(Group *)group;
 
 @end
 

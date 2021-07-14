@@ -56,7 +56,7 @@
     [self performSegueWithIdentifier:@"groupDetailsSegue" sender:group];
 }
 
-- (void)didDeleteGroup:(Group *)group {
+- (void)removeGroup:(Group *)group {
     [self.groups removeObject:group];
     [self.tableView reloadData];
 }

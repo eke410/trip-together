@@ -93,9 +93,27 @@
     }
 }
 
+- (IBAction)leaveGroup:(id)sender {
+    [self.navigationController popViewControllerAnimated:true];
+    [self.delegate removeGroup:self.group];
+    
+    if (self.group.users.count == 1) { // if only 1 user, delete group
+        [self.group deleteInBackground];
+    } else { // if more than 1 user, remove user from group
+        NSMutableArray *usersMutableCopy = [self.group.users mutableCopy];
+        for (PFUser *user in self.group.users) {
+            if ([user.objectId isEqualToString:PFUser.currentUser.objectId]) {
+                [usersMutableCopy removeObject:user];
+            }
+        }
+        self.group.users = (NSArray *)usersMutableCopy;
+        [self.group saveInBackground];
+    }
+}
+
 - (IBAction)deleteGroup:(id)sender {
     [self.navigationController popViewControllerAnimated:true];
-    [self.delegate didDeleteGroup:self.group];
+    [self.delegate removeGroup:self.group];
     [self.group deleteInBackground];
 }
 
