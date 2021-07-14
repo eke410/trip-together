@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
-@property (strong, nonatomic) NSArray *events;
+@property (strong, nonatomic) NSMutableArray *events;
 
 @end
 
@@ -42,7 +42,7 @@
     [query whereKey:@"group" equalTo:self.group];
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
         if (events != nil) {
-            self.events = events;
+            self.events = (NSMutableArray *)events;
             [self.eventsTableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -72,8 +72,27 @@
         [cell refreshData];
         return cell;
     }
-    
 }
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.eventsTableView) {
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            // when delete button is clicked, delete event from group
+            Event *event = self.events[indexPath.row];
+            [self.events removeObject:event];
+            [self.eventsTableView reloadData];
+            [event deleteInBackground];
+        }];
+        [deleteAction setImage:[UIImage systemImageNamed:@"trash"]];
+
+        UISwipeActionsConfiguration *swipeActionConfig = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+        [swipeActionConfig setPerformsFirstActionWithFullSwipe:NO];
+        return swipeActionConfig;
+    } else {
+        return nil;
+    }
+}
+
 
 /*
 #pragma mark - Navigation
