@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04561F9F269F366E00CBF0E8 /* GooglePlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04561F9E269F366E00CBF0E8 /* GooglePlacesViewController.m */; };
 		049ED5FD269CD8F600F85217 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FC269CD8F600F85217 /* ProfileViewController.m */; };
 		049ED600269CDCF000F85217 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FF269CDCF000F85217 /* Group.m */; };
 		04BAE761269CD21A00C21ED5 /* GroupDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE760269CD21A00C21ED5 /* GroupDetailsViewController.m */; };
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04561F9D269F366E00CBF0E8 /* GooglePlacesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooglePlacesViewController.h; sourceTree = "<group>"; };
+		04561F9E269F366E00CBF0E8 /* GooglePlacesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GooglePlacesViewController.m; sourceTree = "<group>"; };
 		049ED5FB269CD8F600F85217 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		049ED5FC269CD8F600F85217 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		049ED5FE269CDCF000F85217 /* Group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 				04BAE766269CD29600C21ED5 /* BookEventViewController.m */,
 				049ED5FB269CD8F600F85217 /* ProfileViewController.h */,
 				049ED5FC269CD8F600F85217 /* ProfileViewController.m */,
+				04561F9D269F366E00CBF0E8 /* GooglePlacesViewController.h */,
+				04561F9E269F366E00CBF0E8 /* GooglePlacesViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -553,6 +558,7 @@
 				04D81924269CBF1D00C3A9D8 /* GroupsViewController.m in Sources */,
 				04E89A61269DEF0D001593BA /* Event.m in Sources */,
 				04D818E9269CAE8400C3A9D8 /* SceneDelegate.m in Sources */,
+				04561F9F269F366E00CBF0E8 /* GooglePlacesViewController.m in Sources */,
 				04D324C7269CEF03000B4BE1 /* UserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
