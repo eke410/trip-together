@@ -10,7 +10,7 @@
 #import "GroupDetailsViewController.h"
 #import "CreateGroupViewController.h"
 
-@interface GroupsViewController () <CreateGroupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface GroupsViewController () <CreateGroupViewControllerDelegate, GroupDetailsViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *groups;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -56,6 +56,11 @@
     [self performSegueWithIdentifier:@"groupDetailsSegue" sender:group];
 }
 
+- (void)didDeleteGroup:(Group *)group {
+    [self.groups removeObject:group];
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Navigation
 
@@ -65,6 +70,7 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"groupDetailsSegue"]) {
         GroupDetailsViewController *groupDetailsViewController = [segue destinationViewController];
+        groupDetailsViewController.delegate = self;
         if ([sender isKindOfClass:[GroupCell class]]) { // segue sent from table view cell being clicked
             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
             groupDetailsViewController.group = self.groups[indexPath.row];

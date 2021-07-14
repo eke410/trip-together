@@ -10,9 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol GroupDetailsViewControllerDelegate <NSObject>
+
+- (void)didDeleteGroup:(Group *)group;
+
+@end
+
 @interface GroupDetailsViewController : UIViewController
 
-@property (strong, nonatomic) Group *group; 
+@property (strong, nonatomic) Group *group;
+@property (nonatomic, weak) id<GroupDetailsViewControllerDelegate> delegate;
 
 @end
 

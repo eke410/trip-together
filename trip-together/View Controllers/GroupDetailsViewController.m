@@ -93,6 +93,11 @@
     }
 }
 
+- (IBAction)deleteGroup:(id)sender {
+    [self.navigationController popViewControllerAnimated:true];
+    [self.delegate didDeleteGroup:self.group];
+    [self.group deleteInBackground];
+}
 
 /*
 #pragma mark - Navigation
