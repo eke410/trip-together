@@ -22,20 +22,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self queryEvents];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"location", @"is_free", @"limit", nil];
+    NSArray *values = [[NSArray alloc] initWithObjects:@"500+Memorial+Drive,+Cambridge,+MA,+US", @"true", @"20", nil];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjects:values forKeys:keys];
+    [self queryEventsWithParams:params];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 }
 
-- (void)queryEvents {
+- (void)queryEventsWithURLString:(NSString *)URLString {
     // get API Key from Keys.plist
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     NSString *APIKey= [dict objectForKey: @"yelpAPIKey"];
     
-    // set request URL
-    NSURL *url = [NSURL URLWithString:@"https://api.yelp.com/v3/events?location=NYC&is_free=false"];
+    // set request URL and authentication value
+    NSURL *url = [NSURL URLWithString:URLString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     NSString *authValue = [NSString stringWithFormat:@"Bearer %@", APIKey];
     [request setValue:authValue forHTTPHeaderField:@"Authorization"];
@@ -53,6 +56,20 @@
            }
        }];
     [task resume];
+}
+
+- (void)queryEventsWithParams:(NSDictionary *)params {
+    // make string for request params
+    NSString *paramString = @"?";
+    for (NSString *key in params) {
+        NSString *newParamString = [NSString stringWithFormat:@"%@=%@&", key, [params objectForKey:key]];
+        paramString = [paramString stringByAppendingString:newParamString];
+    }
+    paramString = [paramString substringToIndex:[paramString length]-1];
+    
+    // add param string to yelp event query string
+    NSString *URLString = [@"https://api.yelp.com/v3/events" stringByAppendingString:paramString];
+    [self queryEventsWithURLString:URLString];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
