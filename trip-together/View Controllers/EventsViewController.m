@@ -69,8 +69,9 @@
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                self.events = [Event eventsWithArray:dataDictionary[@"businesses"]];
                [self.eventsTableView reloadData];
-               [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
-               
+               if (self.events.count > 0) {
+                   [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+               }
            }
        }];
     [task resume];
