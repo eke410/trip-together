@@ -6,8 +6,11 @@
 //
 
 #import "GroupDetailsInfoViewController.h"
+#import "UserCell.h"
 
-@interface GroupDetailsInfoViewController ()
+@interface GroupDetailsInfoViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 
 @end
 
@@ -15,7 +18,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    self.usersTableView.delegate = self;
+    self.usersTableView.dataSource = self;
+    
+    self.usersTableView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.usersTableView.layer.borderWidth = 1;
+    self.usersTableView.layer.cornerRadius = 5;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.group.users.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UserCell *cell = [self.usersTableView dequeueReusableCellWithIdentifier:@"UserCell"];
+    PFUser *user = self.group.users[indexPath.row];
+    cell.user = user;
+    cell.usernameLabel.text = user.username;
+    [cell.button setHidden:true];
+    return cell;
 }
 
 - (IBAction)leaveGroup:(id)sender {

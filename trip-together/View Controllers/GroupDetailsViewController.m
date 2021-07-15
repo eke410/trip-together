@@ -6,15 +6,14 @@
 //
 
 #import "GroupDetailsViewController.h"
-#import "UserCell.h"
 #import "EventCell.h"
 #import "GroupDetailsInfoViewController.h"
 
 @interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
-@property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
+@property (weak, nonatomic) IBOutlet UILabel *allUsersLabel;
 @property (strong, nonatomic) NSMutableArray *events;
 
 @end
@@ -26,15 +25,20 @@
     
     [self refreshData];
     
-    self.usersTableView.dataSource = self;
-    self.usersTableView.delegate = self;
     self.eventsTableView.dataSource = self;
     self.eventsTableView.delegate = self;
 }
 
 - (void)refreshData {
     self.groupName.text = self.group.name;
-    [self queryEvents];
+    
+    NSString *allUsersString = @"People: ";
+    for (PFUser *user in self.group.users) {
+        allUsersString = [allUsersString stringByAppendingString:user.username];
+        allUsersString = [allUsersString stringByAppendingString:@", "];
+    }
+    self.allUsersLabel.text = [allUsersString substringToIndex:[allUsersString length]-2]; 
+//    [self queryEvents];
 }
 
 - (void)queryEvents {
@@ -52,27 +56,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.usersTableView) {
-        return self.group.users.count;
-    } else {
-        return self.events.count;
-    }
+    return self.events.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.usersTableView) {
-        UserCell *cell = [self.usersTableView dequeueReusableCellWithIdentifier:@"UserCell"];
-        PFUser *user = self.group.users[indexPath.row];
-        cell.user = user;
-        cell.usernameLabel.text = user.username;
-        [cell.button setHidden:true];
-        return cell;
-    } else {
-        EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"EventCell"];
-        cell.event = self.events[indexPath.row];
-        [cell refreshData];
-        return cell;
-    }
+    EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    cell.event = self.events[indexPath.row];
+    [cell refreshData];
+    return cell;
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
