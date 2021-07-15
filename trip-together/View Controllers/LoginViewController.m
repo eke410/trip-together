@@ -19,7 +19,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.view.bounds;
+    gradient.startPoint = CGPointZero;
+    gradient.endPoint = CGPointMake(1, 1);
+    
+    UIColor *color1 = [UIColor colorWithRed:100/255.0 green:223/255.0 blue:223/255.0 alpha:1.0];
+    UIColor *color2 = [UIColor colorWithRed:166/255.0 green:115/255.0 blue:231/255.0 alpha:1.0];
+    gradient.colors = [NSArray arrayWithObjects:(id)[color1 CGColor], (id)[color2 CGColor], nil];
+
+//    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:34.0/255.0 green:211/255.0 blue:198/255.0 alpha:1.0] CGColor],(id)[[UIColor colorWithRed:145/255.0 green:72.0/255.0 blue:203/255.0 alpha:1.0] CGColor], nil];
+
+    [self.view.layer insertSublayer:gradient atIndex:0];
 }
 
 - (IBAction)loginUser:(id)sender {
