@@ -8,8 +8,9 @@
 #import "GroupDetailsViewController.h"
 #import "UserCell.h"
 #import "EventCell.h"
+#import "GroupDetailsInfoViewController.h"
 
-@interface GroupDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
@@ -93,38 +94,23 @@
     }
 }
 
-- (IBAction)leaveGroup:(id)sender {
-    [self.navigationController popViewControllerAnimated:true];
-    [self.delegate removeGroup:self.group];
-    
-    if (self.group.users.count == 1) { // if only 1 user, delete group
-        [self.group deleteInBackground];
-    } else { // if more than 1 user, remove user from group
-        NSMutableArray *usersMutableCopy = [self.group.users mutableCopy];
-        for (PFUser *user in self.group.users) {
-            if ([user.objectId isEqualToString:PFUser.currentUser.objectId]) {
-                [usersMutableCopy removeObject:user];
-            }
-        }
-        self.group.users = (NSArray *)usersMutableCopy;
-        [self.group saveInBackground];
-    }
+- (void)removeGroup:(Group *)group {
+    [self.delegate removeGroup:group];
 }
 
-- (IBAction)deleteGroup:(id)sender {
-    [self.navigationController popViewControllerAnimated:true];
-    [self.delegate removeGroup:self.group];
-    [self.group deleteInBackground];
-}
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"groupDetailsInfoSegue"]) {
+        GroupDetailsInfoViewController *vc = [segue destinationViewController];
+        vc.group = self.group;
+        vc.delegate = self;
+    }
 }
-*/
+
 
 @end
