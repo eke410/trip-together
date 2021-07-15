@@ -14,8 +14,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
+@property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
+@property (weak, nonatomic) IBOutlet UIDatePicker *endDatePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *groupPicker;
 @property (strong, nonatomic) NSArray *groups;
+@property (strong, nonatomic) UIAlertController *invalidDateAlert;
 
 @end
 
@@ -27,6 +30,10 @@
     if (self.event) {
         [self refreshData];
     }
+    
+    self.invalidDateAlert = [UIAlertController alertControllerWithTitle:@"Invalid times" message:@"Please choose an end time after the start time." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    [self.invalidDateAlert addAction:okAction];
     
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
@@ -54,8 +61,15 @@
 - (IBAction)bookEvent:(id)sender {
     NSInteger row = (NSInteger)[self.groupPicker selectedRowInComponent:0];
     self.event.group = self.groups[row];
-    [self.event saveInBackground];
-    [self dismissViewControllerAnimated:true completion:nil];
+    self.event.startTime = self.startDatePicker.date;
+    self.event.endTime = self.endDatePicker.date;
+    
+    if ([self.startDatePicker.date compare:self.endDatePicker.date] == NSOrderedDescending) {
+        [self presentViewController:self.invalidDateAlert animated:YES completion:nil];
+    } else {
+        [self.event saveInBackground];
+        [self dismissViewControllerAnimated:true completion:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

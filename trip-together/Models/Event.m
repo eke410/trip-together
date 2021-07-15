@@ -31,8 +31,6 @@
         self.location = [addressArray componentsJoinedByString:@", "];
         self.rating = [NSString stringWithFormat:@"%@", dictionary[@"rating"]];
         self.yelpURL = dictionary[@"url"];
-        self.startTime = @"TBA";
-        self.endTime = @"TBA";
     }
     return self;
 }

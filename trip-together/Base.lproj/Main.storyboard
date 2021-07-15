@@ -296,13 +296,13 @@
         <!--Book Event-->
         <scene sceneID="fyz-jW-4E8">
             <objects>
-                <viewController id="P1i-Dv-zUR" customClass="BookEventViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookEventViewController" id="P1i-Dv-zUR" customClass="BookEventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y2L-wW-c1W">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWE-Jj-pLB">
-                                <rect key="frame" x="16" y="293.66666666666669" width="358" height="30"/>
+                                <rect key="frame" x="16" y="390.33333333333331" width="358" height="30"/>
                                 <color key="backgroundColor" red="0.28235294117647058" green="0.74901960784313726" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <state key="normal" title="Book">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -321,14 +321,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vij-iE-w60">
-                                <rect key="frame" x="16" y="142.66666666666666" width="358" height="150.99999999999997"/>
+                                <rect key="frame" x="16" y="239.33333333333337" width="358" height="151"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="151" id="fpE-Si-cbg"/>
                                 </constraints>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For Group:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWB-So-cG4">
-                                <rect key="frame" x="16" y="121.00000000000001" width="87.666666666666671" height="21.666666666666671"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <rect key="frame" x="16" y="219" width="83" height="20.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -344,34 +344,70 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="a2L-cx-zV5">
+                                <rect key="frame" x="164" y="111.66666666666669" width="210" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="8rf-LY-oc6"/>
+                                    <constraint firstAttribute="width" constant="210" id="O06-Wg-Uel"/>
+                                </constraints>
+                            </datePicker>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="YVc-kq-yAa">
+                                <rect key="frame" x="164" y="164.66666666666666" width="210" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="elv-8y-bwQ"/>
+                                    <constraint firstAttribute="width" constant="210" id="xx2-yx-TO1"/>
+                                </constraints>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oQ-4B-WYI">
+                                <rect key="frame" x="16" y="121" width="40" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APX-Sw-P28">
+                                <rect key="frame" x="16" y="174" width="19" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XdL-or-E2W"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XdL-or-E2W" firstAttribute="trailing" secondItem="gWE-Jj-pLB" secondAttribute="trailing" constant="16" id="8Dd-TF-Wrh"/>
-                            <constraint firstItem="YWB-So-cG4" firstAttribute="top" secondItem="Jh1-LX-5BA" secondAttribute="bottom" constant="32" id="IDZ-f6-o4b"/>
+                            <constraint firstItem="APX-Sw-P28" firstAttribute="top" secondItem="9oQ-4B-WYI" secondAttribute="bottom" constant="32" id="8Xr-sV-JCF"/>
+                            <constraint firstItem="9oQ-4B-WYI" firstAttribute="top" secondItem="Jh1-LX-5BA" secondAttribute="bottom" constant="32" id="Amh-zZ-BzJ"/>
+                            <constraint firstItem="YWB-So-cG4" firstAttribute="top" secondItem="APX-Sw-P28" secondAttribute="bottom" constant="24" id="IDZ-f6-o4b"/>
+                            <constraint firstItem="XdL-or-E2W" firstAttribute="trailing" secondItem="YVc-kq-yAa" secondAttribute="trailing" constant="16" id="JoX-bW-k3H"/>
                             <constraint firstItem="XdL-or-E2W" firstAttribute="trailing" secondItem="vij-iE-w60" secondAttribute="trailing" constant="16" id="JsT-Xt-DGE"/>
+                            <constraint firstItem="APX-Sw-P28" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="QMp-aX-T8h"/>
                             <constraint firstItem="EjU-Cr-iFC" firstAttribute="centerY" secondItem="oYN-6w-Vc6" secondAttribute="centerY" id="Qnn-zD-FhD"/>
                             <constraint firstItem="gWE-Jj-pLB" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="UVM-Xm-yBP"/>
                             <constraint firstItem="XdL-or-E2W" firstAttribute="trailing" secondItem="Jh1-LX-5BA" secondAttribute="trailing" constant="16" id="UWm-XT-cPA"/>
                             <constraint firstItem="Jh1-LX-5BA" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="VnP-Eg-XhP"/>
                             <constraint firstItem="oYN-6w-Vc6" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="YI3-Zb-mT3"/>
+                            <constraint firstItem="9oQ-4B-WYI" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="YIS-ZQ-9Ca"/>
                             <constraint firstItem="oYN-6w-Vc6" firstAttribute="top" secondItem="XdL-or-E2W" secondAttribute="top" constant="32" id="ebf-Zo-eIh"/>
                             <constraint firstItem="EjU-Cr-iFC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oYN-6w-Vc6" secondAttribute="trailing" constant="16" id="h0P-ue-ZGL"/>
                             <constraint firstItem="Jh1-LX-5BA" firstAttribute="top" secondItem="oYN-6w-Vc6" secondAttribute="bottom" constant="8" id="iOn-t0-ZuL"/>
                             <constraint firstItem="XdL-or-E2W" firstAttribute="trailing" secondItem="EjU-Cr-iFC" secondAttribute="trailing" constant="16" id="kcP-DW-BA3"/>
                             <constraint firstItem="YWB-So-cG4" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="mNa-gZ-o8c"/>
+                            <constraint firstItem="XdL-or-E2W" firstAttribute="trailing" secondItem="a2L-cx-zV5" secondAttribute="trailing" constant="16" id="onv-4X-K6I"/>
+                            <constraint firstItem="YVc-kq-yAa" firstAttribute="centerY" secondItem="APX-Sw-P28" secondAttribute="centerY" id="pHB-hj-l4S"/>
                             <constraint firstItem="gWE-Jj-pLB" firstAttribute="top" secondItem="vij-iE-w60" secondAttribute="bottom" id="ulF-ip-LRG"/>
                             <constraint firstItem="vij-iE-w60" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="vbM-Jp-o2E"/>
+                            <constraint firstItem="a2L-cx-zV5" firstAttribute="centerY" secondItem="9oQ-4B-WYI" secondAttribute="centerY" id="w5S-sV-7GP"/>
                             <constraint firstItem="vij-iE-w60" firstAttribute="top" secondItem="YWB-So-cG4" secondAttribute="bottom" id="ze7-Ic-i9h"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Book Event" id="UlE-Nq-CTW"/>
                     <connections>
+                        <outlet property="endDatePicker" destination="YVc-kq-yAa" id="a7p-tA-K6u"/>
                         <outlet property="eventNameLabel" destination="oYN-6w-Vc6" id="rkg-xG-Tub"/>
                         <outlet property="groupPicker" destination="vij-iE-w60" id="EfX-5U-weT"/>
                         <outlet property="locationLabel" destination="Jh1-LX-5BA" id="Wae-fg-AdO"/>
                         <outlet property="ratingLabel" destination="EjU-Cr-iFC" id="qRB-xF-wfZ"/>
+                        <outlet property="startDatePicker" destination="a2L-cx-zV5" id="CwU-Fv-kSg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ul6-vd-5vl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

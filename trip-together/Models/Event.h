@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *yelpURL;
 
 @property (nonatomic, strong) Group *group;
-@property (nonatomic, strong) NSString *startTime;
-@property (nonatomic, strong) NSString *endTime;
+@property (nonatomic, strong) NSDate *startTime;
+@property (nonatomic, strong) NSDate *endTime;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 + (NSMutableArray *)eventsWithArray:(NSArray *)dictionaries;
