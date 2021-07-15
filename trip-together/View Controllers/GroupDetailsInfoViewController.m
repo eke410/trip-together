@@ -22,7 +22,7 @@
     self.usersTableView.delegate = self;
     self.usersTableView.dataSource = self;
     
-    self.usersTableView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.usersTableView.layer.borderColor = [[UIColor systemGray3Color] CGColor];
     self.usersTableView.layer.borderWidth = 1;
     self.usersTableView.layer.cornerRadius = 5;
 }

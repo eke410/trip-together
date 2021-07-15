@@ -29,6 +29,9 @@
     self.usersInGroupTableView.delegate = self;
     self.usersToAddTableView.dataSource = self;
     self.usersToAddTableView.delegate = self;
+    self.usersInGroupTableView.layer.borderColor = [[UIColor systemGray3Color] CGColor];
+    self.usersToAddTableView.layer.borderColor = [[UIColor systemGray3Color] CGColor];
+    self.groupNameField.layer.borderColor = [[UIColor systemGray3Color] CGColor];
     
     self.usersInGroup = [[NSMutableArray alloc] initWithObjects:PFUser.currentUser, nil];
 
