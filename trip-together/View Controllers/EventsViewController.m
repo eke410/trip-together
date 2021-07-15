@@ -65,7 +65,7 @@
            }
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               self.events = [Event eventsWithArray:dataDictionary[@"events"]];
+               self.events = [Event eventsWithArray:dataDictionary[@"businesses"]];
                [self.eventsTableView reloadData];
            }
        }];
@@ -82,7 +82,7 @@
     paramString = [paramString substringToIndex:[paramString length]-1];
     
     // add param string to yelp event query string
-    NSString *URLString = [@"https://api.yelp.com/v3/events" stringByAppendingString:paramString];
+    NSString *URLString = [@"https://api.yelp.com/v3/businesses/search" stringByAppendingString:paramString];
     [self queryEventsWithURLString:URLString];
 }
 
@@ -115,8 +115,8 @@
     
     // queries events with selected location
     NSString *location = [place.formattedAddress stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"location", @"limit", nil];
-    NSArray *values = [[NSArray alloc] initWithObjects:location, @"5", nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"location", @"limit", @"term", nil];
+    NSArray *values = [[NSArray alloc] initWithObjects:location, @"20", @"top+tourist+attractions", nil];
     NSDictionary *params = [[NSDictionary alloc] initWithObjects:values forKeys:keys];
     [self queryEventsWithParams:params];
 }

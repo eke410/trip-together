@@ -10,14 +10,13 @@
 @implementation Event
 
 @dynamic name;
-@dynamic summary;
-@dynamic group;
-@dynamic eventSiteURLString;
-@dynamic ticketsURLString;
+@dynamic imageURLString;
 @dynamic location;
+@dynamic rating;
+@dynamic yelpURL;
+@dynamic group;
 @dynamic startTime;
 @dynamic endTime;
-@dynamic imageURLString;
 
 + (nonnull NSString *)parseClassName {
     return @"Event";
@@ -26,14 +25,15 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
+        NSLog(@"making event");
         self.name = dictionary[@"name"];
-        self.summary = dictionary[@"description"];
-        self.eventSiteURLString = dictionary[@"event_site_url"];
-        self.ticketsURLString = dictionary[@"tickets_url"];
-        self.location = dictionary[@"location"];
-        self.startTime = dictionary[@"time_start"];
-        self.endTime = dictionary[@"time_end"];
         self.imageURLString = dictionary[@"image_url"];
+        NSArray *addressArray = dictionary[@"location"][@"display_address"];
+        self.location = [addressArray componentsJoinedByString:@", "];
+        self.rating = dictionary[@"rating"];
+        self.yelpURL = dictionary[@"url"];
+        self.startTime = @"TBA";
+        self.endTime = @"TBA";
     }
     return self;
 }
@@ -45,15 +45,6 @@
         [events addObject:event];
     }
     return events;
-}
-
-+ (void) postEventWithName:(NSString * _Nullable)name withSummary:(NSString *)summary withGroup:(Group *)group withCompletion:(PFBooleanResultBlock _Nullable)completion {
-    Event *newEvent = [Event new];
-    newEvent.name = name;
-    newEvent.summary = summary;
-    newEvent.group = group;
-
-    [newEvent saveInBackgroundWithBlock:completion];
 }
 
 

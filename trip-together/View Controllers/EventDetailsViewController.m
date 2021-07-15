@@ -29,7 +29,7 @@
 
 - (void)refreshData {
     self.nameLabel.text = self.event.name;
-    self.summaryLabel.text = self.event.summary;
+    self.summaryLabel.text = @"no summary";
     
     NSURL *url = [NSURL URLWithString:self.event.imageURLString];
     [self.photoImageView setImageWithURL:url];
