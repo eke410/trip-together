@@ -32,13 +32,13 @@
 - (void)refreshData {
     self.groupName.text = self.group.name;
     
-    NSString *allUsersString = @"People: ";
+    NSString *allUsersString = @"Group members: ";
     for (PFUser *user in self.group.users) {
         allUsersString = [allUsersString stringByAppendingString:user.username];
         allUsersString = [allUsersString stringByAppendingString:@", "];
     }
     self.allUsersLabel.text = [allUsersString substringToIndex:[allUsersString length]-2]; 
-//    [self queryEvents];
+    [self queryEvents];
 }
 
 - (void)queryEvents {

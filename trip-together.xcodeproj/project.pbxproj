@@ -13,6 +13,7 @@
 		04BAE764269CD28C00C21ED5 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE763269CD28C00C21ED5 /* EventDetailsViewController.m */; };
 		04BAE767269CD29600C21ED5 /* BookEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BAE766269CD29600C21ED5 /* BookEventViewController.m */; };
 		04D24C9626A0C6CB00F9810F /* GroupDetailsInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D24C9526A0C6CB00F9810F /* GroupDetailsInfoViewController.m */; };
+		04D24C9926A0D3DB00F9810F /* GroupEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D24C9826A0D3DB00F9810F /* GroupEventCell.m */; };
 		04D324C7269CEF03000B4BE1 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D324C6269CEF03000B4BE1 /* UserCell.m */; };
 		04D324CA269D06F4000B4BE1 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D324C9269D06F4000B4BE1 /* GroupCell.m */; };
 		04D818E6269CAE8400C3A9D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D818E5269CAE8400C3A9D8 /* AppDelegate.m */; };
@@ -65,6 +66,8 @@
 		04BAE766269CD29600C21ED5 /* BookEventViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookEventViewController.m; sourceTree = "<group>"; };
 		04D24C9426A0C6CB00F9810F /* GroupDetailsInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupDetailsInfoViewController.h; sourceTree = "<group>"; };
 		04D24C9526A0C6CB00F9810F /* GroupDetailsInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupDetailsInfoViewController.m; sourceTree = "<group>"; };
+		04D24C9726A0D3DB00F9810F /* GroupEventCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupEventCell.h; sourceTree = "<group>"; };
+		04D24C9826A0D3DB00F9810F /* GroupEventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupEventCell.m; sourceTree = "<group>"; };
 		04D324C5269CEF03000B4BE1 /* UserCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
 		04D324C6269CEF03000B4BE1 /* UserCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
 		04D324C8269D06F4000B4BE1 /* GroupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				04D324C9269D06F4000B4BE1 /* GroupCell.m */,
 				04E89A64269E22AF001593BA /* EventCell.h */,
 				04E89A65269E22AF001593BA /* EventCell.m */,
+				04D24C9726A0D3DB00F9810F /* GroupEventCell.h */,
+				04D24C9826A0D3DB00F9810F /* GroupEventCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -549,6 +554,7 @@
 				04D324CA269D06F4000B4BE1 /* GroupCell.m in Sources */,
 				049ED600269CDCF000F85217 /* Group.m in Sources */,
 				04D81921269CBF0A00C3A9D8 /* EventsViewController.m in Sources */,
+				04D24C9926A0D3DB00F9810F /* GroupEventCell.m in Sources */,
 				04D818E6269CAE8400C3A9D8 /* AppDelegate.m in Sources */,
 				04D818F7269CAE8600C3A9D8 /* main.m in Sources */,
 				04E89A66269E22AF001593BA /* EventCell.m in Sources */,
