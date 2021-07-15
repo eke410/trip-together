@@ -23,6 +23,8 @@
 
 - (void)refreshData {
     self.nameLabel.text = self.event.name;
+    self.locationLabel.text = self.event.location;
+    self.ratingLabel.text = [NSString stringWithFormat: @"%@/5", self.event.rating];
     
     NSURL *url = [NSURL URLWithString:self.event.imageURLString];
     [self.photoImageView setImageWithURL:url];
