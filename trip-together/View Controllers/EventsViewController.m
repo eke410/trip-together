@@ -43,6 +43,8 @@
     
     self.eventsTableView.dataSource = self;
     self.eventsTableView.delegate = self;
+    
+    [self queryEventsWithURLString:@"https://api.yelp.com/v3/businesses/search?limit=20&location=Arlington,+MA,+USA&term=top+tourist+attractions"];
 }
 
 - (void)queryEventsWithURLString:(NSString *)URLString {
@@ -67,6 +69,8 @@
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                self.events = [Event eventsWithArray:dataDictionary[@"businesses"]];
                [self.eventsTableView reloadData];
+               [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+               
            }
        }];
     [task resume];

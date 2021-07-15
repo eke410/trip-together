@@ -13,6 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 
 @end
 
@@ -28,11 +30,17 @@
 
 - (void)refreshData {
     self.nameLabel.text = self.event.name;
+    self.locationLabel.text = self.event.location;
+    self.ratingLabel.text = [NSString stringWithFormat: @"%@/5", self.event.rating];
     
     NSURL *url = [NSURL URLWithString:self.event.imageURLString];
     [self.photoImageView setImageWithURL:url];
 }
 
+- (IBAction)tappedYelpURLButton:(id)sender {
+    NSURL *url = [NSURL URLWithString:self.event.yelpURL];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+}
 
 #pragma mark - Navigation
 

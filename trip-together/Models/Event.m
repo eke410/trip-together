@@ -25,12 +25,11 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
-        NSLog(@"making event");
         self.name = dictionary[@"name"];
         self.imageURLString = dictionary[@"image_url"];
         NSArray *addressArray = dictionary[@"location"][@"display_address"];
         self.location = [addressArray componentsJoinedByString:@", "];
-        self.rating = dictionary[@"rating"];
+        self.rating = [NSString stringWithFormat:@"%@", dictionary[@"rating"]];
         self.yelpURL = dictionary[@"url"];
         self.startTime = @"TBA";
         self.endTime = @"TBA";
