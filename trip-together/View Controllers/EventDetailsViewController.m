@@ -12,7 +12,6 @@
 @interface EventDetailsViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *summaryLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 
 @end
@@ -29,7 +28,6 @@
 
 - (void)refreshData {
     self.nameLabel.text = self.event.name;
-    self.summaryLabel.text = @"no summary";
     
     NSURL *url = [NSURL URLWithString:self.event.imageURLString];
     [self.photoImageView setImageWithURL:url];
