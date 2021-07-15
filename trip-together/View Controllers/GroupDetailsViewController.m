@@ -43,7 +43,7 @@
 
 - (void)queryEvents {
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
-    [query orderByDescending:@"startTime"];
+    [query orderByAscending:@"startTime"];
     [query whereKey:@"group" equalTo:self.group];
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
         if (events != nil) {

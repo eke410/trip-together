@@ -7,6 +7,7 @@
 
 #import "GroupEventCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "DateTools.h"
 
 @implementation GroupEventCell
 
@@ -24,11 +25,18 @@
 - (void)refreshData {
     self.nameLabel.text = self.event.name;
     self.locationLabel.text = self.event.location;
-    self.ratingLabel.text = [NSString stringWithFormat: @"%@/5", self.event.rating];
     
+    if (self.event.startTime.month == self.event.endTime.month) {
+        NSString *startTimeString = [self.event.startTime formattedDateWithFormat:@"MMM d, h:mm a"];
+        NSString *endTimeString = [self.event.endTime formattedDateWithFormat:@"h:mm a"];
+        self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startTimeString, endTimeString];
+    } else {
+        NSString *startTimeString = [self.event.startTime formattedDateWithFormat:@"MMM d, h:mm a"];
+        NSString *endTimeString = [self.event.endTime formattedDateWithFormat:@"MMM d, h:mm a"];
+        self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startTimeString, endTimeString];
+    }
 
-    self.timeLabel.text = @"Aug 1 to Aug 2";
-    
+        
     NSURL *url = [NSURL URLWithString:self.event.imageURLString];
     [self.photoImageView setImageWithURL:url];
 }
