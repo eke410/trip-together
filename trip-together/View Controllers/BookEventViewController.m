@@ -12,6 +12,8 @@
 @interface BookEventViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *groupPicker;
 @property (strong, nonatomic) NSArray *groups;
 
@@ -45,13 +47,15 @@
 
 - (void)refreshData {
     self.eventNameLabel.text = self.event.name;
+    self.locationLabel.text = self.event.location;
+    self.ratingLabel.text = [NSString stringWithFormat: @"%@/5", self.event.rating];
 }
 
 - (IBAction)bookEvent:(id)sender {
     NSInteger row = (NSInteger)[self.groupPicker selectedRowInComponent:0];
     self.event.group = self.groups[row];
     [self.event saveInBackground];
-    [self.navigationController popViewControllerAnimated:true];
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
