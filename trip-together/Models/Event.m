@@ -9,6 +9,7 @@
 
 @implementation Event
 
+@dynamic yelpID;
 @dynamic name;
 @dynamic imageURLString;
 @dynamic location;
@@ -25,6 +26,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
+        self.yelpID = dictionary[@"id"];
         self.name = dictionary[@"name"];
         self.imageURLString = dictionary[@"image_url"];
         NSArray *addressArray = dictionary[@"location"][@"display_address"];

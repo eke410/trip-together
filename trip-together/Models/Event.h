@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Event : PFObject<PFSubclassing>
 
+@property (nonatomic, strong) NSString *yelpID;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *imageURLString;
 @property (nonatomic, strong) NSString *location;

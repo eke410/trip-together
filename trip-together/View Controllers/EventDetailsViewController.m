@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImageView;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
 @end
 
@@ -37,6 +38,35 @@
     
     NSURL *url = [NSURL URLWithString:self.event.imageURLString];
     [self.photoImageView setImageWithURL:url];
+}
+
+- (void)queryEventDetails {
+    NSString *URLString = [NSString stringWithFormat:@"https://api.yelp.com/v3/businesses/%@", self.event.yelpID];
+
+    // get API Key from Keys.plist
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    NSString *APIKey= [dict objectForKey: @"yelpAPIKey"];
+
+    // set request URL and authentication value
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", APIKey];
+    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+
+    // make request
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+        else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            // TODO: do something with dataDictionary
+            [self refreshData];
+        }
+    }];
+    [task resume];
 }
 
 - (IBAction)tappedYelpURLButton:(id)sender {
