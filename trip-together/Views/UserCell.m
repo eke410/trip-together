@@ -18,9 +18,13 @@
     self.usernameLabel.text = self.user.username;
 
     PFFileObject *photo = self.user[@"photo"];
-    [photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
-        self.photoImageView.image =  [UIImage imageWithData:imageData];
-    }];
+    if (photo) {
+        [photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
+            self.photoImageView.image =  [UIImage imageWithData:imageData];
+        }];
+    } else {
+        self.photoImageView.image = [UIImage imageNamed:@"profile_icon"];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
