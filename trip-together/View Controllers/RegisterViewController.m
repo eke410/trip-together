@@ -1,28 +1,28 @@
 //
-//  LoginViewController.m
+//  RegisterViewController.m
 //  trip-together
 //
-//  Created by Elizabeth Ke on 7/12/21.
+//  Created by Elizabeth Ke on 7/16/21.
 //
 
-#import "LoginViewController.h"
+#import "RegisterViewController.h"
 #import "Parse/Parse.h"
 #import "SceneDelegate.h"
 
-@interface LoginViewController ()
+@interface RegisterViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *firstNameField;
+@property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @end
 
-@implementation LoginViewController
+@implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.navigationController.navigationBar setHidden:YES];
-    
+
     // sets gradient background
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.view.bounds;
@@ -32,23 +32,30 @@
     [self.view.layer insertSublayer:gradient atIndex:0];
 }
 
-- (IBAction)loginUser:(id)sender {
-    NSString *username = self.usernameField.text;
-    NSString *password = self.passwordField.text;
+- (IBAction)registerUser:(id)sender {
+    // initialize a user object, set user properties
+    PFUser *newUser = [PFUser user];
+    newUser.username = self.usernameField.text;
+    newUser[@"firstName"] = self.firstNameField.text;
+    newUser[@"lastName"] = self.lastNameField.text;
+    newUser.password = self.passwordField.text;
     
-    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+    // call sign up function on the object
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
-            NSLog(@"User log in failed: %@", error.localizedDescription);
+            NSLog(@"Error: %@", error.localizedDescription);
         } else {
-            NSLog(@"User logged in successfully");
+            NSLog(@"User registered successfully");
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UIViewController *tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
             SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
-            [sceneDelegate changeRootViewController:tabBarController];
-        }
+            [sceneDelegate changeRootViewController:tabBarController];        }
     }];
 }
 
+- (IBAction)tappedLoginButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 /*
 #pragma mark - Navigation
