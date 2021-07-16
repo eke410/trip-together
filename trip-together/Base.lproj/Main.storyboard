@@ -306,16 +306,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1l-gt-CFj">
-                                <rect key="frame" x="45" y="99" width="49" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_icon" translatesAutoresizingMaskIntoConstraints="NO" id="AhK-qL-Dkj">
+                                <rect key="frame" x="115" y="138" width="160" height="160"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="E25-gS-o2V"/>
+                                    <constraint firstAttribute="width" constant="160" id="MpT-kK-ig9"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="80"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="nsW-xr-3Wm" appends="YES" id="JPX-hP-zvq"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1l-gt-CFj">
+                                <rect key="frame" x="148" y="330" width="94.333333333333314" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2bU-Im-iWV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="M1l-gt-CFj" firstAttribute="top" secondItem="AhK-qL-Dkj" secondAttribute="bottom" constant="32" id="3WV-3g-uhl"/>
+                            <constraint firstItem="AhK-qL-Dkj" firstAttribute="top" secondItem="2bU-Im-iWV" secondAttribute="top" constant="50" id="ClL-Gu-M5F"/>
+                            <constraint firstItem="AhK-qL-Dkj" firstAttribute="centerX" secondItem="rsb-Mi-Ziz" secondAttribute="centerX" id="Dtx-G0-xxV"/>
+                            <constraint firstItem="M1l-gt-CFj" firstAttribute="centerX" secondItem="rsb-Mi-Ziz" secondAttribute="centerX" id="WYh-eI-vKh"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="zCy-K3-lir">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="XWL-eg-c2d">
@@ -325,10 +346,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="photoImageView" destination="AhK-qL-Dkj" id="snr-Vh-1uf"/>
                         <outlet property="usernameLabel" destination="M1l-gt-CFj" id="z6v-dh-c44"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B3H-x3-ugr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="nsW-xr-3Wm">
+                    <connections>
+                        <action selector="didTapProfilePhoto:" destination="S1f-jj-GR4" id="6st-6U-srJ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2409.2307692307691" y="-296.44549763033172"/>
         </scene>
@@ -487,14 +514,14 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" id="pWQ-QC-lbM" customClass="UserCell">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="35.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="36.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pWQ-QC-lbM" id="gNN-R7-TGZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="358" height="35.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="36.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyB-dZ-SCc">
-                                                    <rect key="frame" x="8" y="8.0000000000000018" width="342" height="19.666666666666671"/>
+                                                    <rect key="frame" x="8" y="7.9999999999999982" width="342" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -790,20 +817,20 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" id="Lfd-kW-J6W" customClass="UserCell">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="45.333332061767578"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="44.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lfd-kW-J6W" id="57g-C1-0lA">
-                                            <rect key="frame" x="0.0" y="0.0" width="358" height="45.333332061767578"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="44.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXc-AZ-Kwi">
-                                                    <rect key="frame" x="16" y="11.999999999999998" width="78.333333333333329" height="21.333333333333329"/>
+                                                    <rect key="frame" x="16" y="12.000000000000002" width="78.333333333333329" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9b-89-j6T">
-                                                    <rect key="frame" x="324" y="11.666666666666664" width="18" height="22"/>
+                                                    <rect key="frame" x="324" y="11.333333333333336" width="18" height="22"/>
                                                     <color key="tintColor" red="0.32549019610000002" green="0.56470588239999997" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" image="minus" catalog="system"/>
                                                     <connections>
@@ -847,20 +874,20 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" id="ish-0C-GMr" customClass="UserCell">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="45.333332061767578"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="44.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ish-0C-GMr" id="TdK-m1-pLH">
-                                            <rect key="frame" x="0.0" y="0.0" width="358" height="45.333332061767578"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="44.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrL-do-Pz5">
-                                                    <rect key="frame" x="16" y="11.999999999999998" width="78.333333333333329" height="21.333333333333329"/>
+                                                    <rect key="frame" x="16" y="12.000000000000002" width="78.333333333333329" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mir-q4-gHJ">
-                                                    <rect key="frame" x="324" y="11.666666666666664" width="18" height="22"/>
+                                                    <rect key="frame" x="324" y="11.333333333333336" width="18" height="22"/>
                                                     <color key="tintColor" red="0.32549019610000002" green="0.56470588239999997" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" image="plus" catalog="system"/>
                                                     <connections>
@@ -1004,6 +1031,7 @@
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="profile_icon" width="562" height="562"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

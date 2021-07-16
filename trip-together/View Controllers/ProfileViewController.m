@@ -10,8 +10,9 @@
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
 
-@interface ProfileViewController ()
+@interface ProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 
 @end
@@ -23,6 +24,11 @@
     // Do any additional setup after loading the view.
     
     self.usernameLabel.text = PFUser.currentUser.username;
+    
+    PFFileObject *photo = PFUser.currentUser[@"photo"];
+    [photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
+        self.photoImageView.image =  [UIImage imageWithData:imageData];
+    }];
 }
 
 - (IBAction)logoutUser:(id)sender {
@@ -37,6 +43,63 @@
     
     NSLog(@"User logged out successfully");
 }
+
+- (IBAction)didTapProfilePhoto:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+   
+    // Get the image captured by the UIImagePickerController
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    UIImage *resizedImage = [self resizeImage:editedImage withSize:CGSizeMake(500, 500)];
+
+    PFFileObject *photo = [self getPFFileFromImage:resizedImage];
+    PFUser.currentUser[@"photo"] = photo;
+    [PFUser.currentUser save];
+
+    [photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
+        self.photoImageView.image =  [UIImage imageWithData:imageData];
+    }];
+
+    // Dismiss UIImagePickerController to go back to your original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+- (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
+ 
+    // check if image is not nil
+    if (!image) {
+        return nil;
+    }
+
+    NSData *imageData = UIImagePNGRepresentation(image);
+    // get image data and check if that is not nil
+    if (!imageData) {
+        return nil;
+    }
+    
+    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+}
+
 
 /*
 #pragma mark - Navigation
