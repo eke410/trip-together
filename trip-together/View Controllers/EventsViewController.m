@@ -44,7 +44,7 @@
     self.eventsTableView.dataSource = self;
     self.eventsTableView.delegate = self;
     
-//    [self queryEventsWithURLString:@"https://api.yelp.com/v3/businesses/search?limit=20&location=Arlington,+MA,+USA&term=top+tourist+attractions"];
+    [self queryEventsWithURLString:@"https://api.yelp.com/v3/businesses/search?limit=20&location=Arlington,+MA,+USA&term=top+tourist+attractions"];
 }
 
 - (void)queryEventsWithURLString:(NSString *)URLString {

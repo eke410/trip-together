@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *ratingImageView;
 
 @end
 
@@ -31,7 +31,9 @@
 - (void)refreshData {
     self.nameLabel.text = self.event.name;
     self.locationLabel.text = self.event.location;
-    self.ratingLabel.text = [NSString stringWithFormat: @"%@/5", self.event.rating];
+    
+    UIImage *ratingImage = [UIImage imageNamed:[self.event.rating stringByAppendingString:@"_star"]];
+    [self.ratingImageView setImage:ratingImage];
     
     NSURL *url = [NSURL URLWithString:self.event.imageURLString];
     [self.photoImageView setImageWithURL:url];
