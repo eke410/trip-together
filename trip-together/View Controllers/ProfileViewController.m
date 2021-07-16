@@ -14,6 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet UIButton *photoButton;
 
 @end
 
@@ -44,7 +46,33 @@
     NSLog(@"User logged out successfully");
 }
 
-- (IBAction)didTapProfilePhoto:(id)sender {
+- (IBAction)editProfile:(id)sender {
+    if ([self.cameraButton isHidden]) { // transition to editing mode
+        [self.cameraButton setHidden:NO];
+        [self.photoButton setHidden:NO];
+    } else { // transition to not-editing mode
+        [self.cameraButton setHidden:YES];
+        [self.photoButton setHidden:YES];
+    }
+}
+
+- (IBAction)takePhoto:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera 🚫 available so we will use photo library instead");
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (IBAction)selectPhoto:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
