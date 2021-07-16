@@ -36,7 +36,7 @@
     UserCell *cell = [self.usersTableView dequeueReusableCellWithIdentifier:@"UserCell"];
     PFUser *user = self.group.users[indexPath.row];
     cell.user = user;
-    cell.usernameLabel.text = user.username;
+    [cell refreshData];
     [cell.button setHidden:true];
     return cell;
 }

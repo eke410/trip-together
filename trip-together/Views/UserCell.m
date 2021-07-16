@@ -14,6 +14,15 @@
     // Initialization code
 }
 
+- (void)refreshData {
+    self.usernameLabel.text = self.user.username;
+
+    PFFileObject *photo = self.user[@"photo"];
+    [photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
+        self.photoImageView.image =  [UIImage imageWithData:imageData];
+    }];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

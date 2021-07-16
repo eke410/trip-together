@@ -71,7 +71,7 @@
         UserCell *cell = [self.usersInGroupTableView dequeueReusableCellWithIdentifier:@"UserCell"];
         PFUser *user = self.usersInGroup[indexPath.row];
         cell.user = user;
-        cell.usernameLabel.text = user.username;
+        [cell refreshData];
         [cell.button setImage:[UIImage systemImageNamed:@"minus"] forState:UIControlStateNormal];
         cell.delegate = self;
         if (user == PFUser.currentUser) {
@@ -82,7 +82,7 @@
         UserCell *cell = [self.usersToAddTableView dequeueReusableCellWithIdentifier:@"UserCell"];
         PFUser *user = self.usersToAdd[indexPath.row];
         cell.user = user;
-        cell.usernameLabel.text = user.username;
+        [cell refreshData];
         [cell.button setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
         cell.delegate = self;
         return cell;

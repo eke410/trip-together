@@ -21,10 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UserCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UIButton *button;
 
 @property (strong, nonatomic) PFUser *user;
 @property (nonatomic, weak) id<UserCellDelegate> delegate;
+
+- (void)refreshData;
 
 @end
 
