@@ -13,18 +13,18 @@
     [super awakeFromNib];
     
     // sets cell shadow
-    self.containerView.layer.cornerRadius = 10;
-    self.containerView.layer.shadowOpacity = 1;
-    self.containerView.layer.shadowRadius = 1;
-    self.containerView.layer.shadowColor = [[self colorWithHexString:@"#123054" alpha:1.0] CGColor];
-    self.containerView.layer.shadowOffset = CGSizeMake(2, 2);
+//    self.containerView.layer.cornerRadius = 10;
+//    self.containerView.layer.shadowOpacity = 1;
+//    self.containerView.layer.shadowRadius = 1;
+//    self.containerView.layer.shadowColor = [[self colorWithHexString:@"#123054" alpha:1.0] CGColor];
+//    self.containerView.layer.shadowOffset = CGSizeMake(2, 2);
     
     // sets cell background gradient
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.containerView.bounds;
-    gradient.cornerRadius = 10;
-    gradient.colors = @[(id)[[self colorWithHexString:@"#367DD3" alpha:1.0] CGColor], (id)[[self colorWithHexString:@"#2869B8" alpha:1.0] CGColor]];
-    [self.containerView.layer insertSublayer:gradient atIndex:0];
+//    CAGradientLayer *gradient = [CAGradientLayer layer];
+//    gradient.frame = self.containerView.bounds;
+//    gradient.cornerRadius = 10;
+//    gradient.colors = @[(id)[[self colorWithHexString:@"#367DD3" alpha:1.0] CGColor], (id)[[self colorWithHexString:@"#2869B8" alpha:1.0] CGColor]];
+//    [self.containerView.layer insertSublayer:gradient atIndex:0];
 }
 
 - (UIColor *)colorWithHexString:(NSString *)str_HEX  alpha:(CGFloat)alpha_range{

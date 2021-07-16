@@ -51,7 +51,40 @@
     GroupCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"GroupCell"];
     cell.group = self.groups[indexPath.section];
     [cell refreshData];
+    
+    // set gradient pattern of cell
+    CAGradientLayer *gradient = [self gradientForCellAtIndexPath:indexPath];
+    gradient.frame = cell.containerView.frame;
+    [cell.containerView.layer insertSublayer:gradient atIndex:0];
+    
     return cell;
+}
+
+- (CAGradientLayer *)gradientForCellAtIndexPath:(NSIndexPath *)indexPath {
+    float index = indexPath.section * 1.0;
+    float total = self.groups.count;
+    
+    float r1 = 86/255.0, g1 = 207/255.0, b1= 225/255.0;
+    float r2 = 83/255.0, g2 = 144/255.0, b2= 217/255.0;
+
+    float r3 = r1 + (index/total) * (r2 - r1);
+    float g3 = g1 + (index/total) * (g2 - g1);
+    float b3 = b1 + (index/total) * (b2 - b1);
+    
+    float r4 = r1 + ((index+1)/total) * (r2 - r1);
+    float g4 = g1 + ((index+1)/total) * (g2 - g1);
+    float b4 = b1 + ((index+1)/total) * (b2 - b1);
+        
+//    NSLog(@"index %f: %f %f %f", index, r3, g3, b3);
+//    NSLog(@"4: %f %f %f", r4, g4, b4);
+    
+    UIColor *color1 = [UIColor colorWithRed:r3 green:g3 blue:b3 alpha:1];
+    UIColor *color2 = [UIColor colorWithRed:r4 green:g4 blue:b4 alpha:1];
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.cornerRadius = 10;
+    gradient.colors = @[(id)[color1 CGColor], (id)[color2 CGColor]];
+    return gradient;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
