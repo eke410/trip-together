@@ -7,6 +7,7 @@
 
 #import "GroupDetailsInfoViewController.h"
 #import "UserCell.h"
+#import "Event.h"
 
 @interface GroupDetailsInfoViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -41,12 +42,11 @@
 }
 
 - (IBAction)leaveGroup:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self.delegate removeGroup:self.group];
-
     if (self.group.users.count == 1) { // if only 1 user, delete group
-        [self.group deleteInBackground];
+        [self deleteGroup:sender];
     } else { // if more than 1 user, remove user from group
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.delegate removeGroup:self.group];
         NSMutableArray *usersMutableCopy = [self.group.users mutableCopy];
         for (PFUser *user in self.group.users) {
             if ([user.objectId isEqualToString:PFUser.currentUser.objectId]) {
@@ -62,6 +62,19 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self.delegate removeGroup:self.group];
     [self.group deleteInBackground];
+    
+    // delete all events associated with group
+    PFQuery *query = [PFQuery queryWithClassName:@"Event"];
+    [query whereKey:@"group" equalTo:self.group];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
+        if (events != nil) {
+            for (Event *event in events) {
+                [event deleteInBackground];
+            }
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 /*
