@@ -25,6 +25,24 @@
     }
 }
 
+- (void)changeRootViewController:(UIViewController*)viewController {
+    // changes root view controller with animation
+    if (!self.window.rootViewController) {
+        self.window.rootViewController = viewController;
+        return;
+    }
+    
+    UIView *snapShot = [self.window snapshotViewAfterScreenUpdates:YES];
+    [viewController.view addSubview:snapShot];
+    self.window.rootViewController = viewController;
+    [UIView animateWithDuration:0.3 animations:^{
+        snapShot.layer.opacity = 0;
+        snapShot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
+    } completion:^(BOOL finished) {
+        [snapShot removeFromSuperview];
+    }];
+}
+
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
     // Called as the scene is being released by the system.
