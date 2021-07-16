@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fullNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
 
@@ -25,9 +26,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.usernameLabel.text = PFUser.currentUser.username;
+    PFUser *user = PFUser.currentUser;
+    self.usernameLabel.text = user.username;
+    self.fullNameLabel.text = [NSString stringWithFormat:@"%@ %@", user[@"firstName"], user[@"lastName"]];
     
-    PFFileObject *photo = PFUser.currentUser[@"photo"];
+    PFFileObject *photo = user[@"photo"];
     [photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
         self.photoImageView.image =  [UIImage imageWithData:imageData];
     }];

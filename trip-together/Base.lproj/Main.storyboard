@@ -459,7 +459,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_icon" translatesAutoresizingMaskIntoConstraints="NO" id="AhK-qL-Dkj">
-                                <rect key="frame" x="115" y="138" width="160" height="160"/>
+                                <rect key="frame" x="115" y="200" width="160" height="160"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="E25-gS-o2V"/>
@@ -471,14 +471,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1l-gt-CFj">
-                                <rect key="frame" x="148" y="330" width="94.333333333333314" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XB-m5-bDW">
-                                <rect key="frame" x="68" y="205" width="31" height="26"/>
+                                <rect key="frame" x="68" y="267" width="31" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="Q0L-kH-kev"/>
                                     <constraint firstAttribute="width" constant="31" id="bI7-Yq-E9S"/>
@@ -492,7 +486,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usw-9K-xMK">
-                                <rect key="frame" x="291" y="203.66666666666666" width="40" height="29"/>
+                                <rect key="frame" x="291" y="265.66666666666669" width="40" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="oDU-tv-qbm"/>
                                     <constraint firstAttribute="height" constant="29" id="uor-Po-Bht"/>
@@ -505,16 +499,34 @@
                                     <action selector="selectPhoto:" destination="S1f-jj-GR4" eventType="touchUpInside" id="lWG-vk-TeT"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ap-Qh-Ueh">
+                                <rect key="frame" x="16" y="392" width="358" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1l-gt-CFj">
+                                <rect key="frame" x="16" y="152" width="358" height="21.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2bU-Im-iWV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="M1l-gt-CFj" firstAttribute="top" secondItem="AhK-qL-Dkj" secondAttribute="bottom" constant="32" id="3WV-3g-uhl"/>
+                            <constraint firstItem="M1l-gt-CFj" firstAttribute="leading" secondItem="2bU-Im-iWV" secondAttribute="leading" constant="16" id="3nT-P1-H4u"/>
                             <constraint firstItem="AhK-qL-Dkj" firstAttribute="leading" secondItem="9XB-m5-bDW" secondAttribute="trailing" constant="16" id="7ah-OM-KTd"/>
                             <constraint firstItem="usw-9K-xMK" firstAttribute="leading" secondItem="AhK-qL-Dkj" secondAttribute="trailing" constant="16" id="9LX-gN-cl1"/>
-                            <constraint firstItem="AhK-qL-Dkj" firstAttribute="top" secondItem="2bU-Im-iWV" secondAttribute="top" constant="50" id="ClL-Gu-M5F"/>
+                            <constraint firstItem="AhK-qL-Dkj" firstAttribute="top" secondItem="M1l-gt-CFj" secondAttribute="top" constant="48" id="ClL-Gu-M5F"/>
                             <constraint firstItem="AhK-qL-Dkj" firstAttribute="centerX" secondItem="rsb-Mi-Ziz" secondAttribute="centerX" id="Dtx-G0-xxV"/>
+                            <constraint firstItem="2bU-Im-iWV" firstAttribute="trailing" secondItem="6ap-Qh-Ueh" secondAttribute="trailing" constant="16" id="NN9-N8-Eel"/>
+                            <constraint firstItem="6ap-Qh-Ueh" firstAttribute="top" secondItem="AhK-qL-Dkj" secondAttribute="bottom" constant="32" id="WKj-2F-dPc"/>
                             <constraint firstItem="M1l-gt-CFj" firstAttribute="centerX" secondItem="rsb-Mi-Ziz" secondAttribute="centerX" id="WYh-eI-vKh"/>
+                            <constraint firstItem="6ap-Qh-Ueh" firstAttribute="centerX" secondItem="rsb-Mi-Ziz" secondAttribute="centerX" id="WkP-Hf-7fb"/>
+                            <constraint firstItem="M1l-gt-CFj" firstAttribute="top" secondItem="2bU-Im-iWV" secondAttribute="top" constant="64" id="ZAn-K8-fPK"/>
+                            <constraint firstItem="2bU-Im-iWV" firstAttribute="trailing" secondItem="M1l-gt-CFj" secondAttribute="trailing" constant="16" id="at5-0H-mOC"/>
+                            <constraint firstItem="6ap-Qh-Ueh" firstAttribute="leading" secondItem="2bU-Im-iWV" secondAttribute="leading" constant="16" id="b0N-Gl-7Os"/>
                             <constraint firstItem="usw-9K-xMK" firstAttribute="centerY" secondItem="AhK-qL-Dkj" secondAttribute="centerY" id="ouU-Yl-osO"/>
                             <constraint firstItem="9XB-m5-bDW" firstAttribute="centerY" secondItem="AhK-qL-Dkj" secondAttribute="centerY" id="zCZ-gp-C0c"/>
                         </constraints>
@@ -533,6 +545,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cameraButton" destination="9XB-m5-bDW" id="rOq-Kd-5EH"/>
+                        <outlet property="fullNameLabel" destination="6ap-Qh-Ueh" id="7OV-j6-HjX"/>
                         <outlet property="photoButton" destination="usw-9K-xMK" id="0Kc-fB-rju"/>
                         <outlet property="photoImageView" destination="AhK-qL-Dkj" id="snr-Vh-1uf"/>
                         <outlet property="usernameLabel" destination="M1l-gt-CFj" id="z6v-dh-c44"/>
@@ -732,8 +745,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="fullNameLabel" destination="0GM-0g-IlP" id="97S-I4-SP8"/>
                                             <outlet property="photoImageView" destination="pNX-Mk-NT7" id="x3N-Xd-eko"/>
-                                            <outlet property="usernameLabel" destination="0GM-0g-IlP" id="97S-I4-SP8"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1021,8 +1034,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="358" height="56.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXc-AZ-Kwi">
-                                                    <rect key="frame" x="55.999999999999993" y="17.666666666666668" width="78.333333333333314" height="21.000000000000004"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User full name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXc-AZ-Kwi">
+                                                    <rect key="frame" x="56" y="17.666666666666668" width="110" height="21.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1061,8 +1074,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="button" destination="q9b-89-j6T" id="Git-5D-ncs"/>
+                                            <outlet property="fullNameLabel" destination="WXc-AZ-Kwi" id="pvq-ng-Cl4"/>
                                             <outlet property="photoImageView" destination="Gww-NZ-JWK" id="Koj-5b-48g"/>
-                                            <outlet property="usernameLabel" destination="WXc-AZ-Kwi" id="pvq-ng-Cl4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1134,8 +1147,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="button" destination="2XK-kv-7pl" id="fDA-rK-5LL"/>
+                                            <outlet property="fullNameLabel" destination="BUe-AS-ebX" id="uh6-pU-lVC"/>
                                             <outlet property="photoImageView" destination="83b-zV-SKF" id="mpi-TW-SZt"/>
-                                            <outlet property="usernameLabel" destination="BUe-AS-ebX" id="uh6-pU-lVC"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

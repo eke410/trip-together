@@ -15,7 +15,7 @@
 }
 
 - (void)refreshData {
-    self.usernameLabel.text = self.user.username;
+    self.fullNameLabel.text = [NSString stringWithFormat:@"%@ %@", self.user[@"firstName"], self.user[@"lastName"]];
 
     PFFileObject *photo = self.user[@"photo"];
     if (photo) {

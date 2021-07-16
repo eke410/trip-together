@@ -34,8 +34,8 @@
     
     NSString *allUsersString = @"Group members: ";
     for (PFUser *user in self.group.users) {
-        allUsersString = [allUsersString stringByAppendingString:user.username];
-        allUsersString = [allUsersString stringByAppendingString:@", "];
+        NSString *newString = [NSString stringWithFormat:@"%@ %@, ", user[@"firstName"], user[@"lastName"]];
+        allUsersString = [allUsersString stringByAppendingString:newString];
     }
     self.allUsersLabel.text = [allUsersString substringToIndex:[allUsersString length]-2]; 
     [self queryEvents];
