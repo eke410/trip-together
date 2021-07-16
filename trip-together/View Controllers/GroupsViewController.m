@@ -39,15 +39,29 @@
     self.tableView.delegate = self;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.groups.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GroupCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"GroupCell"];
-    cell.group = self.groups[indexPath.row];
+    cell.group = self.groups[indexPath.section];
     [cell refreshData];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10.;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+    return headerView;
 }
 
 - (void)didCreateGroup:(Group *)group {
@@ -73,7 +87,7 @@
         groupDetailsViewController.delegate = self;
         if ([sender isKindOfClass:[GroupCell class]]) { // segue sent from table view cell being clicked
             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-            groupDetailsViewController.group = self.groups[indexPath.row];
+            groupDetailsViewController.group = self.groups[indexPath.section];
         } else if ([sender isKindOfClass:[Group class]]) { // segue sent from create group delegate method
             groupDetailsViewController.group = sender;
         }
