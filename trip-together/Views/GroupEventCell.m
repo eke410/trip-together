@@ -26,7 +26,7 @@
     self.nameLabel.text = self.event.name;
     self.locationLabel.text = self.event.location;
     
-    if (self.event.startTime.month == self.event.endTime.month) {
+    if (self.event.startTime.dayOfYear == self.event.endTime.dayOfYear) {
         NSString *startTimeString = [self.event.startTime formattedDateWithFormat:@"MMM d, h:mm a"];
         NSString *endTimeString = [self.event.endTime formattedDateWithFormat:@"h:mm a"];
         self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startTimeString, endTimeString];
