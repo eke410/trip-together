@@ -96,6 +96,7 @@
 
 - (void)changePhoto:(UIImage *)photo {
     self.photoImageView.image = photo;
+    [self.delegate updateCellForGroup:self.group];
 }
 
 

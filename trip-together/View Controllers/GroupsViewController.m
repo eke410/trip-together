@@ -110,6 +110,12 @@
     [self.tableView reloadData];
 }
 
+- (void)updateCellForGroup:(Group *)group {
+    NSUInteger index = [self.groups indexOfObject:group];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:index];
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+}
+
 
 #pragma mark - Navigation
 

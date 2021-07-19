@@ -37,6 +37,7 @@
         // if group photo exists, set photo as background
         [self.group.photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
             self.photoView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:imageData]];
+            self.photoView.alpha = 0.85;
             [self.contentView addSubview:self.photoView];
             [self.contentView bringSubviewToFront:self.groupNameLabel];
         }];
