@@ -119,7 +119,8 @@
     }
     // sorts users by first name
     NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
-    NSArray *sortedUsers = [usersWithConflicts sortedArrayUsingDescriptors:@[firstNameSorter]];
+    NSSortDescriptor *lastNameSorter = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:true];
+    NSArray *sortedUsers = [usersWithConflicts sortedArrayUsingDescriptors:@[firstNameSorter, lastNameSorter]];
     return sortedUsers;
 }
 

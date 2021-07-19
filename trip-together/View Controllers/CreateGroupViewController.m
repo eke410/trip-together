@@ -37,7 +37,11 @@
 
     PFQuery *query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:PFUser.currentUser.objectId];
-    [query orderByAscending:@"firstName"];
+    
+    NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
+    NSSortDescriptor *lastNameSorter = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:true];
+    [query orderBySortDescriptors:@[firstNameSorter, lastNameSorter]];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable users, NSError * _Nullable error) {
         self.usersToAdd = (NSMutableArray *)users;
         [self.usersToAddTableView reloadData];
@@ -46,7 +50,7 @@
 
 
 - (IBAction)createGroup:(id)sender {
-    [self sortByFirstName:self.usersInGroup];
+    [self sortByName:self.usersInGroup];
     Group *newGroup = [Group postGroupWithUsers:self.usersInGroup withName:self.groupNameField.text withLocation:@"placeholder_location" withStartDate:[NSDate new] withEndDate:[NSDate new] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Failed to create group: %@", error.localizedDescription);
@@ -100,15 +104,16 @@
 - (void)removeUserFromGroup:(PFUser *)user {
     [self.usersInGroup removeObject:user];
     [self.usersToAdd addObject:user];
-    [self sortByFirstName:self.usersToAdd];
+    [self sortByName:self.usersToAdd];
         
     [self.usersInGroupTableView reloadData];
     [self.usersToAddTableView reloadData];
 }
 
-- (void)sortByFirstName:(NSMutableArray *)users {
+- (void)sortByName:(NSMutableArray *)users {
     NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
-    [users sortUsingDescriptors:[NSArray arrayWithObject:firstNameSorter]];
+    NSSortDescriptor *lastNameSorter = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:true];
+    [users sortUsingDescriptors:@[firstNameSorter, lastNameSorter]];
 }
 
 /*
