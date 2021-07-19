@@ -220,13 +220,7 @@
 
 - (BOOL) hasConflictBetweenEvent1:(Event *)event1 andEvent2:(Event *)event2 {
     // returns true if event1 and event2 overlap in time, returns false otherwise
-    if ([event1.startTime compare:event2.startTime] != NSOrderedDescending && [event2.startTime compare:event1.endTime] == NSOrderedAscending) {
-        return true;
-    }
-    if ([event2.startTime compare:event1.startTime] != NSOrderedDescending && [event1.startTime compare:event2.endTime] == NSOrderedAscending) {
-        return true;
-    }
-    return false;
+    return (([event1.startTime compare:event2.startTime] != NSOrderedDescending && [event2.startTime compare:event1.endTime] == NSOrderedAscending) || ([event2.startTime compare:event1.startTime] != NSOrderedDescending && [event1.startTime compare:event2.endTime] == NSOrderedAscending));
 }
 
 
