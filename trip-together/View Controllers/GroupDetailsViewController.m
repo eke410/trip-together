@@ -13,7 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
-@property (weak, nonatomic) IBOutlet UILabel *allUsersLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (strong, nonatomic) NSMutableArray *events;
 
@@ -34,15 +33,7 @@
     [self.group.photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
         self.photoImageView.image =  [UIImage imageWithData:imageData];
     }];
-
     self.groupName.text = self.group.name;
-    
-    NSString *allUsersString = @"Group members: ";
-    for (PFUser *user in self.group.users) {
-        NSString *newString = [NSString stringWithFormat:@"%@ %@, ", user[@"firstName"], user[@"lastName"]];
-        allUsersString = [allUsersString stringByAppendingString:newString];
-    }
-    self.allUsersLabel.text = [allUsersString substringToIndex:[allUsersString length]-2]; 
     [self queryEvents];
 }
 
