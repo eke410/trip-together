@@ -62,6 +62,25 @@
     self.ratingLabel.text = [NSString stringWithFormat: @"%@/5", self.event.rating];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.groups.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    Group *group = self.groups[row];
+    return group.name;
+}
+
+#pragma mark - Booking Event & Event Validation
+
 - (IBAction)bookEvent:(id)sender {
     Event *newEvent = [self.event copy];
     NSInteger row = (NSInteger)[self.groupPicker selectedRowInComponent:0];
@@ -176,22 +195,6 @@
     return false;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.groups.count;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    Group *group = self.groups[row];
-    return group.name;
-}
 
 /*
 #pragma mark - Navigation
