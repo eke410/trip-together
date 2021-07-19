@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSArray *groups;
 @property (strong, nonatomic) UIAlertController *invalidDateAlert;
 @property (strong, nonatomic) UIAlertController *conflictAlert;
+@property (strong, nonatomic) UIAlertController *groupDeletedAlert;
 
 @end
 
@@ -38,6 +39,9 @@
     
     self.conflictAlert = [UIAlertController alertControllerWithTitle:@"Event time conflict" message:@"Some users in group have conflicts" preferredStyle:UIAlertControllerStyleAlert];
     [self.conflictAlert addAction:okAction];
+    
+    self.groupDeletedAlert = [UIAlertController alertControllerWithTitle:@"Group does not exist anymore" message:@"Please select a different group." preferredStyle:UIAlertControllerStyleAlert];
+    [self.groupDeletedAlert addAction:okAction];
     
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
@@ -88,13 +92,24 @@
     newEvent.startTime = self.startDatePicker.date;
     newEvent.endTime = self.endDatePicker.date;
     
-    if ([newEvent.startTime compare:newEvent.endTime] != NSOrderedAscending) { // checks that start time is before end time
+    // checks that start time is before end time
+    if ([newEvent.startTime compare:newEvent.endTime] != NSOrderedAscending) {
         [self presentViewController:self.invalidDateAlert animated:YES completion:nil];
         return;
     }
     
+    // checks if group still exists
+    PFQuery *query = [PFQuery queryWithClassName:@"Group"];
+    [query whereKey:@"objectId" equalTo:newEvent.group.objectId];
+    NSArray *groups = [query findObjects];
+    if ([groups count] == 0) {
+        [self presentViewController:self.groupDeletedAlert animated:YES completion:nil];
+        return;
+    }
+    
+    // checks if any user has time conflicts
     NSArray *usersWithConflicts = [self getUsersWithConflictsForEvent:newEvent];
-    if ([usersWithConflicts count] > 0) { // if any users have time conflicts, present warning
+    if ([usersWithConflicts count] > 0) {
         NSString *userConflictString = @"Warning! The following people have conflicts: ";
         for (PFUser *user in usersWithConflicts) {
             userConflictString = [userConflictString stringByAppendingString:[NSString stringWithFormat:@"%@, ", user[@"firstName"]]];
@@ -102,10 +117,13 @@
         userConflictString = [userConflictString substringToIndex:[userConflictString length]-2];
         self.conflictAlert.message = userConflictString;
         [self presentViewController:self.conflictAlert animated:YES completion:nil];
-    } else { // if no conflicts, save event to Parse
-        [newEvent saveInBackground];
-        [self dismissViewControllerAnimated:true completion:nil];
+        return;
     }
+    
+    // if no conflicts, save event to Parse
+    [newEvent saveInBackground];
+    [self dismissViewControllerAnimated:true completion:nil];
+    
 }
 
 - (NSArray *)getUsersWithConflictsForEvent:(Event *)event {
@@ -133,7 +151,6 @@
             [conflictingEvents addObject:eventToCheck];
         }
     }
-    NSLog(@"Conflicting events: %@", conflictingEvents);
     return (NSArray *) conflictingEvents;
 }
 
