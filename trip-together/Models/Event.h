@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Event : PFObject<PFSubclassing>
+@interface Event : PFObject<PFSubclassing, NSCopying>
 
 @property (nonatomic, strong) NSString *yelpID;
 @property (nonatomic, strong) NSString *name;

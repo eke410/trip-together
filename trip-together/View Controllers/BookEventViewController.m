@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *groupPicker;
 @property (strong, nonatomic) NSArray *groups;
 @property (strong, nonatomic) UIAlertController *invalidDateAlert;
+@property (strong, nonatomic) UIAlertController *conflictAlert;
 
 @end
 
@@ -34,6 +35,9 @@
     self.invalidDateAlert = [UIAlertController alertControllerWithTitle:@"Invalid times" message:@"Please choose an end time after the start time." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
     [self.invalidDateAlert addAction:okAction];
+    
+    self.conflictAlert = [UIAlertController alertControllerWithTitle:@"Event time conflict" message:@"Some users in group have conflicts" preferredStyle:UIAlertControllerStyleAlert];
+    [self.conflictAlert addAction:okAction];
     
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
@@ -59,17 +63,117 @@
 }
 
 - (IBAction)bookEvent:(id)sender {
+    Event *newEvent = [self.event copy];
     NSInteger row = (NSInteger)[self.groupPicker selectedRowInComponent:0];
-    self.event.group = self.groups[row];
-    self.event.startTime = self.startDatePicker.date;
-    self.event.endTime = self.endDatePicker.date;
+    newEvent.group = self.groups[row];
+    newEvent.startTime = self.startDatePicker.date;
+    newEvent.endTime = self.endDatePicker.date;
     
-    if ([self.startDatePicker.date compare:self.endDatePicker.date] == NSOrderedDescending) {
+    if ([newEvent.startTime compare:newEvent.endTime] != NSOrderedAscending) { // checks that start time is before end time
         [self presentViewController:self.invalidDateAlert animated:YES completion:nil];
-    } else {
-        [self.event saveInBackground];
+        return;
+    }
+    
+    NSArray *usersWithConflicts = [self getUsersWithConflictsForEvent:newEvent];
+    if ([usersWithConflicts count] > 0) { // if any users have time conflicts, present warning
+        NSString *userConflictString = @"Warning! The following people have conflicts: ";
+        for (PFUser *user in usersWithConflicts) {
+            userConflictString = [userConflictString stringByAppendingString:[NSString stringWithFormat:@"%@, ", user[@"firstName"]]];
+        }
+        userConflictString = [userConflictString substringToIndex:[userConflictString length]-2];
+        self.conflictAlert.message = userConflictString;
+        [self presentViewController:self.conflictAlert animated:YES completion:nil];
+    } else { // if no conflicts, save event to Parse
+        [newEvent saveInBackground];
         [self dismissViewControllerAnimated:true completion:nil];
     }
+}
+
+- (NSArray *)getUsersWithConflictsForEvent:(Event *)event {
+    // returns array of users who have time conflicts for the event, sorted by alphabetical order on first name
+    // finds users with conflicts
+    NSMutableSet *usersWithConflicts = [NSMutableSet new];
+    NSArray *conflictingEvents = [self getConflictingEventsForEvent:event];
+    for (Event *conflictingEvent in conflictingEvents) {
+        NSArray *overlappingUsers = [self getOverlappingUsersInGroup1:event.group andGroup2:conflictingEvent.group];
+        [usersWithConflicts addObjectsFromArray:overlappingUsers];
+    }
+    // sorts users by first name
+    NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
+    NSArray *sortedUsers = [usersWithConflicts sortedArrayUsingDescriptors:@[firstNameSorter]];
+    return sortedUsers;
+}
+
+- (NSArray *)getConflictingEventsForEvent:(Event *)event {
+    // returns array of events that would cause a time conflict for any user in the group
+    NSMutableArray *conflictingEvents = [NSMutableArray new];
+    NSArray *eventsToCheck = [self getEventsForUsersInGroup:event.group];
+    for (Event *eventToCheck in eventsToCheck) {
+        if ([self hasConflictBetweenEvent1:event andEvent2:eventToCheck]) {
+            [conflictingEvents addObject:eventToCheck];
+        }
+    }
+    NSLog(@"Conflicting events: %@", conflictingEvents);
+    return (NSArray *) conflictingEvents;
+}
+
+- (NSArray *)getEventsForUsersInGroup:(Group *)group {
+    // returns all events that any user in the group is signed up for
+    PFQuery *query = [PFQuery queryWithClassName:@"Event"];
+    [query includeKey:@"group"];
+    [query includeKey:@"group.users"];
+    
+    NSArray *events = [query findObjects];
+    NSMutableArray *filteredEvents = [NSMutableArray new];
+    for (Event *event in events) {
+        if ([self hasUserOverlapInGroup1:group andGroup2:event.group]) {
+            [filteredEvents addObject:event];
+        }
+    }
+    return (NSArray *) filteredEvents;
+}
+
+- (NSArray *)getOverlappingUsersInGroup1:(Group *)group1 andGroup2:(Group *)group2 {
+    // returns any users that group1 and group2 have in common
+    NSMutableArray *overlappingUsers = [NSMutableArray new];
+    NSArray *group2ids = [self getUserIDsOfGroup:group2];
+    for (PFUser *user in group1.users) {
+        if ([group2ids containsObject:user.objectId]) {
+            [overlappingUsers addObject:user];
+        }
+    }
+    return overlappingUsers;
+}
+
+- (BOOL)hasUserOverlapInGroup1:(Group *)group1 andGroup2:(Group *)group2 {
+    // returns true if group1 and group2 have any user in common, returns false otherwise
+    NSArray *group2ids = [self getUserIDsOfGroup:group2];
+    for (PFUser *user in group1.users) {
+        if ([group2ids containsObject:user.objectId]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+- (NSArray *)getUserIDsOfGroup:(Group *)group {
+    // returns array containing all objectIds of users in the group
+    NSMutableArray *groupIDs = [NSMutableArray new];
+    for (PFUser *user in group.users) {
+        [groupIDs addObject:user.objectId];
+    }
+    return (NSArray *) groupIDs;
+}
+
+- (BOOL) hasConflictBetweenEvent1:(Event *)event1 andEvent2:(Event *)event2 {
+    // returns true if event1 and event2 overlap in time, returns false otherwise
+    if ([event1.startTime compare:event2.startTime] != NSOrderedDescending && [event2.startTime compare:event1.endTime] == NSOrderedAscending) {
+        return true;
+    }
+    if ([event2.startTime compare:event1.startTime] != NSOrderedDescending && [event1.startTime compare:event2.endTime] == NSOrderedAscending) {
+        return true;
+    }
+    return false;
 }
 
 - (void)didReceiveMemoryWarning {

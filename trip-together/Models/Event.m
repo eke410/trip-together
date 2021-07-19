@@ -47,4 +47,18 @@
 }
 
 
+- (nonnull id)copyWithZone:(nullable NSZone *)zone {
+    Event *newEvent = [[Event alloc] init];
+    newEvent.yelpID = self.yelpID;
+    newEvent.name = self.name;
+    newEvent.imageURLString = self.imageURLString;
+    newEvent.location = self.location;
+    newEvent.rating = self.rating;
+    newEvent.yelpURL = self.yelpURL;
+    newEvent.group = self.group;
+    newEvent.startTime = self.startTime;
+    newEvent.endTime = self.endTime;
+    return newEvent;
+}
+
 @end
