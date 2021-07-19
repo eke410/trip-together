@@ -50,13 +50,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GroupCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"GroupCell"];
     cell.group = self.groups[indexPath.section];
+    
+    // if no photo, pass in gradient layer for cell background
+    if (!cell.group.photo) {
+        CAGradientLayer *gradient = [self gradientForCellAtIndexPath:indexPath];
+        gradient.frame = cell.contentView.frame;
+        cell.gradientLayer = gradient;
+    }
+    
     [cell refreshData];
-    
-    // set gradient pattern of cell
-    CAGradientLayer *gradient = [self gradientForCellAtIndexPath:indexPath];
-    gradient.frame = cell.containerView.frame;
-    [cell.containerView.layer insertSublayer:gradient atIndex:0];
-    
     return cell;
 }
 

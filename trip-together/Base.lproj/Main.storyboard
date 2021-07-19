@@ -362,45 +362,32 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zeZ-fT-vy9">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zeZ-fT-vy9">
                                 <rect key="frame" x="16" y="141" width="358" height="620"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupCell" id="ZJV-dH-H0R" customClass="GroupCell">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="61.333332061767578"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="160" id="ZJV-dH-H0R" customClass="GroupCell">
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZJV-dH-H0R" id="eLe-bJ-a4F">
-                                            <rect key="frame" x="0.0" y="0.0" width="358" height="61.333332061767578"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aII-yF-unk">
-                                                    <rect key="frame" x="0.0" y="0.0" width="356" height="59.333333333333336"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57P-qP-zu1">
-                                                            <rect key="frame" x="8" y="7.9999999999999982" width="340" height="19.333333333333329"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="57P-qP-zu1" firstAttribute="leading" secondItem="aII-yF-unk" secondAttribute="leading" constant="8" id="6BX-IL-T5a"/>
-                                                        <constraint firstItem="57P-qP-zu1" firstAttribute="top" secondItem="aII-yF-unk" secondAttribute="top" constant="8" id="7wl-xx-EkF"/>
-                                                        <constraint firstAttribute="trailing" secondItem="57P-qP-zu1" secondAttribute="trailing" constant="8" id="80f-7h-Piz"/>
-                                                        <constraint firstAttribute="bottom" secondItem="57P-qP-zu1" secondAttribute="bottom" constant="32" id="FcH-Zf-nLv"/>
-                                                    </constraints>
-                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57P-qP-zu1">
+                                                    <rect key="frame" x="8" y="7.9999999999999982" width="342" height="19.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="aII-yF-unk" secondAttribute="trailing" constant="2" id="1HC-Bh-sif"/>
-                                                <constraint firstItem="aII-yF-unk" firstAttribute="top" secondItem="eLe-bJ-a4F" secondAttribute="top" id="5hh-d8-aXm"/>
-                                                <constraint firstItem="aII-yF-unk" firstAttribute="leading" secondItem="eLe-bJ-a4F" secondAttribute="leading" id="Rwk-a5-roQ"/>
-                                                <constraint firstAttribute="bottom" secondItem="aII-yF-unk" secondAttribute="bottom" constant="2" id="y0i-dy-bMV"/>
+                                                <constraint firstItem="57P-qP-zu1" firstAttribute="top" secondItem="eLe-bJ-a4F" secondAttribute="top" constant="8" id="ioU-ML-oo3"/>
+                                                <constraint firstItem="57P-qP-zu1" firstAttribute="leading" secondItem="eLe-bJ-a4F" secondAttribute="leading" constant="8" id="j5b-Q7-Ord"/>
+                                                <constraint firstAttribute="trailing" secondItem="57P-qP-zu1" secondAttribute="trailing" constant="8" id="rYU-Im-oKS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="containerView" destination="aII-yF-unk" id="K2V-GI-fy7"/>
                                             <outlet property="groupNameLabel" destination="57P-qP-zu1" id="TXC-Hf-u8H"/>
                                             <segue destination="rnB-wN-SnK" kind="show" identifier="groupDetailsSegue" id="Q3o-6s-icp"/>
                                         </connections>

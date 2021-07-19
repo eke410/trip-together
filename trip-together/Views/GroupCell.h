@@ -14,9 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) Group *group;
 
-@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *groupNameLabel;
-
+@property (strong, nonatomic) UIView *photoView;
+@property (strong, nonatomic) CAGradientLayer *gradientLayer;
+ 
 - (void)refreshData;
 
 @end

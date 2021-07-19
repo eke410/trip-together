@@ -12,19 +12,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    // sets cell shadow
-//    self.containerView.layer.cornerRadius = 10;
-//    self.containerView.layer.shadowOpacity = 1;
-//    self.containerView.layer.shadowRadius = 1;
-//    self.containerView.layer.shadowColor = [[self colorWithHexString:@"#123054" alpha:1.0] CGColor];
-//    self.containerView.layer.shadowOffset = CGSizeMake(2, 2);
-    
-    // sets cell background gradient
-//    CAGradientLayer *gradient = [CAGradientLayer layer];
-//    gradient.frame = self.containerView.bounds;
-//    gradient.cornerRadius = 10;
-//    gradient.colors = @[(id)[[self colorWithHexString:@"#367DD3" alpha:1.0] CGColor], (id)[[self colorWithHexString:@"#2869B8" alpha:1.0] CGColor]];
-//    [self.containerView.layer insertSublayer:gradient atIndex:0];
+    self.contentView.layer.cornerRadius = 10;
+    [self.contentView setClipsToBounds:YES];
 }
 
 - (UIColor *)colorWithHexString:(NSString *)str_HEX  alpha:(CGFloat)alpha_range{
@@ -43,6 +32,27 @@
 
 - (void)refreshData {
     self.groupNameLabel.text = self.group.name;
+    
+    if (self.group.photo) {
+        // if group photo exists, set photo as background
+        [self.group.photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
+            self.photoView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:imageData]];
+            [self.contentView addSubview:self.photoView];
+            [self.contentView bringSubviewToFront:self.groupNameLabel];
+        }];
+    } else {
+        // if no group photo, set gradient as background
+        [self.contentView.layer insertSublayer:self.gradientLayer atIndex:0];
+    }
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    if (self.group.photo) {
+        [self.photoView removeFromSuperview];
+    } else {
+        [self.gradientLayer removeFromSuperlayer];
+    }
 }
 
 @end
