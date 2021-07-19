@@ -17,9 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *location;
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
+@property (nonatomic, strong) PFFileObject *photo;
 
 + (Group *)postGroupWithUsers:(NSArray * _Nullable)users withName:(NSString * _Nullable)name withLocation:(NSString * _Nullable)location withStartDate:(NSDate * _Nullable)startDate withEndDate:(NSDate * _Nullable)endDate withCompletion:(PFBooleanResultBlock _Nullable)completion;
-
++ (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image;
++ (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size;
 
 @end
 

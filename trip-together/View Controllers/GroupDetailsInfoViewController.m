@@ -9,7 +9,7 @@
 #import "UserCell.h"
 #import "Event.h"
 
-@interface GroupDetailsInfoViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface GroupDetailsInfoViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 
@@ -76,6 +76,29 @@
         }
     }];
 }
+
+- (IBAction)selectPhoto:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+
+    // Get the image captured by the UIImagePickerController
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    UIImage *resizedImage = [Group resizeImage:editedImage withSize:CGSizeMake(500, 500)];
+
+    self.group.photo = [Group getPFFileFromImage:resizedImage];
+    [self.group save];
+    [self.delegate changePhoto:resizedImage];
+
+    // Dismiss UIImagePickerController to go back to your original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 /*
 #pragma mark - Navigation

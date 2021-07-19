@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol GroupDetailsInfoViewControllerDelegate <NSObject>
 
 - (void)removeGroup:(Group *)group;
+- (void)changePhoto:(UIImage *)photo;
 
 @end
 
