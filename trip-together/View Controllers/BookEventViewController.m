@@ -38,7 +38,12 @@
     [self.invalidDateAlert addAction:okAction];
     
     self.conflictAlert = [UIAlertController alertControllerWithTitle:@"Event time conflict" message:@"Some users in group have conflicts" preferredStyle:UIAlertControllerStyleAlert];
-    [self.conflictAlert addAction:okAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *bookAction = [UIAlertAction actionWithTitle:@"Book" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self bookEventWithoutValidation];
+    }];
+    [self.conflictAlert addAction:cancelAction];
+    [self.conflictAlert addAction:bookAction];
     
     self.groupDeletedAlert = [UIAlertController alertControllerWithTitle:@"Group does not exist anymore" message:@"Please select a different group." preferredStyle:UIAlertControllerStyleAlert];
     [self.groupDeletedAlert addAction:okAction];
@@ -123,7 +128,18 @@
     // if no conflicts, save event to Parse
     [newEvent saveInBackground];
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)bookEventWithoutValidation {
+    // saves event without any validation steps
+    Event *newEvent = [self.event copy];
+    NSInteger row = (NSInteger)[self.groupPicker selectedRowInComponent:0];
+    newEvent.group = self.groups[row];
+    newEvent.startTime = self.startDatePicker.date;
+    newEvent.endTime = self.endDatePicker.date;
     
+    [newEvent saveInBackground];
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 - (NSArray *)getUsersWithConflictsForEvent:(Event *)event {
