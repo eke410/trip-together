@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0417942026A72D92007F5448 /* EventValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0417941F26A72D92007F5448 /* EventValidation.m */; };
 		049ED5FD269CD8F600F85217 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FC269CD8F600F85217 /* ProfileViewController.m */; };
 		049ED600269CDCF000F85217 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FF269CDCF000F85217 /* Group.m */; };
 		04A1867926A2371900E09A34 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A1867826A2371900E09A34 /* RegisterViewController.m */; };
@@ -55,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0417941E26A72D92007F5448 /* EventValidation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventValidation.h; sourceTree = "<group>"; };
+		0417941F26A72D92007F5448 /* EventValidation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventValidation.m; sourceTree = "<group>"; };
 		049ED5FB269CD8F600F85217 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		049ED5FC269CD8F600F85217 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		049ED5FE269CDCF000F85217 /* Group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
@@ -143,6 +146,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0417942126A72D97007F5448 /* Event Validation */ = {
+			isa = PBXGroup;
+			children = (
+				0417941E26A72D92007F5448 /* EventValidation.h */,
+				0417941F26A72D92007F5448 /* EventValidation.m */,
+			);
+			path = "Event Validation";
+			sourceTree = "<group>";
+		};
 		04D818D8269CAE8400C3A9D8 = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +183,7 @@
 				04D8191A269CB30800C3A9D8 /* View Controllers */,
 				04D81919269CB2F900C3A9D8 /* Views */,
 				04D8191B269CB30E00C3A9D8 /* Models */,
+				0417942126A72D97007F5448 /* Event Validation */,
 				04D818E4269CAE8400C3A9D8 /* AppDelegate.h */,
 				04D818E5269CAE8400C3A9D8 /* AppDelegate.m */,
 				04D818E7269CAE8400C3A9D8 /* SceneDelegate.h */,
@@ -562,6 +575,7 @@
 				04D24C9926A0D3DB00F9810F /* GroupEventCell.m in Sources */,
 				04D818E6269CAE8400C3A9D8 /* AppDelegate.m in Sources */,
 				04A1867926A2371900E09A34 /* RegisterViewController.m in Sources */,
+				0417942026A72D92007F5448 /* EventValidation.m in Sources */,
 				04D818F7269CAE8600C3A9D8 /* main.m in Sources */,
 				04E89A66269E22AF001593BA /* EventCell.m in Sources */,
 				04BAE767269CD29600C21ED5 /* BookEventViewController.m in Sources */,
