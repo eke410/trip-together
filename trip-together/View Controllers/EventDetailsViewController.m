@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImageView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *categoriesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLevelLabel;
+@property (weak, nonatomic) IBOutlet UILabel *reviewCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bookEventButton;
 
 @end
@@ -37,6 +40,16 @@
 - (void)refreshData {
     self.nameLabel.text = self.event.name;
     self.locationLabel.text = self.event.location;
+    self.phoneLabel.text = self.event.phone;
+    self.priceLevelLabel.text = self.event.priceLevel;
+    self.reviewCountLabel.text = [NSString stringWithFormat:@"(%@)", self.event.reviewCount];
+    
+    NSString *categoryString = @"Categories: ";
+    for (NSDictionary *category in self.event.categories) {
+        categoryString = [categoryString stringByAppendingString:[NSString stringWithFormat:@"%@, ", category[@"title"]]];
+    }
+    categoryString = [categoryString substringToIndex:[categoryString length]-2];
+    self.categoriesLabel.text = categoryString;
     
     UIImage *ratingImage = [UIImage imageNamed:[self.event.rating stringByAppendingString:@"_star"]];
     [self.ratingImageView setImage:ratingImage];
