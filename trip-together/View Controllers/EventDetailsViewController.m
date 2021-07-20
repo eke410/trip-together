@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImageView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UIButton *bookEventButton;
 
 @end
 
@@ -26,6 +27,10 @@
     
     if (self.event) {
         [self refreshData];
+    }
+    
+    if (!self.allowBooking) {
+        [self.bookEventButton setHidden:true];
     }
 }
 

@@ -156,6 +156,7 @@
     NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
     Event *event = self.events[indexPath.row];
     eventDetailsViewController.event = event;
+    [eventDetailsViewController setAllowBooking:true];
 }
 
 

@@ -860,6 +860,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Event Details" id="dzV-SO-uaN"/>
                     <connections>
+                        <outlet property="bookEventButton" destination="9pq-Xb-7fX" id="lH2-jc-OGJ"/>
                         <outlet property="locationLabel" destination="BIU-Vo-1oE" id="cpe-Sj-k5n"/>
                         <outlet property="nameLabel" destination="ukT-ea-XWs" id="Typ-eV-tXn"/>
                         <outlet property="photoImageView" destination="LhW-yY-Dow" id="lDl-Ed-7su"/>
@@ -941,6 +942,7 @@
                                             <outlet property="nameLabel" destination="WGX-nx-tH4" id="IJh-fr-pqU"/>
                                             <outlet property="photoImageView" destination="jmo-Rh-b5J" id="Xtx-bR-MI9"/>
                                             <outlet property="timeLabel" destination="uE4-gt-iZm" id="nHH-Aa-JBv"/>
+                                            <segue destination="EaE-Ne-Z8W" kind="show" identifier="groupEventDetailsSegue" id="occ-bc-Lau"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1279,6 +1281,9 @@
             <point key="canvasLocation" x="-145" y="-1732"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="occ-bc-Lau"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="0_star" width="162" height="30"/>
         <image name="camera" catalog="system" width="128" height="94"/>

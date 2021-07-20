@@ -8,6 +8,7 @@
 #import "GroupDetailsViewController.h"
 #import "EventCell.h"
 #import "GroupDetailsInfoViewController.h"
+#import "EventDetailsViewController.h"
 
 @interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -101,6 +102,11 @@
         GroupDetailsInfoViewController *vc = [segue destinationViewController];
         vc.group = self.group;
         vc.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"groupEventDetailsSegue"]) {
+        EventDetailsViewController *vc = [segue destinationViewController];
+        NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
+        vc.event = self.events[indexPath.row];
+        [vc setAllowBooking:false];
     }
 }
 
