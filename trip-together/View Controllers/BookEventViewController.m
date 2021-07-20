@@ -8,6 +8,7 @@
 #import "BookEventViewController.h"
 #import "Event.h"
 #import "Group.h"
+#import "DateTools.h"
 
 @interface BookEventViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -33,6 +34,21 @@
         [self refreshData];
     }
     
+    // sets up date pickers & their times
+    self.startDatePicker.minimumDate = [NSDate date];
+    self.endDatePicker.minimumDate = [NSDate date];
+    
+    NSDate *currentDate = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
+    [components setHour:currentDate.hour + 1];
+    NSDate *startDate = [calendar dateFromComponents:components];
+    [self.startDatePicker setDate:startDate];
+    [self.endDatePicker setDate:[NSDate dateWithTimeInterval:3600 sinceDate:startDate]];
+    
+    [self.startDatePicker addTarget:self action:@selector(startDateChanged) forControlEvents:UIControlEventValueChanged];
+    
+    // initializes alerts
     self.invalidDateAlert = [UIAlertController alertControllerWithTitle:@"Invalid times" message:@"Please choose an end time after the start time." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
     [self.invalidDateAlert addAction:okAction];
@@ -51,6 +67,7 @@
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
     
+    // queries groups that user is in
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
     [query orderByDescending:@"startDate"];
     [query includeKey:@"users"];
@@ -69,6 +86,10 @@
     self.eventNameLabel.text = self.event.name;
     self.locationLabel.text = self.event.location;
     self.ratingLabel.text = [NSString stringWithFormat: @"%@/5", self.event.rating];
+}
+
+- (void)startDateChanged {
+    [self.endDatePicker setDate:[NSDate dateWithTimeInterval:3600 sinceDate:self.startDatePicker.date]];
 }
 
 - (void)didReceiveMemoryWarning {
