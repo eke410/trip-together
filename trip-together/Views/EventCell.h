@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Event.h"
+#import "TagListView-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImageView;
+@property (weak, nonatomic) IBOutlet TagListView *categoriesTagListView;
 
 - (void)refreshData;
 
