@@ -21,6 +21,7 @@ PODS:
     - Parse/Core (= 1.19.2)
   - Parse/Core (1.19.2):
     - Bolts/Tasks (= 1.9.1)
+  - TagListView (1.4.1)
   - "UITextView+Placeholder (1.4.0)"
 
 DEPENDENCIES:
@@ -28,6 +29,7 @@ DEPENDENCIES:
   - DateTools
   - GooglePlaces
   - Parse
+  - TagListView (~> 1.0)
   - "UITextView+Placeholder"
 
 SPEC REPOS:
@@ -37,6 +39,7 @@ SPEC REPOS:
     - DateTools
     - GooglePlaces
     - Parse
+    - TagListView
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
@@ -45,8 +48,9 @@ SPEC CHECKSUMS:
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   GooglePlaces: 5d87ca13ed98b7a937e0d8bc7026f718c7263271
   Parse: 081fb8755c3000fd11df817eec235def233d0af3
+  TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 4a0c7af13b2f5a3bb79d010082ad127f9f3a6ac8
+PODFILE CHECKSUM: 4976eee7302e02c42f4fc52ba589c7dcc2754561
 
 COCOAPODS: 1.10.1

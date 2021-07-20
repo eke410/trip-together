@@ -797,7 +797,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHx-8l-b3u">
-                                <rect key="frame" x="16" y="478.66666666666669" width="149" height="20"/>
+                                <rect key="frame" x="16" y="485.33333333333331" width="149" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="jhN-Ky-e7w"/>
                                 </constraints>
@@ -854,24 +854,40 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHP-wf-om4">
-                                <rect key="frame" x="16" y="455.33333333333331" width="358" height="19.333333333333314"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="478-Lm-Jrm" customClass="TagListView" customModule="TagListView">
+                                <rect key="frame" x="16" y="459.33333333333331" width="358" height="20"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
+                                        <color key="value" red="0.32549019610000002" green="0.56470588239999997" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="9"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingX">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingY">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="marginY">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zgI-vV-n2f"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="LhW-yY-Dow" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" id="1eR-eD-IKI"/>
-                            <constraint firstItem="fHP-wf-om4" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="217-xy-bjP"/>
+                            <constraint firstItem="478-Lm-Jrm" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="8Z5-M1-PI0"/>
                             <constraint firstItem="hVQ-7q-rAD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k4T-B1-Qiy" secondAttribute="trailing" constant="16" id="FQL-gL-1Rl"/>
                             <constraint firstItem="ukT-ea-XWs" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" constant="16" id="Gym-cp-UiM"/>
                             <constraint firstItem="BIU-Vo-1oE" firstAttribute="top" secondItem="ukT-ea-XWs" secondAttribute="bottom" constant="2" id="Iq8-uk-EIB"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="bottom" secondItem="9pq-Xb-7fX" secondAttribute="bottom" constant="16" id="L9h-sQ-CuI"/>
-                            <constraint firstItem="fHP-wf-om4" firstAttribute="top" secondItem="EIK-Ks-bGb" secondAttribute="bottom" constant="8" id="Mhv-5t-8aB"/>
-                            <constraint firstItem="rHx-8l-b3u" firstAttribute="top" secondItem="fHP-wf-om4" secondAttribute="bottom" constant="4" id="NgG-1w-Ijy"/>
                             <constraint firstItem="EIK-Ks-bGb" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="PZo-07-xFc"/>
                             <constraint firstItem="W10-Sk-Sfc" firstAttribute="leading" secondItem="EIK-Ks-bGb" secondAttribute="trailing" constant="4" id="Pp4-Rc-zxx"/>
                             <constraint firstItem="9pq-Xb-7fX" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" constant="16" id="RGj-Og-UcZ"/>
@@ -880,6 +896,7 @@
                             <constraint firstItem="W10-Sk-Sfc" firstAttribute="centerY" secondItem="EIK-Ks-bGb" secondAttribute="centerY" id="X6Y-Q5-J7o"/>
                             <constraint firstItem="hVQ-7q-rAD" firstAttribute="centerY" secondItem="k4T-B1-Qiy" secondAttribute="centerY" id="Xpt-KA-L81"/>
                             <constraint firstItem="EIK-Ks-bGb" firstAttribute="top" secondItem="k4T-B1-Qiy" secondAttribute="bottom" constant="8" id="cit-sl-179"/>
+                            <constraint firstItem="478-Lm-Jrm" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" id="hYz-zE-oQR"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="9pq-Xb-7fX" secondAttribute="trailing" constant="16" id="i7k-3d-gd1"/>
                             <constraint firstItem="LhW-yY-Dow" firstAttribute="top" secondItem="zgI-vV-n2f" secondAttribute="top" id="iqN-o4-QUJ"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" constant="16" id="jPU-2n-2bM"/>
@@ -887,16 +904,17 @@
                             <constraint firstItem="k4T-B1-Qiy" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="lfG-8T-26T"/>
                             <constraint firstItem="LhW-yY-Dow" firstAttribute="trailing" secondItem="zgI-vV-n2f" secondAttribute="trailing" id="m4Y-Fs-6gx"/>
                             <constraint firstItem="k4T-B1-Qiy" firstAttribute="top" secondItem="BIU-Vo-1oE" secondAttribute="bottom" constant="4" id="mxD-kg-puy"/>
+                            <constraint firstItem="rHx-8l-b3u" firstAttribute="top" secondItem="478-Lm-Jrm" secondAttribute="bottom" constant="6" id="obU-bp-jJO"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="W10-Sk-Sfc" secondAttribute="trailing" constant="16" id="pTC-UH-sGS"/>
-                            <constraint firstItem="fHP-wf-om4" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" id="psh-wY-mhY"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="BIU-Vo-1oE" secondAttribute="trailing" constant="16" id="qiV-6Q-glF"/>
+                            <constraint firstItem="478-Lm-Jrm" firstAttribute="top" secondItem="EIK-Ks-bGb" secondAttribute="bottom" constant="12" id="svt-yo-hhp"/>
                             <constraint firstItem="ukT-ea-XWs" firstAttribute="top" secondItem="LhW-yY-Dow" secondAttribute="bottom" constant="16" id="wdB-r0-teX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event Details" id="dzV-SO-uaN"/>
                     <connections>
                         <outlet property="bookEventButton" destination="9pq-Xb-7fX" id="lH2-jc-OGJ"/>
-                        <outlet property="categoriesLabel" destination="fHP-wf-om4" id="88a-mJ-z5r"/>
+                        <outlet property="categoriesTagListView" destination="478-Lm-Jrm" id="Nm3-B8-pkw"/>
                         <outlet property="locationLabel" destination="BIU-Vo-1oE" id="cpe-Sj-k5n"/>
                         <outlet property="nameLabel" destination="ukT-ea-XWs" id="Typ-eV-tXn"/>
                         <outlet property="phoneLabel" destination="k4T-B1-Qiy" id="ui7-Rc-DZz"/>
@@ -1320,6 +1338,11 @@
             <point key="canvasLocation" x="-145" y="-1732"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="478-Lm-Jrm">
+            <size key="intrinsicContentSize" width="358" height="20"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="occ-bc-Lau"/>
     </inferredMetricsTieBreakers>

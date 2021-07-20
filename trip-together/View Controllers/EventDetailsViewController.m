@@ -8,6 +8,7 @@
 #import "EventDetailsViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "BookEventViewController.h"
+#import "TagListView-Swift.h"
 
 @interface EventDetailsViewController ()
 
@@ -16,9 +17,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImageView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
-@property (weak, nonatomic) IBOutlet UILabel *categoriesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLevelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reviewCountLabel;
+@property (weak, nonatomic) IBOutlet TagListView *categoriesTagListView;
 @property (weak, nonatomic) IBOutlet UIButton *bookEventButton;
 
 @end
@@ -35,6 +36,8 @@
     if (!self.allowBooking) {
         [self.bookEventButton setHidden:true];
     }
+    
+    self.categoriesTagListView.textFont = [UIFont systemFontOfSize:14];
 }
 
 - (void)refreshData {
@@ -44,12 +47,9 @@
     self.priceLevelLabel.text = self.event.priceLevel;
     self.reviewCountLabel.text = [NSString stringWithFormat:@"(%@)", self.event.reviewCount];
     
-    NSString *categoryString = @"Categories: ";
     for (NSDictionary *category in self.event.categories) {
-        categoryString = [categoryString stringByAppendingString:[NSString stringWithFormat:@"%@, ", category[@"title"]]];
+        [self.categoriesTagListView addTag:category[@"title"]];
     }
-    categoryString = [categoryString substringToIndex:[categoryString length]-2];
-    self.categoriesLabel.text = categoryString;
     
     UIImage *ratingImage = [UIImage imageNamed:[self.event.rating stringByAppendingString:@"_star"]];
     [self.ratingImageView setImage:ratingImage];

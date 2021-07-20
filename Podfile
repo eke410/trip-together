@@ -11,6 +11,7 @@ target 'trip-together' do
   pod 'GooglePlaces'
   pod 'DateTools'
   pod 'UITextView+Placeholder'
+  pod 'TagListView', '~> 1.0'
 
   target 'trip-togetherTests' do
     inherit! :search_paths
