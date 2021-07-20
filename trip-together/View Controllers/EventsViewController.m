@@ -14,9 +14,12 @@
 @interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
-@property (nonatomic, strong) NSMutableArray *events;
+@property (weak, nonatomic) IBOutlet UITableView *attractionsTableView;
+@property (weak, nonatomic) IBOutlet UITableView *restaurantsTableView;
+@property (nonatomic, strong) NSMutableArray *attractions;
+@property (nonatomic, strong) NSMutableArray *restaurants;
 
 @end
 
@@ -41,13 +44,18 @@
     self.searchBar.delegate = self;
     [self.tableView setHidden:true];
     
-    self.eventsTableView.dataSource = self;
-    self.eventsTableView.delegate = self;
+    self.attractionsTableView.dataSource = self;
+    self.attractionsTableView.delegate = self;
+    self.restaurantsTableView.dataSource = self;
+    self.restaurantsTableView.delegate = self;
     
-    [self queryEventsWithURLString:@"https://api.yelp.com/v3/businesses/search?limit=20&location=Arlington,+MA,+USA&term=top+tourist+attractions"];
+    [self.segmentedControl addTarget:self action:@selector(selectedCategory) forControlEvents:UIControlEventValueChanged];
+
+    [self queryWithURLString:@"https://api.yelp.com/v3/businesses/search?limit=20&location=Manhattan,+NY,+USA&term=top+tourist+attractions"];
+    [self queryWithURLString:@"https://api.yelp.com/v3/businesses/search?limit=20&location=Manhattan,+NY,+USA&term=restaurants"];
 }
 
-- (void)queryEventsWithURLString:(NSString *)URLString {
+- (void)queryWithURLString:(NSString *)URLString {
     // get API Key from Keys.plist
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
@@ -67,10 +75,20 @@
            }
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               self.events = [Event eventsWithArray:dataDictionary[@"businesses"]];
-               [self.eventsTableView reloadData];
-               if (self.events.count > 0) {
-                   [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+               if ([URLString containsString:@"top+tourist+attractions"]) {
+                   // querying tourist attractions
+                   self.attractions = [Event eventsWithArray:dataDictionary[@"businesses"]];
+                   [self.attractionsTableView reloadData];
+                   if (self.attractions.count > 0) {
+                       [self.attractionsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+                   }
+               } else {
+                   // querying restaurants
+                   self.restaurants = [Event eventsWithArray:dataDictionary[@"businesses"]];
+                   [self.restaurantsTableView reloadData];
+                   if (self.restaurants.count > 0) {
+                       [self.restaurantsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+                   }
                }
            }
        }];
@@ -88,18 +106,28 @@
     
     // add param string to yelp event query string
     NSString *URLString = [@"https://api.yelp.com/v3/businesses/search" stringByAppendingString:paramString];
-    [self queryEventsWithURLString:URLString];
+    [self queryWithURLString:URLString];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.events.count;
+    return tableView == self.attractionsTableView ? self.attractions.count : self.restaurants.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"EventCell"];
-    cell.event = self.events[indexPath.row];
+    EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    cell.event = tableView == self.attractionsTableView ? self.attractions[indexPath.row] : self.restaurants[indexPath.row];
     [cell refreshData];
     return cell;
+}
+
+- (void)selectedCategory {
+    if (self.segmentedControl.selectedSegmentIndex == 0) {
+        [self.attractionsTableView setHidden:NO];
+        [self.restaurantsTableView setHidden:YES];
+    } else {
+        [self.attractionsTableView setHidden:YES];
+        [self.restaurantsTableView setHidden:NO];
+    }
 }
 
 #pragma mark - GMSAutocompleteTableDataSourceDelegate
@@ -153,8 +181,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-    NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
-    Event *event = self.events[indexPath.row];
+    NSIndexPath *indexPath = self.segmentedControl.selectedSegmentIndex == 0 ? [self.attractionsTableView indexPathForCell:sender] : [self.restaurantsTableView indexPathForCell:sender];
+    Event *event = self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions[indexPath.row] : self.restaurants[indexPath.row];
     eventDetailsViewController.event = event;
     [eventDetailsViewController setAllowBooking:true];
 }
