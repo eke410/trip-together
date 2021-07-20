@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *location;
 @property (nonatomic, strong) NSString *rating;
 @property (nonatomic, strong) NSString *yelpURL;
+@property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSArray *categories;
+@property (nonatomic, strong) NSString *priceLevel;
+@property (nonatomic, strong) NSString *reviewCount;
 
 @property (nonatomic, strong) Group *group;
 @property (nonatomic, strong) NSDate *startTime;

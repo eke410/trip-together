@@ -15,6 +15,11 @@
 @dynamic location;
 @dynamic rating;
 @dynamic yelpURL;
+@dynamic phone;
+@dynamic categories;
+@dynamic priceLevel;
+@dynamic reviewCount;
+
 @dynamic group;
 @dynamic startTime;
 @dynamic endTime;
@@ -33,6 +38,10 @@
         self.location = [addressArray componentsJoinedByString:@", "];
         self.rating = [NSString stringWithFormat:@"%@", dictionary[@"rating"]];
         self.yelpURL = dictionary[@"url"];
+        self.phone = dictionary[@"display_phone"];
+        self.categories = dictionary[@"categories"];
+        self.priceLevel = dictionary[@"price"] ? dictionary[@"price"] : @"";
+        self.reviewCount = [NSString stringWithFormat:@"%@", dictionary[@"review_count"]];
     }
     return self;
 }
@@ -46,7 +55,6 @@
     return events;
 }
 
-
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
     Event *newEvent = [[Event alloc] init];
     newEvent.yelpID = self.yelpID;
@@ -58,6 +66,10 @@
     newEvent.group = self.group;
     newEvent.startTime = self.startTime;
     newEvent.endTime = self.endTime;
+    newEvent.phone = self.phone;
+    newEvent.categories = self.categories;
+    newEvent.priceLevel = self.priceLevel;
+    newEvent.reviewCount = self.reviewCount;
     return newEvent;
 }
 
