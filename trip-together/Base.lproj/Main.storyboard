@@ -1059,6 +1059,7 @@
                                             <outlet property="photoImageView" destination="HaN-UX-Wbr" id="Fs0-jY-mVE"/>
                                             <outlet property="timeLabel" destination="Eri-Z1-zAW" id="kYv-gI-XVJ"/>
                                             <outlet property="typeImageView" destination="TAH-Bq-iPK" id="9FI-8A-Qgk"/>
+                                            <segue destination="EaE-Ne-Z8W" kind="show" identifier="groupEventDetailsSegue" id="tEh-kS-tft"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1405,6 +1406,9 @@
             <size key="intrinsicContentSize" width="254" height="18"/>
         </designable>
     </designables>
+    <inferredMetricsTieBreakers>
+        <segue reference="tEh-kS-tft"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="0_star" width="162" height="30"/>
         <image name="camera" catalog="system" width="128" height="94"/>
