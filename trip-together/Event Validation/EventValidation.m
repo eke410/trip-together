@@ -11,6 +11,10 @@
 
 + (NSArray *)getUsersWithConflictsForEvent:(Event *)event {
     // returns array of users who have time conflicts for the event, sorted by alphabetical order on first name
+    // protection against null input
+    if ([event isEqual:[NSNull null]]) {
+        return [NSArray new];
+    }
     // finds users with conflicts
     NSMutableSet *usersWithConflicts = [NSMutableSet new];
     NSArray *conflictingEvents = [self getConflictingEventsForEvent:event];
@@ -27,6 +31,9 @@
 
 + (NSArray *)getConflictingEventsForEvent:(Event *)event {
     // returns array of events that would cause a time conflict for any user in the group
+    if ([event isEqual:[NSNull null]]) {
+        return [NSArray new];
+    }
     NSMutableArray *conflictingEvents = [NSMutableArray new];
     NSArray *eventsToCheck = [self getEventsForUsersInGroup:event.group];
     for (Event *eventToCheck in eventsToCheck) {
@@ -39,6 +46,9 @@
 
 + (NSArray *)getEventsForUsersInGroup:(Group *)group {
     // returns all events that any user in the group is signed up for
+    if ([group isEqual:[NSNull null]]) {
+        return [NSArray new];
+    }
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     [query includeKey:@"group"];
     [query includeKey:@"group.users"];
@@ -55,6 +65,9 @@
 
 + (NSArray *)getOverlappingUsersInGroup1:(Group *)group1 andGroup2:(Group *)group2 {
     // returns any users that group1 and group2 have in common
+    if ([group1 isEqual:[NSNull null]] || [group2 isEqual:[NSNull null]]) {
+        return [NSArray new];
+    }
     NSMutableArray *overlappingUsers = [NSMutableArray new];
     NSArray *group2ids = [self getUserIDsOfGroup:group2];
     for (PFUser *user in group1.users) {
@@ -67,6 +80,9 @@
 
 + (BOOL)hasUserOverlapInGroup1:(Group *)group1 andGroup2:(Group *)group2 {
     // returns true if group1 and group2 have any user in common, returns false otherwise
+    if ([group1 isEqual:[NSNull null]] || [group2 isEqual:[NSNull null]]) {
+        return false;
+    }
     NSArray *group2ids = [self getUserIDsOfGroup:group2];
     for (PFUser *user in group1.users) {
         if ([group2ids containsObject:user.objectId]) {
@@ -78,6 +94,9 @@
 
 + (NSArray *)getUserIDsOfGroup:(Group *)group {
     // returns array containing all objectIds of users in the group
+    if ([group isEqual:[NSNull null]]) {
+        return [NSArray new];
+    }
     NSMutableArray *groupIDs = [NSMutableArray new];
     for (PFUser *user in group.users) {
         [groupIDs addObject:user.objectId];
@@ -87,6 +106,9 @@
 
 + (BOOL) hasConflictBetweenEvent1:(Event *)event1 andEvent2:(Event *)event2 {
     // returns true if event1 and event2 overlap in time, returns false otherwise
+    if ([event1 isEqual:[NSNull null]] || [event2 isEqual:[NSNull null]]) {
+        return false;
+    }
     return (([event1.startTime compare:event2.startTime] != NSOrderedDescending && [event2.startTime compare:event1.endTime] == NSOrderedAscending) || ([event2.startTime compare:event1.startTime] != NSOrderedDescending && [event1.startTime compare:event2.endTime] == NSOrderedAscending));
 }
 
