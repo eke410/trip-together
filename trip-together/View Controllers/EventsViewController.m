@@ -77,9 +77,9 @@
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                if ([URLString containsString:@"top+tourist+attractions"]) {
-                   self.attractions = [Event eventsWithArray:dataDictionary[@"businesses"]];
+                   self.attractions = [Event eventsWithArray:dataDictionary[@"businesses"] withType:@"attraction"];
                } else {
-                   self.restaurants = [Event eventsWithArray:dataDictionary[@"businesses"]];
+                   self.restaurants = [Event eventsWithArray:dataDictionary[@"businesses"] withType:@"restaurant"];
                }
                [self.eventsTableView reloadData];
                if ((self.segmentedControl.selectedSegmentIndex == 0 && self.attractions.count > 0) || (self.segmentedControl.selectedSegmentIndex == 1 && self.restaurants.count > 0)) {

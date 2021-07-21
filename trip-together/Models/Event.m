@@ -19,6 +19,7 @@
 @dynamic categories;
 @dynamic priceLevel;
 @dynamic reviewCount;
+@dynamic type;
 
 @dynamic group;
 @dynamic startTime;
@@ -28,7 +29,7 @@
     return @"Event";
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary withType:(NSString *)type {
     self = [super init];
     if (self) {
         self.yelpID = dictionary[@"id"];
@@ -42,14 +43,15 @@
         self.categories = dictionary[@"categories"];
         self.priceLevel = dictionary[@"price"] ? dictionary[@"price"] : @"";
         self.reviewCount = [NSString stringWithFormat:@"%@", dictionary[@"review_count"]];
+        self.type = type;
     }
     return self;
 }
 
-+ (NSMutableArray *)eventsWithArray:(NSArray *)dictionaries {
++ (NSMutableArray *)eventsWithArray:(NSArray *)dictionaries withType:(NSString *)type {
     NSMutableArray *events = [NSMutableArray array];
     for (NSDictionary *dictionary in dictionaries) {
-        Event *event = [[Event alloc] initWithDictionary: dictionary];
+        Event *event = [[Event alloc] initWithDictionary: dictionary withType:type];
         [events addObject:event];
     }
     return events;
@@ -70,6 +72,7 @@
     newEvent.categories = self.categories;
     newEvent.priceLevel = self.priceLevel;
     newEvent.reviewCount = self.reviewCount;
+    newEvent.type = self.type;
     return newEvent;
 }
 

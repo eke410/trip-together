@@ -22,13 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) NSString *priceLevel;
 @property (nonatomic, strong) NSString *reviewCount;
+@property (nonatomic, strong) NSString *type;
 
 @property (nonatomic, strong) Group *group;
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *endTime;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-+ (NSMutableArray *)eventsWithArray:(NSArray *)dictionaries;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary withType:(NSString *)type;
++ (NSMutableArray *)eventsWithArray:(NSArray *)dictionaries withType:(NSString *)type;
 
 @end
 
