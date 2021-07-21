@@ -17,6 +17,9 @@ PODS:
   - Bolts/Tasks (1.9.1)
   - DateTools (2.0.0)
   - GooglePlaces (5.0.0)
+  - ImageSlideshow (1.9.2):
+    - ImageSlideshow/Core (= 1.9.2)
+  - ImageSlideshow/Core (1.9.2)
   - Parse (1.19.2):
     - Parse/Core (= 1.19.2)
   - Parse/Core (1.19.2):
@@ -28,6 +31,7 @@ DEPENDENCIES:
   - AFNetworking
   - DateTools
   - GooglePlaces
+  - ImageSlideshow (~> 1.9.0)
   - Parse
   - TagListView (~> 1.0)
   - "UITextView+Placeholder"
@@ -38,6 +42,7 @@ SPEC REPOS:
     - Bolts
     - DateTools
     - GooglePlaces
+    - ImageSlideshow
     - Parse
     - TagListView
     - "UITextView+Placeholder"
@@ -47,10 +52,11 @@ SPEC CHECKSUMS:
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   GooglePlaces: 5d87ca13ed98b7a937e0d8bc7026f718c7263271
+  ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
   Parse: 081fb8755c3000fd11df817eec235def233d0af3
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 4976eee7302e02c42f4fc52ba589c7dcc2754561
+PODFILE CHECKSUM: 1d4e3a82f9856ce6ee8fded653014380f5dcf85f
 
 COCOAPODS: 1.10.1
