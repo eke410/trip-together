@@ -35,10 +35,16 @@
         NSString *endTimeString = [self.event.endTime formattedDateWithFormat:@"MMM d, h:mm a"];
         self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startTimeString, endTimeString];
     }
-
         
     NSURL *url = [NSURL URLWithString:self.event.imageURLString];
     [self.photoImageView setImageWithURL:url];
+    
+    if ([self.event.type isEqualToString:@"attraction"]) {
+        [self.typeImageView setImage:[UIImage imageNamed:@"attraction_icon"]];
+        [self.typeImageView setBackgroundColor:[UIColor systemTealColor]];
+    } else {
+        [self.typeImageView setImage:[UIImage imageNamed:@"restaurant_icon"]];
+    }
 }
 
 @end

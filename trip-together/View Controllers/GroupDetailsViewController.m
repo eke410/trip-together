@@ -6,7 +6,7 @@
 //
 
 #import "GroupDetailsViewController.h"
-#import "EventCell.h"
+#import "GroupEventCell.h"
 #import "GroupDetailsInfoViewController.h"
 #import "EventDetailsViewController.h"
 
@@ -57,7 +57,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    GroupEventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"GroupEventCell"];
     cell.event = self.events[indexPath.row];
     [cell refreshData];
     return cell;
