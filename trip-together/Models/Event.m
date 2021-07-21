@@ -19,6 +19,7 @@
 @dynamic categories;
 @dynamic priceLevel;
 @dynamic reviewCount;
+@dynamic photoURLStrings;
 @dynamic type;
 
 @dynamic group;
@@ -72,6 +73,7 @@
     newEvent.categories = self.categories;
     newEvent.priceLevel = self.priceLevel;
     newEvent.reviewCount = self.reviewCount;
+    newEvent.photoURLStrings = self.photoURLStrings;
     newEvent.type = self.type;
     return newEvent;
 }

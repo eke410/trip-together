@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) NSString *priceLevel;
 @property (nonatomic, strong) NSString *reviewCount;
+@property (nonatomic, strong) NSArray *photoURLStrings;
 @property (nonatomic, strong) NSString *type;
 
 @property (nonatomic, strong) Group *group;

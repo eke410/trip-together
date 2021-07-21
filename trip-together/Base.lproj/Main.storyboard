@@ -826,12 +826,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LhW-yY-Dow">
-                                <rect key="frame" x="0.0" y="88" width="390" height="240"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="2ta-7G-dK9"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIU-Vo-1oE">
                                 <rect key="frame" x="16" y="374.66666666666669" width="358" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
@@ -920,53 +914,91 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRE-qi-gLF" customClass="ImageSlideshow" customModule="ImageSlideshow">
+                                <rect key="frame" x="0.0" y="88" width="390" height="240"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="IAV-Ju-djw"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="q7z-nW-beU" appends="YES" id="bMn-wq-FEL"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HXw-ks-MhG">
+                                <rect key="frame" x="268" y="286" width="110" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="AIt-Jh-plr"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                <state key="normal" title="More photos">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tappedMorePhotosButton:" destination="EaE-Ne-Z8W" eventType="touchUpInside" id="uqh-gF-oYv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zgI-vV-n2f"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LhW-yY-Dow" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" id="1eR-eD-IKI"/>
+                            <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="HXw-ks-MhG" secondAttribute="trailing" constant="12" id="0vH-Ih-FRl"/>
+                            <constraint firstItem="bRE-qi-gLF" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" id="2Jr-Rb-ZLj"/>
                             <constraint firstItem="478-Lm-Jrm" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="8Z5-M1-PI0"/>
                             <constraint firstItem="hVQ-7q-rAD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k4T-B1-Qiy" secondAttribute="trailing" constant="16" id="FQL-gL-1Rl"/>
                             <constraint firstItem="ukT-ea-XWs" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" constant="16" id="Gym-cp-UiM"/>
                             <constraint firstItem="BIU-Vo-1oE" firstAttribute="top" secondItem="ukT-ea-XWs" secondAttribute="bottom" constant="2" id="Iq8-uk-EIB"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="bottom" secondItem="9pq-Xb-7fX" secondAttribute="bottom" constant="16" id="L9h-sQ-CuI"/>
                             <constraint firstItem="EIK-Ks-bGb" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="PZo-07-xFc"/>
+                            <constraint firstItem="bRE-qi-gLF" firstAttribute="bottom" secondItem="HXw-ks-MhG" secondAttribute="bottom" constant="12" id="PlW-O5-3Rp"/>
                             <constraint firstItem="W10-Sk-Sfc" firstAttribute="leading" secondItem="EIK-Ks-bGb" secondAttribute="trailing" constant="4" id="Pp4-Rc-zxx"/>
                             <constraint firstItem="9pq-Xb-7fX" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" constant="16" id="RGj-Og-UcZ"/>
+                            <constraint firstItem="bRE-qi-gLF" firstAttribute="trailing" secondItem="zgI-vV-n2f" secondAttribute="trailing" id="Sin-z0-zvh"/>
                             <constraint firstItem="BIU-Vo-1oE" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" constant="16" id="TRf-6I-C8B"/>
                             <constraint firstItem="rHx-8l-b3u" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" constant="16" id="UkX-cx-W4x"/>
                             <constraint firstItem="W10-Sk-Sfc" firstAttribute="centerY" secondItem="EIK-Ks-bGb" secondAttribute="centerY" id="X6Y-Q5-J7o"/>
                             <constraint firstItem="hVQ-7q-rAD" firstAttribute="centerY" secondItem="k4T-B1-Qiy" secondAttribute="centerY" id="Xpt-KA-L81"/>
                             <constraint firstItem="EIK-Ks-bGb" firstAttribute="top" secondItem="k4T-B1-Qiy" secondAttribute="bottom" constant="8" id="cit-sl-179"/>
+                            <constraint firstItem="bRE-qi-gLF" firstAttribute="top" secondItem="zgI-vV-n2f" secondAttribute="top" id="fGf-GE-riW"/>
                             <constraint firstItem="478-Lm-Jrm" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" id="hYz-zE-oQR"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="9pq-Xb-7fX" secondAttribute="trailing" constant="16" id="i7k-3d-gd1"/>
-                            <constraint firstItem="LhW-yY-Dow" firstAttribute="top" secondItem="zgI-vV-n2f" secondAttribute="top" id="iqN-o4-QUJ"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" constant="16" id="jPU-2n-2bM"/>
                             <constraint firstItem="hVQ-7q-rAD" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" id="kX0-JG-O4b"/>
                             <constraint firstItem="k4T-B1-Qiy" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="lfG-8T-26T"/>
-                            <constraint firstItem="LhW-yY-Dow" firstAttribute="trailing" secondItem="zgI-vV-n2f" secondAttribute="trailing" id="m4Y-Fs-6gx"/>
                             <constraint firstItem="k4T-B1-Qiy" firstAttribute="top" secondItem="BIU-Vo-1oE" secondAttribute="bottom" constant="4" id="mxD-kg-puy"/>
                             <constraint firstItem="rHx-8l-b3u" firstAttribute="top" secondItem="478-Lm-Jrm" secondAttribute="bottom" constant="6" id="obU-bp-jJO"/>
+                            <constraint firstItem="ukT-ea-XWs" firstAttribute="top" secondItem="bRE-qi-gLF" secondAttribute="bottom" constant="16" id="ocB-6h-5bl"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="W10-Sk-Sfc" secondAttribute="trailing" constant="16" id="pTC-UH-sGS"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="BIU-Vo-1oE" secondAttribute="trailing" constant="16" id="qiV-6Q-glF"/>
                             <constraint firstItem="478-Lm-Jrm" firstAttribute="top" secondItem="EIK-Ks-bGb" secondAttribute="bottom" constant="12" id="svt-yo-hhp"/>
-                            <constraint firstItem="ukT-ea-XWs" firstAttribute="top" secondItem="LhW-yY-Dow" secondAttribute="bottom" constant="16" id="wdB-r0-teX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event Details" id="dzV-SO-uaN"/>
                     <connections>
                         <outlet property="bookEventButton" destination="9pq-Xb-7fX" id="lH2-jc-OGJ"/>
                         <outlet property="categoriesTagListView" destination="478-Lm-Jrm" id="Nm3-B8-pkw"/>
+                        <outlet property="imageSlideshow" destination="bRE-qi-gLF" id="kR0-gY-Q4f"/>
                         <outlet property="locationLabel" destination="BIU-Vo-1oE" id="cpe-Sj-k5n"/>
+                        <outlet property="morePhotosButton" destination="HXw-ks-MhG" id="t3q-v3-czf"/>
                         <outlet property="nameLabel" destination="ukT-ea-XWs" id="Typ-eV-tXn"/>
                         <outlet property="phoneLabel" destination="k4T-B1-Qiy" id="ui7-Rc-DZz"/>
-                        <outlet property="photoImageView" destination="LhW-yY-Dow" id="lDl-Ed-7su"/>
                         <outlet property="priceLevelLabel" destination="hVQ-7q-rAD" id="sIk-yI-Fxu"/>
                         <outlet property="ratingImageView" destination="EIK-Ks-bGb" id="NEt-bf-g11"/>
                         <outlet property="reviewCountLabel" destination="W10-Sk-Sfc" id="zoO-fR-mTL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgF-Ur-3Ra" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="q7z-nW-beU">
+                    <connections>
+                        <action selector="tappedImageSlideshow:" destination="EaE-Ne-Z8W" id="lgP-2W-0lY"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-563.07692307692309" y="438.62559241706157"/>
         </scene>
