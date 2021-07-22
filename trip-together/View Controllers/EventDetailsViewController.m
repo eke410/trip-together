@@ -10,6 +10,7 @@
 #import "BookEventViewController.h"
 #import "TagListView-Swift.h"
 #import "ImageSlideshow-Swift.h"
+#import "APIManager.h"
 
 @interface EventDetailsViewController ()
 
@@ -23,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *bookEventButton;
 @property (weak, nonatomic) IBOutlet ImageSlideshow *imageSlideshow;
 @property (weak, nonatomic) IBOutlet UIButton *morePhotosButton;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *websiteButton;
 
 @end
 
@@ -59,6 +62,17 @@
     [self.ratingImageView setImage:ratingImage];
     
     [self refreshPhotos];
+    
+    if ([self.event.placeDescription isEqualToString:@"not queried yet"]) {
+        self.descriptionLabel.text = @"";
+        [self queryDetails];
+    } else {
+        self.descriptionLabel.text = self.event.placeDescription;
+    }
+    
+    if (![self.event.websiteURL isEqualToString:@""]) {
+        [self.websiteButton setHidden:false];
+    }
 }
 
 - (void)refreshPhotos {
@@ -80,7 +94,50 @@
     }
 }
 
-- (void)queryEventPhotos {
+- (void)queryDetails {
+    // query event details from Foursquare API, store description and website URL
+    NSDictionary *params = @{
+        @"ll": [NSString stringWithFormat:@"%@,%@", self.event.latitude, self.event.longitude],
+        @"query": [self.event.name stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]],
+        @"radius": @"200",
+        @"limit": @"1",
+    };
+    [APIManager queryFoursquareDetailsWithParams:params withCompletion:^(NSDictionary * _Nonnull details, NSError * _Nonnull error) {
+        if (details) {
+            self.event.placeDescription = details[@"description"];
+            self.event.websiteURL = details[@"websiteURL"];
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                self.descriptionLabel.alpha = 0.0f;
+                self.descriptionLabel.text = self.event.placeDescription;
+                self.descriptionLabel.alpha = 1.0f;
+            }];
+            
+            if (![self.event.websiteURL isEqualToString:@""]) {
+                [self.websiteButton setHidden:false];
+            }
+        } else {
+            NSLog(@"Error getting event details from Foursquare: %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (IBAction)tappedYelpURLButton:(id)sender {
+    NSURL *url = [NSURL URLWithString:self.event.yelpURL];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+}
+
+- (IBAction)tappedWebsiteButton:(id)sender {
+    NSURL *url = [NSURL URLWithString:self.event.websiteURL];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+}
+
+- (IBAction)tappedImageSlideshow:(id)sender {
+    [self.imageSlideshow presentFullScreenControllerFrom:self completion:nil];
+}
+
+- (IBAction)tappedMorePhotosButton:(id)sender {
+    // query & save Yelp photos
     NSString *URLString = [NSString stringWithFormat:@"https://api.yelp.com/v3/businesses/%@", self.event.yelpID];
 
     // get API Key from Keys.plist
@@ -113,19 +170,6 @@
         }
     }];
     [task resume];
-}
-
-- (IBAction)tappedYelpURLButton:(id)sender {
-    NSURL *url = [NSURL URLWithString:self.event.yelpURL];
-    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-}
-
-- (IBAction)tappedImageSlideshow:(id)sender {
-    [self.imageSlideshow presentFullScreenControllerFrom:self completion:nil];
-}
-
-- (IBAction)tappedMorePhotosButton:(id)sender {
-    [self queryEventPhotos];
 }
 
 #pragma mark - Navigation

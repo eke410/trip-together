@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *imageURLString;
 @property (nonatomic, strong) NSString *location;
+@property (nonatomic, strong) NSString *latitude;
+@property (nonatomic, strong) NSString *longitude;
 @property (nonatomic, strong) NSString *rating;
 @property (nonatomic, strong) NSString *yelpURL;
 @property (nonatomic, strong) NSString *phone;
@@ -23,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *priceLevel;
 @property (nonatomic, strong) NSString *reviewCount;
 @property (nonatomic, strong) NSArray *photoURLStrings;
+@property (nonatomic, strong) NSString *placeDescription;
+@property (nonatomic, strong) NSString *websiteURL;
 @property (nonatomic, strong) NSString *type;
 
 @property (nonatomic, strong) Group *group;

@@ -13,6 +13,8 @@
 @dynamic name;
 @dynamic imageURLString;
 @dynamic location;
+@dynamic latitude;
+@dynamic longitude;
 @dynamic rating;
 @dynamic yelpURL;
 @dynamic phone;
@@ -20,6 +22,8 @@
 @dynamic priceLevel;
 @dynamic reviewCount;
 @dynamic photoURLStrings;
+@dynamic placeDescription;
+@dynamic websiteURL;
 @dynamic type;
 
 @dynamic group;
@@ -38,12 +42,16 @@
         self.imageURLString = dictionary[@"image_url"];
         NSArray *addressArray = dictionary[@"location"][@"display_address"];
         self.location = [addressArray componentsJoinedByString:@", "];
+        self.latitude = [NSString stringWithFormat:@"%@", dictionary[@"coordinates"][@"latitude"]];
+        self.longitude = [NSString stringWithFormat:@"%@", dictionary[@"coordinates"][@"longitude"]];
         self.rating = [NSString stringWithFormat:@"%@", dictionary[@"rating"]];
         self.yelpURL = dictionary[@"url"];
         self.phone = dictionary[@"display_phone"];
         self.categories = dictionary[@"categories"];
         self.priceLevel = dictionary[@"price"] ? dictionary[@"price"] : @"";
         self.reviewCount = [NSString stringWithFormat:@"%@", dictionary[@"review_count"]];
+        self.placeDescription = @"not queried yet";
+        self.websiteURL = @"";
         self.type = type;
     }
     return self;
@@ -64,6 +72,8 @@
     newEvent.name = self.name;
     newEvent.imageURLString = self.imageURLString;
     newEvent.location = self.location;
+    newEvent.latitude = self.latitude;
+    newEvent.longitude = self.longitude;
     newEvent.rating = self.rating;
     newEvent.yelpURL = self.yelpURL;
     newEvent.group = self.group;
@@ -74,6 +84,8 @@
     newEvent.priceLevel = self.priceLevel;
     newEvent.reviewCount = self.reviewCount;
     newEvent.photoURLStrings = self.photoURLStrings;
+    newEvent.placeDescription = self.placeDescription;
+    newEvent.websiteURL = self.websiteURL;
     newEvent.type = self.type;
     return newEvent;
 }
