@@ -9,6 +9,36 @@
 
 @implementation APIManager
 
++ (void)queryYelpEventsWithParams:(NSDictionary *)params withCompletion:(void(^)(NSArray *dataArray, NSError *error))completion{
+    
+    // get API Key from Keys.plist
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    NSString *APIKey= [dict objectForKey: @"yelpAPIKey"];
+    
+    // make request URL and set authentication value
+    NSString *baseURLString = @"https://api.yelp.com/v3/businesses/search";
+    NSString *fullURLString = [self addParams:params toBaseURLString:baseURLString];
+    
+    NSURL *url = [NSURL URLWithString:fullURLString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", APIKey];
+    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+
+    // make request
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+           if (error != nil) {
+               completion(nil, error);
+           }
+           else {
+               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+               completion(dataDictionary[@"businesses"], nil);
+           }
+       }];
+    [task resume];
+}
+
 + (void)queryYelpPhotosForID:(NSString *)yelpID withCompletion:(void(^)(NSArray *photoURLStrings, NSError *error))completion {
 
     // get API Key from Keys.plist

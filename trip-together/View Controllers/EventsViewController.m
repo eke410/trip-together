@@ -9,6 +9,7 @@
 #import "Event.h"
 #import "EventCell.h"
 #import "EventDetailsViewController.h"
+#import "APIManager.h"
 @import GooglePlaces;
 
 @interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -51,58 +52,6 @@
     [self.segmentedControl addTarget:self action:@selector(changeType) forControlEvents:UIControlEventValueChanged];
     self.attractionsPosition = CGPointMake(0, 0);
     self.restaurantsPosition = CGPointMake(0, 0);
-    
-    [self queryEventsWithURLString:@"https://api.yelp.com/v3/businesses/search?limit=20&location=Manhattan,+NY,+USA&term=top+tourist+attractions"];
-    [self queryEventsWithURLString:@"https://api.yelp.com/v3/businesses/search?limit=20&location=Manhattan,+NY,+USA&term=restaurants"];
-}
-
-- (void)queryEventsWithURLString:(NSString *)URLString {
-    // get API Key from Keys.plist
-    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
-    NSString *APIKey= [dict objectForKey: @"yelpAPIKey"];
-    
-    // set request URL and authentication value
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", APIKey];
-    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
-
-    // make request
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-           if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
-           }
-           else {
-               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               if ([URLString containsString:@"top+tourist+attractions"]) {
-                   self.attractions = [Event eventsWithArray:dataDictionary[@"businesses"] withType:@"attraction"];
-               } else {
-                   self.restaurants = [Event eventsWithArray:dataDictionary[@"businesses"] withType:@"restaurant"];
-               }
-               [self.eventsTableView reloadData];
-               if ((self.segmentedControl.selectedSegmentIndex == 0 && self.attractions.count > 0) || (self.segmentedControl.selectedSegmentIndex == 1 && self.restaurants.count > 0)) {
-                   [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
-               }
-           }
-       }];
-    [task resume];
-}
-
-- (void)queryEventsWithParams:(NSDictionary *)params {
-    // make string for request params
-    NSString *paramString = @"&";
-    for (NSString *key in params) {
-        NSString *newParamString = [NSString stringWithFormat:@"%@=%@&", key, [params objectForKey:key]];
-        paramString = [paramString stringByAppendingString:newParamString];
-    }
-    paramString = [paramString substringToIndex:[paramString length]-1];
-    
-    // add param string to yelp event query strings
-    [self queryEventsWithURLString:[@"https://api.yelp.com/v3/businesses/search?term=top+tourist+attractions" stringByAppendingString:paramString]];
-    [self queryEventsWithURLString:[@"https://api.yelp.com/v3/businesses/search?term=restaurants" stringByAppendingString:paramString]];
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -152,13 +101,39 @@
     self.searchBar.text = place.formattedAddress;
     [self.tableView setHidden:true];
     
-    // queries events with selected location
-    NSString *location = [place.formattedAddress stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"location", @"limit", nil];
-    NSArray *values = [[NSArray alloc] initWithObjects:location, @"20", nil];
-    NSDictionary *params = [[NSDictionary alloc] initWithObjects:values forKeys:keys];
-    [self queryEventsWithParams:params];
+    // queries attractions with selected location
+    NSMutableDictionary *params = [@{
+        @"location": [place.formattedAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]],
+        @"limit": @"20",
+        @"term": @"top+tourist+attractions",
+    } mutableCopy];
+    [APIManager queryYelpEventsWithParams:params withCompletion:^(NSArray * _Nonnull dataArray, NSError * _Nonnull error) {
+        if (!error) {
+            self.attractions = [Event eventsWithArray:dataArray withType:@"attraction"];
+            [self.eventsTableView reloadData];
+            if (self.segmentedControl.selectedSegmentIndex == 0 && self.attractions.count > 0) {
+                [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+            }
+        } else {
+            NSLog(@"Error querying attractions from Yelp: %@", error.localizedDescription);
+        }
+    }];
     
+    // queries restaurants with selected location
+    params[@"term"] = @"restaurants";
+    [APIManager queryYelpEventsWithParams:params withCompletion:^(NSArray * _Nonnull dataArray, NSError * _Nonnull error) {
+        if (!error) {
+            self.restaurants = [Event eventsWithArray:dataArray withType:@"restaurant"];
+            [self.eventsTableView reloadData];
+            if (self.segmentedControl.selectedSegmentIndex == 1 && self.restaurants.count > 0) {
+                [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+            }
+        } else {
+            NSLog(@"Error querying restaurants from Yelp: %@", error.localizedDescription);
+        }
+    }];
+    
+    // resets tableview scroll positions 
     self.attractionsPosition = CGPointMake(0, 0);
     self.restaurantsPosition = CGPointMake(0, 0);
 }
