@@ -137,29 +137,9 @@
 }
 
 - (IBAction)tappedMorePhotosButton:(id)sender {
-    // query & save Yelp photos
-    NSString *URLString = [NSString stringWithFormat:@"https://api.yelp.com/v3/businesses/%@", self.event.yelpID];
-
-    // get API Key from Keys.plist
-    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
-    NSString *APIKey= [dict objectForKey: @"yelpAPIKey"];
-
-    // set request URL and authentication value
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", APIKey];
-    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
-
-    // make request
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
-        }
-        else {
-            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            self.event.photoURLStrings = dataDictionary[@"photos"];
+    [APIManager queryYelpPhotosForID:self.event.yelpID withCompletion:^(NSArray * _Nonnull photoURLStrings, NSError * _Nonnull error) {
+        if (!error) {
+            self.event.photoURLStrings = photoURLStrings;
             [self refreshPhotos];
             [self.imageSlideshow presentFullScreenControllerFrom:self completion:nil];
             
@@ -167,9 +147,10 @@
             if (self.event.group) {
                 [self.event saveInBackground];
             }
+        } else {
+            NSLog(@"Error querying photos from Yelp: %@", error.localizedDescription);
         }
     }];
-    [task resume];
 }
 
 #pragma mark - Navigation

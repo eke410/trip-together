@@ -9,6 +9,34 @@
 
 @implementation APIManager
 
++ (void)queryYelpPhotosForID:(NSString *)yelpID withCompletion:(void(^)(NSArray *photoURLStrings, NSError *error))completion {
+
+    // get API Key from Keys.plist
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    NSString *APIKey= [dict objectForKey: @"yelpAPIKey"];
+
+    // set request URL and authentication value
+    NSString *URLString = [NSString stringWithFormat:@"https://api.yelp.com/v3/businesses/%@", yelpID];
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", APIKey];
+    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+
+    // make request
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            completion(nil, error);
+        }
+        else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            completion(dataDictionary[@"photos"], nil);
+        }
+    }];
+    [task resume];
+}
+
 + (void)queryFoursquareDetailsWithParams:(NSDictionary *)params withCompletion:(void(^)(NSDictionary *details, NSError *error))completion {
     
     // get authentication keys from Keys.plist
@@ -46,7 +74,6 @@
         }
     }];
     [task resume];
-    
 }
 
 + (void)queryFoursquareDetailsForVenueWithID:(NSString *)venueID withCompletion:(void(^)(NSDictionary *details, NSError *error))completion {
@@ -85,7 +112,6 @@
         }
     }];
     [task resume];
-    
 }
 
 + (NSString *)addParams:(NSDictionary *)params toBaseURLString:(NSString *)baseURLString {
