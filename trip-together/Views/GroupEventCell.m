@@ -41,9 +41,11 @@
     
     if ([self.event.type isEqualToString:@"attraction"]) {
         [self.typeImageView setImage:[UIImage imageNamed:@"attraction_icon"]];
-        [self.typeImageView setBackgroundColor:[UIColor systemTealColor]];
+        self.typeImageView.backgroundColor = [UIColor colorWithRed:114/255.0 green:205/255.0 blue:233/255.0 alpha:1];
     } else {
         [self.typeImageView setImage:[UIImage imageNamed:@"restaurant_icon"]];
+        self.typeImageView.backgroundColor = [UIColor colorWithRed:185/255.0 green:157/255.0 blue:231/255.0 alpha:1];
+
     }
 }
 
