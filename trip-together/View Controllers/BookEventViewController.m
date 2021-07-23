@@ -23,6 +23,7 @@
 @property (strong, nonatomic) UIAlertController *invalidDateAlert;
 @property (strong, nonatomic) UIAlertController *conflictAlert;
 @property (strong, nonatomic) UIAlertController *groupDeletedAlert;
+@property (strong, nonatomic) UIAlertController *groupNotSelectedAlert;
 
 @end
 
@@ -64,6 +65,9 @@
     
     self.groupDeletedAlert = [UIAlertController alertControllerWithTitle:@"Group does not exist anymore" message:@"Please select a different group." preferredStyle:UIAlertControllerStyleAlert];
     [self.groupDeletedAlert addAction:okAction];
+    
+    self.groupNotSelectedAlert = [UIAlertController alertControllerWithTitle:@"Group not selected" message:@"Please reload and select a group." preferredStyle:UIAlertControllerStyleAlert];
+    [self.groupNotSelectedAlert addAction:okAction];
     
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
@@ -126,6 +130,10 @@
     }
     
     // checks if group still exists
+    if (!newEvent.group || [newEvent.group isEqual:[NSNull null]]) {
+        [self presentViewController:self.groupNotSelectedAlert animated:YES completion:nil];
+        return;
+    }
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
     [query whereKey:@"objectId" equalTo:newEvent.group.objectId];
     NSArray *groups = [query findObjects];
