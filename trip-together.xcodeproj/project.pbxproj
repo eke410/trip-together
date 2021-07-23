@@ -33,6 +33,7 @@
 		04E89A61269DEF0D001593BA /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E89A60269DEF0D001593BA /* Event.m */; };
 		04E89A63269E16DA001593BA /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04E89A62269E16DA001593BA /* Keys.plist */; };
 		04E89A66269E22AF001593BA /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E89A65269E22AF001593BA /* EventCell.m */; };
+		04E996E526AB5DFE005E1FBE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E996E426AB5DFE005E1FBE /* MapKit.framework */; };
 		04FC8C7426A9F3CD004C9069 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FC8C7326A9F3CD004C9069 /* APIManager.m */; };
 		8F4331FB08DED8492EC640DD /* Pods_trip_togetherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44218E535CBA07A564C1ACD8 /* Pods_trip_togetherTests.framework */; };
 		ECAA1B2B4177EBC5EF1AF95C /* Pods_trip_together_trip_togetherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DAC9525131C5A0F00203B3 /* Pods_trip_together_trip_togetherUITests.framework */; };
@@ -108,6 +109,7 @@
 		04E89A62269E16DA001593BA /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		04E89A64269E22AF001593BA /* EventCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
 		04E89A65269E22AF001593BA /* EventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
+		04E996E426AB5DFE005E1FBE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04FC8C7226A9F3CD004C9069 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		04FC8C7326A9F3CD004C9069 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		08321C2A08A738B3D200D575 /* Pods_trip_together.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trip_together.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E996E526AB5DFE005E1FBE /* MapKit.framework in Frameworks */,
 				F4FAC8BB68620D9C47D55F22 /* Pods_trip_together.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +280,7 @@
 		208CA418504687B877EC5E98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04E996E426AB5DFE005E1FBE /* MapKit.framework */,
 				08321C2A08A738B3D200D575 /* Pods_trip_together.framework */,
 				55DAC9525131C5A0F00203B3 /* Pods_trip_together_trip_togetherUITests.framework */,
 				44218E535CBA07A564C1ACD8 /* Pods_trip_togetherTests.framework */,

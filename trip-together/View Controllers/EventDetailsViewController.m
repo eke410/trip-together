@@ -11,6 +11,7 @@
 #import "TagListView-Swift.h"
 #import "ImageSlideshow-Swift.h"
 #import "APIManager.h"
+#import <MapKit/MapKit.h>
 
 @interface EventDetailsViewController ()
 
@@ -26,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *morePhotosButton;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *websiteButton;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end
 
@@ -73,6 +75,15 @@
     if (![self.event.websiteURL isEqualToString:@""]) {
         [self.websiteButton setHidden:false];
     }
+    
+    // set up map region, add pin at event location
+    CLLocationCoordinate2D eventCoord = CLLocationCoordinate2DMake([self.event.latitude floatValue], [self.event.longitude floatValue]);
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMake(eventCoord, MKCoordinateSpanMake(0.005, 0.005));
+    [self.mapView setRegion:mapRegion];
+    
+    MKPointAnnotation *annotation = [MKPointAnnotation new];
+    annotation.coordinate = eventCoord;
+    [self.mapView addAnnotation:annotation];
 }
 
 - (void)refreshPhotos {
@@ -131,6 +142,12 @@
     NSString *cleanedPhoneNumber = [[self.event.phone componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet]] componentsJoinedByString:@""];
     NSURL *phoneNumber = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@", cleanedPhoneNumber]];
     [[UIApplication sharedApplication] openURL:phoneNumber options:@{} completionHandler:nil];
+}
+
+- (IBAction)tappedMapButton:(id)sender {
+    [UIView transitionWithView:self.mapView duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [self.mapView setHidden:!self.mapView.hidden];
+    } completion:nil];
 }
 
 - (IBAction)tappedYelpURLButton:(id)sender {

@@ -848,7 +848,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukT-ea-XWs">
-                                <rect key="frame" x="16" y="344" width="358" height="28.666666666666686"/>
+                                <rect key="frame" x="16" y="344" width="318" height="28.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -879,7 +879,7 @@
                                 <rect key="frame" x="16.000000000000004" y="399" width="46.333333333333343" height="19.333333333333314"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.32549019607843138" green="0.56470588235294117" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="rOr-XH-qpV" appends="YES" id="FeA-FY-xnb"/>
@@ -969,12 +969,33 @@
                                     <action selector="tappedWebsiteButton:" destination="EaE-Ne-Z8W" eventType="touchUpInside" id="9QD-lz-3xV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDI-Ux-0Dd">
+                                <rect key="frame" x="350" y="344" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="EwF-3E-vnC"/>
+                                    <constraint firstAttribute="height" constant="28" id="bqU-LN-bht"/>
+                                </constraints>
+                                <state key="normal">
+                                    <imageReference key="image" image="attraction_icon" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedMapButton:" destination="EaE-Ne-Z8W" eventType="touchUpInside" id="nDX-5m-0Uo"/>
+                                </connections>
+                            </button>
+                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1v4-1K-bNb">
+                                <rect key="frame" x="214" y="395" width="160" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="KHy-1r-CPT"/>
+                                    <constraint firstAttribute="width" constant="160" id="KyF-Gr-iB5"/>
+                                </constraints>
+                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zgI-vV-n2f"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="HXw-ks-MhG" secondAttribute="trailing" constant="12" id="0vH-Ih-FRl"/>
                             <constraint firstItem="bRE-qi-gLF" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" id="2Jr-Rb-ZLj"/>
+                            <constraint firstItem="1v4-1K-bNb" firstAttribute="top" secondItem="BIU-Vo-1oE" secondAttribute="bottom" id="3bE-25-Hp2"/>
                             <constraint firstItem="478-Lm-Jrm" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="8Z5-M1-PI0"/>
                             <constraint firstItem="hVQ-7q-rAD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k4T-B1-Qiy" secondAttribute="trailing" constant="16" id="FQL-gL-1Rl"/>
                             <constraint firstItem="ukT-ea-XWs" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" constant="16" id="Gym-cp-UiM"/>
@@ -990,23 +1011,26 @@
                             <constraint firstItem="rHx-8l-b3u" firstAttribute="leading" secondItem="zgI-vV-n2f" secondAttribute="leading" constant="16" id="UkX-cx-W4x"/>
                             <constraint firstItem="W10-Sk-Sfc" firstAttribute="centerY" secondItem="EIK-Ks-bGb" secondAttribute="centerY" id="X6Y-Q5-J7o"/>
                             <constraint firstItem="hVQ-7q-rAD" firstAttribute="centerY" secondItem="k4T-B1-Qiy" secondAttribute="centerY" id="Xpt-KA-L81"/>
+                            <constraint firstItem="DDI-Ux-0Dd" firstAttribute="top" secondItem="ukT-ea-XWs" secondAttribute="top" id="YRH-IR-PWY"/>
                             <constraint firstItem="nEY-Zw-2Ut" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="Zgd-UH-OKy"/>
+                            <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="DDI-Ux-0Dd" secondAttribute="trailing" constant="12" id="bMU-fn-Jdi"/>
                             <constraint firstItem="EIK-Ks-bGb" firstAttribute="top" secondItem="k4T-B1-Qiy" secondAttribute="bottom" constant="8" id="cit-sl-179"/>
                             <constraint firstItem="bRE-qi-gLF" firstAttribute="top" secondItem="zgI-vV-n2f" secondAttribute="top" id="fGf-GE-riW"/>
-                            <constraint firstItem="478-Lm-Jrm" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" id="hYz-zE-oQR"/>
+                            <constraint firstItem="478-Lm-Jrm" firstAttribute="trailing" secondItem="BIU-Vo-1oE" secondAttribute="trailing" id="hYz-zE-oQR"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="9pq-Xb-7fX" secondAttribute="trailing" constant="16" id="i7k-3d-gd1"/>
-                            <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" constant="16" id="jPU-2n-2bM"/>
+                            <constraint firstItem="DDI-Ux-0Dd" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="trailing" constant="16" id="jPU-2n-2bM"/>
                             <constraint firstItem="BRA-0L-7HB" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="kNS-3J-qdB"/>
-                            <constraint firstItem="hVQ-7q-rAD" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" id="kX0-JG-O4b"/>
+                            <constraint firstItem="hVQ-7q-rAD" firstAttribute="trailing" secondItem="BIU-Vo-1oE" secondAttribute="trailing" id="kX0-JG-O4b"/>
                             <constraint firstItem="k4T-B1-Qiy" firstAttribute="leading" secondItem="ukT-ea-XWs" secondAttribute="leading" id="lfG-8T-26T"/>
                             <constraint firstItem="k4T-B1-Qiy" firstAttribute="top" secondItem="BIU-Vo-1oE" secondAttribute="bottom" constant="4" id="mxD-kg-puy"/>
                             <constraint firstItem="rHx-8l-b3u" firstAttribute="top" secondItem="BRA-0L-7HB" secondAttribute="bottom" constant="8" id="obU-bp-jJO"/>
                             <constraint firstItem="ukT-ea-XWs" firstAttribute="top" secondItem="bRE-qi-gLF" secondAttribute="bottom" constant="16" id="ocB-6h-5bl"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="W10-Sk-Sfc" secondAttribute="trailing" constant="16" id="pTC-UH-sGS"/>
-                            <constraint firstItem="BRA-0L-7HB" firstAttribute="trailing" secondItem="ukT-ea-XWs" secondAttribute="trailing" id="qKv-MT-6ZB"/>
+                            <constraint firstItem="BRA-0L-7HB" firstAttribute="trailing" secondItem="BIU-Vo-1oE" secondAttribute="trailing" id="qKv-MT-6ZB"/>
                             <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="BIU-Vo-1oE" secondAttribute="trailing" constant="16" id="qiV-6Q-glF"/>
                             <constraint firstItem="nEY-Zw-2Ut" firstAttribute="top" secondItem="rHx-8l-b3u" secondAttribute="bottom" constant="2" id="r5b-4u-XBz"/>
                             <constraint firstItem="478-Lm-Jrm" firstAttribute="top" secondItem="EIK-Ks-bGb" secondAttribute="bottom" constant="12" id="svt-yo-hhp"/>
+                            <constraint firstItem="zgI-vV-n2f" firstAttribute="trailing" secondItem="1v4-1K-bNb" secondAttribute="trailing" constant="16" id="xPp-r8-d3A"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event Details" id="dzV-SO-uaN"/>
@@ -1016,6 +1040,7 @@
                         <outlet property="descriptionLabel" destination="BRA-0L-7HB" id="C6J-eQ-BWJ"/>
                         <outlet property="imageSlideshow" destination="bRE-qi-gLF" id="kR0-gY-Q4f"/>
                         <outlet property="locationLabel" destination="BIU-Vo-1oE" id="cpe-Sj-k5n"/>
+                        <outlet property="mapView" destination="1v4-1K-bNb" id="EG3-fO-nM9"/>
                         <outlet property="morePhotosButton" destination="HXw-ks-MhG" id="t3q-v3-czf"/>
                         <outlet property="nameLabel" destination="ukT-ea-XWs" id="Typ-eV-tXn"/>
                         <outlet property="phoneLabel" destination="k4T-B1-Qiy" id="ui7-Rc-DZz"/>
@@ -1479,6 +1504,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0_star" width="162" height="30"/>
+        <image name="attraction_icon" width="240" height="240"/>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
