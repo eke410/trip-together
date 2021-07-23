@@ -18,7 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endDatePicker;
+@property (weak, nonatomic) IBOutlet UILabel *forGroupLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *groupPicker;
+@property (weak, nonatomic) IBOutlet UIButton *bookEventButton;
 @property (strong, nonatomic) NSArray *groups;
 @property (strong, nonatomic) UIAlertController *invalidDateAlert;
 @property (strong, nonatomic) UIAlertController *conflictAlert;
@@ -81,6 +83,13 @@
         if (groups != nil) {
             self.groups = (NSMutableArray *)groups;
             [self.groupPicker reloadAllComponents];
+            
+            if (groups.count == 0) {
+                self.forGroupLabel.text = @"\nYou have no groups to book this event for. Please create a group and try again.";
+                [self.forGroupLabel setFont:[UIFont systemFontOfSize:17 weight:UIFontWeightRegular]];
+                [self.groupPicker setHidden:true];
+                [self.bookEventButton setHidden:true];
+            }
         } else {
             NSLog(@"%@", error.localizedDescription);
         }

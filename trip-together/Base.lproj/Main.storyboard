@@ -398,8 +398,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Trips / Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofA-c8-7Ci">
-                                <rect key="frame" x="16" y="104" width="190" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofA-c8-7Ci">
+                                <rect key="frame" x="16" y="104" width="119" height="29"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -618,7 +618,7 @@
                                 </constraints>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For Group:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWB-So-cG4">
-                                <rect key="frame" x="16" y="219" width="83" height="20.333333333333343"/>
+                                <rect key="frame" x="16" y="219" width="358" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -678,6 +678,7 @@
                             <constraint firstItem="Jh1-LX-5BA" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="VnP-Eg-XhP"/>
                             <constraint firstItem="oYN-6w-Vc6" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="YI3-Zb-mT3"/>
                             <constraint firstItem="9oQ-4B-WYI" firstAttribute="leading" secondItem="XdL-or-E2W" secondAttribute="leading" constant="16" id="YIS-ZQ-9Ca"/>
+                            <constraint firstItem="YWB-So-cG4" firstAttribute="trailing" secondItem="Jh1-LX-5BA" secondAttribute="trailing" id="ZOV-3R-w8u"/>
                             <constraint firstItem="oYN-6w-Vc6" firstAttribute="top" secondItem="XdL-or-E2W" secondAttribute="top" constant="32" id="ebf-Zo-eIh"/>
                             <constraint firstItem="EjU-Cr-iFC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oYN-6w-Vc6" secondAttribute="trailing" constant="16" id="h0P-ue-ZGL"/>
                             <constraint firstItem="Jh1-LX-5BA" firstAttribute="top" secondItem="oYN-6w-Vc6" secondAttribute="bottom" constant="8" id="iOn-t0-ZuL"/>
@@ -693,8 +694,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Book Event" id="UlE-Nq-CTW"/>
                     <connections>
+                        <outlet property="bookEventButton" destination="gWE-Jj-pLB" id="ps5-Ul-ojV"/>
                         <outlet property="endDatePicker" destination="YVc-kq-yAa" id="a7p-tA-K6u"/>
                         <outlet property="eventNameLabel" destination="oYN-6w-Vc6" id="rkg-xG-Tub"/>
+                        <outlet property="forGroupLabel" destination="YWB-So-cG4" id="A2y-uf-TNY"/>
                         <outlet property="groupPicker" destination="vij-iE-w60" id="EfX-5U-weT"/>
                         <outlet property="locationLabel" destination="Jh1-LX-5BA" id="Wae-fg-AdO"/>
                         <outlet property="ratingLabel" destination="EjU-Cr-iFC" id="qRB-xF-wfZ"/>
