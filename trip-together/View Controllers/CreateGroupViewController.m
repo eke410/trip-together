@@ -58,7 +58,7 @@
             NSLog(@"Created group successfully");
         }
     }];
-    [self.navigationController popViewControllerAnimated:true];
+    [self.navigationController popViewControllerAnimated:false];
     [self.delegate didCreateGroup:newGroup];
 }
 
