@@ -65,7 +65,7 @@
     
     if ([self.event.placeDescription isEqualToString:@"not queried yet"]) {
         self.descriptionLabel.text = @"";
-        [self queryDetails];
+//        [self queryDetails];
     } else {
         self.descriptionLabel.text = self.event.placeDescription;
     }
@@ -124,6 +124,13 @@
             NSLog(@"Error getting event details from Foursquare: %@", error.localizedDescription);
         }
     }];
+}
+
+- (IBAction)tappedPhoneNumber:(id)sender {
+    NSLog(@"tapped phone number");
+    NSString *cleanedPhoneNumber = [[self.event.phone componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet]] componentsJoinedByString:@""];
+    NSURL *phoneNumber = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@", cleanedPhoneNumber]];
+    [[UIApplication sharedApplication] openURL:phoneNumber options:@{} completionHandler:nil];
 }
 
 - (IBAction)tappedYelpURLButton:(id)sender {

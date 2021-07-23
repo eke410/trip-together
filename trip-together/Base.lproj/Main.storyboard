@@ -875,11 +875,15 @@
                                     <constraint firstAttribute="width" constant="116" id="XWk-RG-Fch"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4T-B1-Qiy">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4T-B1-Qiy">
                                 <rect key="frame" x="16.000000000000004" y="399" width="46.333333333333343" height="19.333333333333314"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="rOr-XH-qpV" appends="YES" id="FeA-FY-xnb"/>
+                                </connections>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W10-Sk-Sfc">
                                 <rect key="frame" x="136" y="428" width="238" height="18"/>
@@ -1025,6 +1029,11 @@
                 <tapGestureRecognizer id="q7z-nW-beU">
                     <connections>
                         <action selector="tappedImageSlideshow:" destination="EaE-Ne-Z8W" id="lgP-2W-0lY"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="rOr-XH-qpV">
+                    <connections>
+                        <action selector="tappedPhoneNumber:" destination="EaE-Ne-Z8W" id="Zyq-AM-d5f"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
