@@ -60,7 +60,7 @@
     self.conflictAlert = [UIAlertController alertControllerWithTitle:@"Event time conflict" message:@"Some users in group have conflicts" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
     UIAlertAction *bookAction = [UIAlertAction actionWithTitle:@"Book" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self bookEventWithoutValidation];
+        [self bookEventWithoutUserValidation];
     }];
     [self.conflictAlert addAction:cancelAction];
     [self.conflictAlert addAction:bookAction];
@@ -181,14 +181,26 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-- (void)bookEventWithoutValidation {
-    // saves event without any validation steps
+- (void)bookEventWithoutUserValidation {
+    // saves event without any null checks or user validation steps
+    
+    // copies event and saves properties
     Event *newEvent = [self.event copy];
     NSInteger row = (NSInteger)[self.groupPicker selectedRowInComponent:0];
     newEvent.group = self.groups[row];
     newEvent.startTime = self.startDatePicker.date;
     newEvent.endTime = self.endDatePicker.date;
     
+    // checks if group still exists
+    PFQuery *query = [PFQuery queryWithClassName:@"Group"];
+    [query whereKey:@"objectId" equalTo:newEvent.group.objectId];
+    NSArray *groups = [query findObjects];
+    if ([groups count] == 0) {
+        [self presentViewController:self.groupDeletedAlert animated:YES completion:nil];
+        return;
+    }
+    
+    // saves event to Parse
     [newEvent saveInBackground];
     [self dismissViewControllerAnimated:true completion:nil];
 }
