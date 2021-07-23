@@ -22,6 +22,10 @@
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic) CGPoint attractionsPosition;
 @property (nonatomic) CGPoint restaurantsPosition;
+@property (strong, nonatomic) NSString *location;
+@property (nonatomic) BOOL isLoadingData;
+@property (nonatomic) BOOL noMoreAttractionData;
+@property (nonatomic) BOOL noMoreRestaurantData;
 
 @end
 
@@ -31,6 +35,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.attractions = [NSMutableArray new];
+    self.restaurants = [NSMutableArray new];
     
     // filters only geocoding results (only locations) in autocomplete
     GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
@@ -52,6 +59,10 @@
     [self.segmentedControl addTarget:self action:@selector(changeType) forControlEvents:UIControlEventValueChanged];
     self.attractionsPosition = CGPointMake(0, 0);
     self.restaurantsPosition = CGPointMake(0, 0);
+    
+    self.isLoadingData = false;
+    self.noMoreAttractionData = false;
+    self.noMoreRestaurantData = false;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -72,9 +83,11 @@
     } else { // switched from attractions -> restaurants
         self.attractionsPosition = self.eventsTableView.contentOffset;
     }
+    self.isLoadingData = true;
     [self.eventsTableView reloadData];
     [self.eventsTableView layoutIfNeeded];
     [self.eventsTableView setContentOffset:(self.segmentedControl.selectedSegmentIndex == 0 ? self.attractionsPosition : self.restaurantsPosition) animated:NO];
+    self.isLoadingData = false;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,6 +96,60 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isLoadingData) {
+        return;
+    }
+    
+    // load more data if nearing bottom of tableView
+    if (self.segmentedControl.selectedSegmentIndex == 0) { // displaying attractions
+        if (!self.noMoreAttractionData && indexPath.row + 3 == self.attractions.count) {
+            NSString *offset = [NSString stringWithFormat:@"%i", (int)self.attractions.count];
+            [self queryYelpWithLocation:self.location offset:offset term:@"top+tourist+attractions"];
+        }
+    } else { // displaying restaurants
+        if (!self.noMoreRestaurantData && indexPath.row + 3 == self.restaurants.count) {
+            NSString *offset = [NSString stringWithFormat:@"%i", (int)self.restaurants.count];
+            [self queryYelpWithLocation:self.location offset:offset term:@"restaurants"];
+        }
+    }
+}
+
+- (void)queryYelpWithLocation:(NSString *)location offset:(NSString *)offset term:(NSString *)term {
+    // calls APIManager's query Yelp method and stores results
+        self.isLoadingData = true;
+    NSDictionary *params = @{
+        @"location": location,
+        @"offset": offset,
+        @"term": term,
+        @"limit": @"20",
+    };
+    [APIManager queryYelpEventsWithParams:params withCompletion:^(NSArray * _Nonnull dataArray, NSError * _Nonnull error) {
+        if (!error) {
+            if ([term isEqualToString:@"top+tourist+attractions"]) { // store attractions data
+                [self.attractions addObjectsFromArray:[Event eventsWithArray:dataArray withType:@"attraction"]];
+                if (dataArray.count < 20) {
+                    self.noMoreAttractionData = true;
+                }
+            } else { // store restaurants data
+                [self.restaurants addObjectsFromArray:[Event eventsWithArray:dataArray withType:@"restaurant"]];
+                if (dataArray.count < 20) {
+                    self.noMoreRestaurantData = true;
+                }
+            }
+            [self.eventsTableView reloadData];
+            if ([offset isEqualToString:@"0"]) { // scroll to top if querying data from new location
+                if ((self.segmentedControl.selectedSegmentIndex == 0 && self.attractions.count > 0) || (self.segmentedControl.selectedSegmentIndex == 1 && self.restaurants.count > 0)) {
+                    [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+                }
+            }
+            self.isLoadingData = false;
+        } else {
+            NSLog(@"Error querying from Yelp: %@", error.localizedDescription);
+        }
+    }];
 }
 
 #pragma mark - GMSAutocompleteTableDataSourceDelegate
@@ -101,37 +168,17 @@
     self.searchBar.text = place.formattedAddress;
     [self.tableView setHidden:true];
     
-    // queries attractions with selected location
-    NSMutableDictionary *params = [@{
-        @"location": [place.formattedAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]],
-        @"limit": @"20",
-        @"term": @"top+tourist+attractions",
-    } mutableCopy];
-    [APIManager queryYelpEventsWithParams:params withCompletion:^(NSArray * _Nonnull dataArray, NSError * _Nonnull error) {
-        if (!error) {
-            self.attractions = [Event eventsWithArray:dataArray withType:@"attraction"];
-            [self.eventsTableView reloadData];
-            if (self.segmentedControl.selectedSegmentIndex == 0 && self.attractions.count > 0) {
-                [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
-            }
-        } else {
-            NSLog(@"Error querying attractions from Yelp: %@", error.localizedDescription);
-        }
-    }];
+    // clears current data
+    [self.attractions removeAllObjects];
+    [self.restaurants removeAllObjects];
+    self.noMoreAttractionData = false;
+    self.noMoreRestaurantData = false;
     
-    // queries restaurants with selected location
-    params[@"term"] = @"restaurants";
-    [APIManager queryYelpEventsWithParams:params withCompletion:^(NSArray * _Nonnull dataArray, NSError * _Nonnull error) {
-        if (!error) {
-            self.restaurants = [Event eventsWithArray:dataArray withType:@"restaurant"];
-            [self.eventsTableView reloadData];
-            if (self.segmentedControl.selectedSegmentIndex == 1 && self.restaurants.count > 0) {
-                [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
-            }
-        } else {
-            NSLog(@"Error querying restaurants from Yelp: %@", error.localizedDescription);
-        }
-    }];
+    // queries attractions and restaurants with selected location
+    NSString *location = [place.formattedAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    self.location = location;
+    [self queryYelpWithLocation:location offset:@"0" term:@"top+tourist+attractions"];
+    [self queryYelpWithLocation:location offset:@"0" term:@"restaurants"];
     
     // resets tableview scroll positions 
     self.attractionsPosition = CGPointMake(0, 0);
