@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (strong, nonatomic) NSMutableArray *events;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -28,6 +29,10 @@
     
     self.eventsTableView.dataSource = self;
     self.eventsTableView.delegate = self;
+    
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(queryEvents) forControlEvents:UIControlEventValueChanged];
+    [self.eventsTableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void)refreshData {
@@ -49,6 +54,7 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
 }
 

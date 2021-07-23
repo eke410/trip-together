@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) NSMutableArray *groups;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -22,6 +23,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self refreshGroups];
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refreshGroups) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void)refreshGroups {
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
     [query orderByDescending:@"startDate"];
     [query includeKey:@"users"];
@@ -33,10 +45,8 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
-    
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
