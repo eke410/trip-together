@@ -23,7 +23,7 @@
 @property (strong, nonatomic) UIAlertController *invalidDateAlert;
 @property (strong, nonatomic) UIAlertController *conflictAlert;
 @property (strong, nonatomic) UIAlertController *groupDeletedAlert;
-@property (strong, nonatomic) UIAlertController *groupNotSelectedAlert;
+@property (strong, nonatomic) UIAlertController *generalErrorAlert;
 
 @end
 
@@ -66,8 +66,8 @@
     self.groupDeletedAlert = [UIAlertController alertControllerWithTitle:@"Group does not exist anymore" message:@"Please select a different group." preferredStyle:UIAlertControllerStyleAlert];
     [self.groupDeletedAlert addAction:okAction];
     
-    self.groupNotSelectedAlert = [UIAlertController alertControllerWithTitle:@"Group not selected" message:@"Please reload and select a group." preferredStyle:UIAlertControllerStyleAlert];
-    [self.groupNotSelectedAlert addAction:okAction];
+    self.generalErrorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Please try again." preferredStyle:UIAlertControllerStyleAlert];
+    [self.generalErrorAlert addAction:okAction];
     
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
@@ -117,6 +117,15 @@
 #pragma mark - Booking Event & Event Validation
 
 - (IBAction)bookEvent:(id)sender {
+    
+    // checks that event is not null
+    if (!self.event || [self.event isEqual:[NSNull null]]) {
+        self.generalErrorAlert.title = @"Error selecting event";
+        [self presentViewController:self.generalErrorAlert animated:YES completion:nil];
+        return;
+    }
+    
+    // copies event and sets properties
     Event *newEvent = [self.event copy];
     NSInteger row = (NSInteger)[self.groupPicker selectedRowInComponent:0];
     newEvent.group = self.groups[row];
@@ -129,11 +138,14 @@
         return;
     }
     
-    // checks if group still exists
+    // checks that a group is selected
     if (!newEvent.group || [newEvent.group isEqual:[NSNull null]]) {
-        [self presentViewController:self.groupNotSelectedAlert animated:YES completion:nil];
+        self.generalErrorAlert.title = @"Error selecting group";
+        [self presentViewController:self.generalErrorAlert animated:YES completion:nil];
         return;
     }
+    
+    // checks if group still exists
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
     [query whereKey:@"objectId" equalTo:newEvent.group.objectId];
     NSArray *groups = [query findObjects];
