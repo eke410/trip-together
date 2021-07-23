@@ -39,6 +39,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.categoriesTagListView removeAllTags];
+    self.photoImageView.image = nil;
 }
 
 @end
