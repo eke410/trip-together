@@ -114,7 +114,11 @@
             }];
             
             if (![self.event.websiteURL isEqualToString:@""]) {
-                [self.websiteButton setHidden:false];
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.websiteButton.alpha = 0.0f;
+                    [self.websiteButton setHidden:false];
+                    self.websiteButton.alpha = 1.0f;
+                }];
             }
         } else {
             NSLog(@"Error getting event details from Foursquare: %@", error.localizedDescription);
