@@ -187,6 +187,8 @@
 				04D81919269CB2F900C3A9D8 /* Views */,
 				04D8191B269CB30E00C3A9D8 /* Models */,
 				0417942126A72D97007F5448 /* Event Validation */,
+				04FC8C7226A9F3CD004C9069 /* APIManager.h */,
+				04FC8C7326A9F3CD004C9069 /* APIManager.m */,
 				04D818E4269CAE8400C3A9D8 /* AppDelegate.h */,
 				04D818E5269CAE8400C3A9D8 /* AppDelegate.m */,
 				04D818E7269CAE8400C3A9D8 /* SceneDelegate.h */,
@@ -197,8 +199,6 @@
 				04D818F5269CAE8600C3A9D8 /* Info.plist */,
 				04D818F6269CAE8600C3A9D8 /* main.m */,
 				04E89A62269E16DA001593BA /* Keys.plist */,
-				04FC8C7226A9F3CD004C9069 /* APIManager.h */,
-				04FC8C7326A9F3CD004C9069 /* APIManager.m */,
 			);
 			path = "trip-together";
 			sourceTree = "<group>";
