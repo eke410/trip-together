@@ -833,9 +833,9 @@
                                 <rect key="frame" x="0.0" y="88" width="390" height="673"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnK-ed-5cg">
-                                <rect key="frame" x="255" y="139" width="121" height="30"/>
+                                <rect key="frame" x="264" y="104" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Show my location"/>
+                                <state key="normal" title="Show directions"/>
                                 <connections>
                                     <action selector="tappedShowUserLocation:" destination="wcI-34-n67" eventType="touchUpInside" id="Pc2-UT-2TL"/>
                                 </connections>

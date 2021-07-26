@@ -76,15 +76,48 @@
     if ([self.locationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [self.locationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
 
         if (!self.isShowingUserLocation) {
+            // shows user location
             NSArray *annotations = [self.mapView.annotations arrayByAddingObject:self.mapView.userLocation];
             [self.mapView showAnnotations:annotations animated:true];
+            
+            // makes directions request from user location -> event
+            MKDirectionsRequest *request = [MKDirectionsRequest new];
+            [request setSource:[MKMapItem mapItemForCurrentLocation]];
+            CLLocationCoordinate2D eventCoord = CLLocationCoordinate2DMake([self.event.latitude floatValue], [self.event.longitude floatValue]);
+            [request setDestination: [[MKMapItem alloc] initWithPlacemark: [[MKPlacemark alloc] initWithCoordinate:eventCoord]]];
+                        [request setTransportType:MKDirectionsTransportTypeWalking];
+            
+            // calculates and displays directions on map
+            MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
+            [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+                if (!error) {
+                    for (MKRoute *route in [response routes]) {
+                        [self.mapView addOverlay:[route polyline] level:MKOverlayLevelAboveRoads];
+                    }
+                }
+            }];
+            
         } else {
+            // resets map region
             CLLocationCoordinate2D eventCoord = CLLocationCoordinate2DMake([self.event.latitude floatValue], [self.event.longitude floatValue]);
             MKCoordinateRegion mapRegion = MKCoordinateRegionMake(eventCoord, MKCoordinateSpanMake(0.01, 0.01));
             [self.mapView setRegion:mapRegion animated:true];
+            
+            // removes directions overlays
+            [self.mapView removeOverlays: self.mapView.overlays];
         }
         self.isShowingUserLocation = !self.isShowingUserLocation;
     }
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+    if ([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+        [renderer setStrokeColor:[UIColor blueColor]];
+        [renderer setLineWidth:3.0];
+        return renderer;
+    }
+    return nil;
 }
 
 /*
