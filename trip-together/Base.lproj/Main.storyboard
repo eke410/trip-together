@@ -821,6 +821,36 @@
             </objects>
             <point key="canvasLocation" x="600" y="1124.6445497630332"/>
         </scene>
+        <!--Event Map View Controller-->
+        <scene sceneID="0Ty-9a-vX6">
+            <objects>
+                <viewController id="wcI-34-n67" customClass="EventMapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eCK-e1-rPN">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SUP-U5-d9R">
+                                <rect key="frame" x="0.0" y="88" width="390" height="673"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TQ9-cE-GBD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TQ9-cE-GBD" firstAttribute="bottom" secondItem="SUP-U5-d9R" secondAttribute="bottom" id="D6C-z3-8dS"/>
+                            <constraint firstItem="TQ9-cE-GBD" firstAttribute="trailing" secondItem="SUP-U5-d9R" secondAttribute="trailing" id="kDN-MG-BW4"/>
+                            <constraint firstItem="SUP-U5-d9R" firstAttribute="leading" secondItem="TQ9-cE-GBD" secondAttribute="leading" id="oWo-cz-RPj"/>
+                            <constraint firstItem="SUP-U5-d9R" firstAttribute="top" secondItem="TQ9-cE-GBD" secondAttribute="top" id="wE2-c0-YW2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="21H-jf-oet"/>
+                    <connections>
+                        <outlet property="mapView" destination="SUP-U5-d9R" id="b88-Es-VUN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eHA-CH-ZKi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1342" y="439"/>
+        </scene>
         <!--Event Details-->
         <scene sceneID="F2g-YH-cRY">
             <objects>
@@ -865,7 +895,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="P1i-Dv-zUR" kind="presentation" id="eDp-2z-do6"/>
+                                    <segue destination="P1i-Dv-zUR" kind="presentation" identifier="bookEventSegue" id="eDp-2z-do6"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0_star" translatesAutoresizingMaskIntoConstraints="NO" id="EIK-Ks-bGb">
@@ -984,10 +1014,14 @@
                             </button>
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1v4-1K-bNb">
                                 <rect key="frame" x="214" y="395" width="160" height="160"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="KHy-1r-CPT"/>
                                     <constraint firstAttribute="width" constant="160" id="KyF-Gr-iB5"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="uzk-zc-3Qf" appends="YES" id="0rD-pn-bla"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zgI-vV-n2f"/>
@@ -1048,6 +1082,7 @@
                         <outlet property="ratingImageView" destination="EIK-Ks-bGb" id="NEt-bf-g11"/>
                         <outlet property="reviewCountLabel" destination="W10-Sk-Sfc" id="zoO-fR-mTL"/>
                         <outlet property="websiteButton" destination="nEY-Zw-2Ut" id="bCL-eS-O4p"/>
+                        <segue destination="wcI-34-n67" kind="show" identifier="mapSegue" id="pfO-Rk-HlH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgF-Ur-3Ra" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1059,6 +1094,11 @@
                 <tapGestureRecognizer id="rOr-XH-qpV">
                     <connections>
                         <action selector="tappedPhoneNumber:" destination="EaE-Ne-Z8W" id="Zyq-AM-d5f"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="uzk-zc-3Qf">
+                    <connections>
+                        <action selector="tappedMapView:" destination="EaE-Ne-Z8W" id="zgo-yV-84r"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

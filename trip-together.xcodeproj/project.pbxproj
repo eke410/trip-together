@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0417942026A72D92007F5448 /* EventValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0417941F26A72D92007F5448 /* EventValidation.m */; };
+		0459D61726AF161F0071376F /* EventMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0459D61626AF161F0071376F /* EventMapViewController.m */; };
 		049ED5FD269CD8F600F85217 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FC269CD8F600F85217 /* ProfileViewController.m */; };
 		049ED600269CDCF000F85217 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FF269CDCF000F85217 /* Group.m */; };
 		04A1867926A2371900E09A34 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A1867826A2371900E09A34 /* RegisterViewController.m */; };
@@ -60,6 +61,8 @@
 /* Begin PBXFileReference section */
 		0417941E26A72D92007F5448 /* EventValidation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventValidation.h; sourceTree = "<group>"; };
 		0417941F26A72D92007F5448 /* EventValidation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventValidation.m; sourceTree = "<group>"; };
+		0459D61526AF161F0071376F /* EventMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventMapViewController.h; sourceTree = "<group>"; };
+		0459D61626AF161F0071376F /* EventMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventMapViewController.m; sourceTree = "<group>"; };
 		049ED5FB269CD8F600F85217 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		049ED5FC269CD8F600F85217 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		049ED5FE269CDCF000F85217 /* Group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
@@ -262,6 +265,8 @@
 				049ED5FC269CD8F600F85217 /* ProfileViewController.m */,
 				04D24C9426A0C6CB00F9810F /* GroupDetailsInfoViewController.h */,
 				04D24C9526A0C6CB00F9810F /* GroupDetailsInfoViewController.m */,
+				0459D61526AF161F0071376F /* EventMapViewController.h */,
+				0459D61626AF161F0071376F /* EventMapViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -585,6 +590,7 @@
 				04D818E6269CAE8400C3A9D8 /* AppDelegate.m in Sources */,
 				04A1867926A2371900E09A34 /* RegisterViewController.m in Sources */,
 				0417942026A72D92007F5448 /* EventValidation.m in Sources */,
+				0459D61726AF161F0071376F /* EventMapViewController.m in Sources */,
 				04D818F7269CAE8600C3A9D8 /* main.m in Sources */,
 				04FC8C7426A9F3CD004C9069 /* APIManager.m in Sources */,
 				04E89A66269E22AF001593BA /* EventCell.m in Sources */,

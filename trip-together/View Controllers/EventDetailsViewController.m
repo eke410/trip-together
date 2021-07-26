@@ -12,6 +12,7 @@
 #import "ImageSlideshow-Swift.h"
 #import "APIManager.h"
 #import <MapKit/MapKit.h>
+#import "EventMapViewController.h"
 
 @interface EventDetailsViewController ()
 
@@ -138,7 +139,6 @@
 }
 
 - (IBAction)tappedPhoneNumber:(id)sender {
-    NSLog(@"tapped phone number");
     NSString *cleanedPhoneNumber = [[self.event.phone componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet]] componentsJoinedByString:@""];
     NSURL *phoneNumber = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@", cleanedPhoneNumber]];
     [[UIApplication sharedApplication] openURL:phoneNumber options:@{} completionHandler:nil];
@@ -181,14 +181,24 @@
     }];
 }
 
+- (IBAction)tappedMapView:(id)sender {
+    [self performSegueWithIdentifier:@"mapSegue" sender:nil];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    BookEventViewController *bookEventViewController = [segue destinationViewController];
-    bookEventViewController.event = self.event;
+    if ([segue.identifier isEqualToString:@"bookEventSegue"]) {
+        BookEventViewController *bookEventViewController = [segue destinationViewController];
+        bookEventViewController.event = self.event;
+    } else if ([segue.identifier isEqualToString:@"mapSegue"]) {
+        EventMapViewController *eventMapViewController = [segue destinationViewController];
+        eventMapViewController.event = self.event;
+    }
+
 }
 
 
