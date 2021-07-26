@@ -832,10 +832,21 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUP-U5-d9R">
                                 <rect key="frame" x="0.0" y="88" width="390" height="673"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnK-ed-5cg">
-                                <rect key="frame" x="264" y="104" width="110" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Show directions"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnK-ed-5cg">
+                                <rect key="frame" x="140" y="715" width="110" height="30"/>
+                                <color key="backgroundColor" red="0.28235294117647058" green="0.74901960784313726" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="axf-tI-tP8"/>
+                                    <constraint firstAttribute="height" constant="30" id="gZd-me-D8L"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title=" Directions" image="location.north.fill" catalog="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tappedShowUserLocation:" destination="wcI-34-n67" eventType="touchUpInside" id="Pc2-UT-2TL"/>
                                 </connections>
@@ -845,6 +856,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="TQ9-cE-GBD" firstAttribute="bottom" secondItem="SUP-U5-d9R" secondAttribute="bottom" id="D6C-z3-8dS"/>
+                            <constraint firstItem="TQ9-cE-GBD" firstAttribute="bottom" secondItem="dnK-ed-5cg" secondAttribute="bottom" constant="16" id="Lzw-29-z9R"/>
+                            <constraint firstItem="dnK-ed-5cg" firstAttribute="centerX" secondItem="eCK-e1-rPN" secondAttribute="centerX" id="YTs-QV-hjx"/>
                             <constraint firstItem="TQ9-cE-GBD" firstAttribute="trailing" secondItem="SUP-U5-d9R" secondAttribute="trailing" id="kDN-MG-BW4"/>
                             <constraint firstItem="SUP-U5-d9R" firstAttribute="leading" secondItem="TQ9-cE-GBD" secondAttribute="leading" id="oWo-cz-RPj"/>
                             <constraint firstItem="SUP-U5-d9R" firstAttribute="top" secondItem="TQ9-cE-GBD" secondAttribute="top" id="wE2-c0-YW2"/>
@@ -857,7 +870,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHA-CH-ZKi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1342" y="439"/>
+            <point key="canvasLocation" x="-1343.0769230769231" y="438.62559241706157"/>
         </scene>
         <!--Event Details-->
         <scene sceneID="F2g-YH-cRY">
@@ -1556,6 +1569,7 @@
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="location.north.fill" catalog="system" width="108" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="minus" catalog="system" width="128" height="24"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
