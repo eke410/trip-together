@@ -53,11 +53,11 @@
         return nil;
     }
     MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
-        if (annotationView == nil) {
-         annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
-         annotationView.canShowCallout = true;
-         annotationView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 50.0, 50.0)];
-        }
+    if (annotationView == nil) {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
+        annotationView.canShowCallout = true;
+        annotationView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 50.0, 50.0)];
+    }
 
     UIImageView *imageView = (UIImageView*)annotationView.leftCalloutAccessoryView;
     [imageView setImageWithURL:[NSURL URLWithString:self.event.imageURLString]];

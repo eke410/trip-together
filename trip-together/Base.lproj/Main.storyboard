@@ -1158,14 +1158,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSm-jy-bkl">
-                                <rect key="frame" x="16" y="104" width="358" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSm-jy-bkl">
+                                <rect key="frame" x="12" y="104" width="366" height="28.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Skk-fN-Gmq">
-                                <rect key="frame" x="4" y="173" width="382" height="588"/>
+                                <rect key="frame" x="4" y="174.66666666666669" width="382" height="586.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupEventCell" id="1ZN-ze-oeu" customClass="GroupEventCell">
@@ -1243,25 +1243,37 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Itinerary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ArU-5i-jkB">
-                                <rect key="frame" x="16" y="149" width="77" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fl8-jy-8cT">
+                                <rect key="frame" x="8" y="140.66666666666666" width="374" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Xnh-X0-ph6"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Itinerary"/>
+                                    <segment title="Map"/>
+                                </segments>
+                            </segmentedControl>
+                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="F2M-sD-ymJ">
+                                <rect key="frame" x="8" y="178.66666666666669" width="374" height="574.33333333333326"/>
+                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0IQ-M3-HBe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ArU-5i-jkB" firstAttribute="top" secondItem="QSm-jy-bkl" secondAttribute="bottom" constant="16" id="1WV-gj-Gs5"/>
+                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="F2M-sD-ymJ" secondAttribute="trailing" constant="8" id="55a-wY-nWd"/>
+                            <constraint firstItem="F2M-sD-ymJ" firstAttribute="top" secondItem="Fl8-jy-8cT" secondAttribute="bottom" constant="8" id="ARq-Il-kuh"/>
                             <constraint firstItem="QSm-jy-bkl" firstAttribute="top" secondItem="0IQ-M3-HBe" secondAttribute="top" constant="16" id="BVN-rn-8s2"/>
-                            <constraint firstItem="Skk-fN-Gmq" firstAttribute="top" secondItem="ArU-5i-jkB" secondAttribute="bottom" id="Hs4-Is-Ss2"/>
-                            <constraint firstItem="QSm-jy-bkl" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="16" id="YxX-65-NZx"/>
-                            <constraint firstItem="ArU-5i-jkB" firstAttribute="leading" secondItem="QSm-jy-bkl" secondAttribute="leading" id="awq-eM-4AQ"/>
+                            <constraint firstItem="Skk-fN-Gmq" firstAttribute="top" secondItem="Fl8-jy-8cT" secondAttribute="bottom" constant="4" id="Hs4-Is-Ss2"/>
+                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="bottom" secondItem="F2M-sD-ymJ" secondAttribute="bottom" constant="8" id="Sao-Rr-Pqx"/>
+                            <constraint firstItem="QSm-jy-bkl" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="12" id="YxX-65-NZx"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Skk-fN-Gmq" secondAttribute="trailing" constant="4" id="cEP-rh-t5J"/>
+                            <constraint firstItem="Fl8-jy-8cT" firstAttribute="top" secondItem="QSm-jy-bkl" secondAttribute="bottom" constant="8" id="cne-P4-1cc"/>
                             <constraint firstItem="Skk-fN-Gmq" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="4" id="hNq-4F-MGA"/>
+                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Fl8-jy-8cT" secondAttribute="trailing" constant="8" id="k8e-l5-AhM"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="bottom" secondItem="Skk-fN-Gmq" secondAttribute="bottom" id="qM1-JD-Kgh"/>
-                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="QSm-jy-bkl" secondAttribute="trailing" constant="16" id="w5J-iU-qAY"/>
+                            <constraint firstItem="Fl8-jy-8cT" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="8" id="uqM-hL-0Gc"/>
+                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="QSm-jy-bkl" secondAttribute="trailing" constant="12" id="w5J-iU-qAY"/>
+                            <constraint firstItem="F2M-sD-ymJ" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="8" id="zx3-vR-iK8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Group Details" id="XES-jt-JId">
@@ -1274,6 +1286,8 @@
                     <connections>
                         <outlet property="eventsTableView" destination="Skk-fN-Gmq" id="1bH-Oe-7Jb"/>
                         <outlet property="groupName" destination="QSm-jy-bkl" id="tcP-JL-Xhk"/>
+                        <outlet property="mapView" destination="F2M-sD-ymJ" id="iaQ-X2-8ma"/>
+                        <outlet property="segmentedControl" destination="Fl8-jy-8cT" id="xxv-CK-1C9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4wa-gy-V7a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

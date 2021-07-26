@@ -9,11 +9,14 @@
 #import "GroupEventCell.h"
 #import "GroupDetailsInfoViewController.h"
 #import "EventDetailsViewController.h"
+#import "Mapkit/Mapkit.h"
 
-@interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) NSMutableArray *events;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -26,17 +29,46 @@
     
     [self refreshData];
     
+    [self.segmentedControl addTarget:self action:@selector(changeType) forControlEvents:UIControlEventValueChanged];
+    
+    // sets up table view & refresh control
     self.eventsTableView.dataSource = self;
     self.eventsTableView.delegate = self;
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(queryEvents) forControlEvents:UIControlEventValueChanged];
     [self.eventsTableView insertSubview:self.refreshControl atIndex:0];
+    
+    self.mapView.delegate = self;
 }
 
 - (void)refreshData {
     self.groupName.text = self.group.name;
     [self queryEvents];
+}
+
+- (void)refreshMap {
+    // adds a map marker for each event
+    for (int i = 0; i < self.events.count; i++) {
+        Event *event = self.events[i];
+        MKPointAnnotation *annotation = [MKPointAnnotation new];
+        CLLocationCoordinate2D eventCoord = CLLocationCoordinate2DMake([event.latitude floatValue], [event.longitude floatValue]);
+        annotation.coordinate = eventCoord;
+        annotation.title = event.name;
+        annotation.subtitle = [NSString stringWithFormat:@"%i", i+1];
+        [self.mapView addAnnotation:annotation];
+    }
+    [self.mapView showAnnotations:self.mapView.annotations animated:false];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKMarkerAnnotationView *annotationView = (MKMarkerAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Marker"];
+    if (annotationView == nil) {
+        annotationView = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Marker"];
+    }
+    [annotationView setGlyphText:annotation.subtitle];
+    [annotationView setSubtitleVisibility:MKFeatureVisibilityHidden];
+    return annotationView;
 }
 
 - (void)queryEvents {
@@ -47,11 +79,22 @@
         if (events != nil) {
             self.events = (NSMutableArray *)events;
             [self.eventsTableView reloadData];
+            [self refreshMap];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
     }];
+}
+
+- (void)changeType {
+    if (self.segmentedControl.selectedSegmentIndex == 0) { // show itinerary
+        [self.eventsTableView setHidden:false];
+        [self.mapView setHidden:true];
+    } else { // show map
+        [self.eventsTableView setHidden:true];
+        [self.mapView setHidden:false];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
