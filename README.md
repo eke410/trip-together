@@ -11,15 +11,15 @@ https://user-images.githubusercontent.com/32204411/126238446-edb222b1-00e8-45f1-
 
 ## Overview
 ### Description
-Social Travel organizer where users can plan trips with friends and view an organized visual itinerary. Users can book lodging, transportation, and events straight from the app. Users can also form a group with fellow travelers, which creates a joint calendar and itinerary for their trip.
+Social Travel organizer where users can plan trips with friends. Users can form groups with fellow travelers, book times to visit restaurants and tourist attractions, and see a shared group itinerary. The app will warn users if they attempt to book an event at a time where another group member already has plans.
 
 ### App Evaluation
-- **Category:** Travel (+ social as scope expands)
-- **Mobile:** Convenient for users to bring on trips. Uses maps, location, & possibly camera, real-time messaging as scope expands. 
+- **Category:** Travel & social
+- **Mobile:** Convenient for users to bring on trips. Uses maps, location, & camera.
 - **Story:** Facilitates easy group communication for families or friends to plan trips and travel together. 
 - **Market:** Anyone who wants to travel.
 - **Habit:** Users would just use the apps before and during trips to plan in advance and to stay on schedule.
-- **Scope:** MVP would just include bookings, group creation, and an organized calendar / itinerary. Lots of avenues for expansion - including messaging, notifications, split bils feature, user profiles with past trips, discover section, photo albums and logs for trips, etc. 
+- **Scope:** MVP would just include group creation, event booking, event validation. Lots of avenues for expansion - visual map itinerary, sorting events and groups, wishlists, notifications, etc. 
 
 ## Product Spec
 
@@ -28,9 +28,11 @@ Social Travel organizer where users can plan trips with friends and view an orga
 **Required Must-have Stories**
 
 * user log in
-* lodging, transportation, and event booking 
-* create a group trip feature
-* joint calendar / itinerary feature
+* group creation
+* group itinerary
+* explore event section
+* event booking
+* event validation
 
 **Optional Nice-to-have Stories**
 
@@ -48,14 +50,14 @@ Social Travel organizer where users can plan trips with friends and view an orga
 * Login / Register 
     * User can log in or sign up.
 * Stream 
-    * User can scroll through relevant lodging, transportation, and event options.
+    * User can scroll through relevant tourist attractions & restaurants.
 * Detail 
-    * User can book lodging, transportation, events & click on specific pages for more details.
+    * User can book events & click on their pages for more detail. 
 * Creation
     * User can create a trip, create a group.
-    * User can add items to their calendar / itinerary.
+    * User can add items to their itinerary.
 * Profile
-    * User can view their identity (and past trips as extra feature)
+    * User can view their identity.
 * Settings 
     * User can configure app options, e.g. notification settings.
 
@@ -85,6 +87,7 @@ Social Travel organizer where users can plan trips with friends and view an orga
 ## Wireframes
 <img src="https://i.imgur.com/z6brBSa.jpg">
 
+
 ### [BONUS] Digital Wireframes & Mockups
 
 ### [BONUS] Interactive Prototype
@@ -93,48 +96,51 @@ Social Travel organizer where users can plan trips with friends and view an orga
 
 ### Models
 
-#### User - either PFUser or connect to Google login 
-(will be hashed out more once I look into Google authentication)
-| Property              | Type   | Description                                                     |
-| --------------------- | ------ |:--------------------------------------------------------------- |
-| objectId              | String | unique id for user                                              |
-| firstName             | String | first name of user                                              |
-| lastName              | String | last name of user                                               |
-| username              | String | username                                                        |
-| password              | String | password                                                        |
-| profileImageURLString | String | URL path for user's profile pic                                 |
-| GoogleAccount*        | TBD    | some identifier for the Google account associated with the user |
-| groups*               | Array  | groups user is a part of                                        |
+#### User 
+| Property  | Type         | Description          |
+| --------- | ------------ |:-------------------- |
+| objectId  | String       | unique id for user   |
+| firstName | String       | first name of user   |
+| lastName  | String       | last name of user    |
+| username  | String       | username             |
+| password  | String       | password             |
+| photo     | PFFileObject | user profile picture |
 
 
 #### Group
-| Property  | Type              | Description                |
-| --------- | ----------------- | -------------------------- |
-| objectId  | String            | unique id for group        |
-| name      | String            | name of group              |
-| users     | Array (of Users)  | users in group             |
-| location  | String            | specifies location of trip |
-| startDate | DateTime          | start date of trip         |
-| endDate   | DateTime          | end date of trip           |
-| events*   | Array (of Events) | events added to group      |
+| Property  | Type             | Description                |
+| --------- | ---------------- | -------------------------- |
+| objectId  | String           | unique id for group        |
+| name      | String           | name of group              |
+| users     | Array (of Users) | users in group             |
+| location  | String           | specifies location of trip |
+| startDate | DateTime         | start date of trip         |
+| endDate   | DateTime         | end date of trip           |
+| photo     | PFFileObject     | group picture              |
 
 #### Event
-| Property           | Type            | Description                             |
-| ------------------ | --------------- | --------------------------------------- |
-| objectId           | String          | unique id for event                     |
-| name               | String          | name of event                           |
-| description        | String          | description of event                    |
-| group              | String or Group | group(id?) that event was signed up for |
-| eventSiteURLString | String          | URL to event site                       |
-| ticketsURLString   | String          | URL to buy tickets for event            |
-| location           | String          | specifies location of event             |
-| latitude           | String          | latitude of event                       |
-| longitude          | String          | longitude of event                      |
-| startTime          | DateTime        | start time of event                     |
-| endTime            | DateTime        | end time of event                       |
-| imageURL           | String          | URL to Yelp image of event              |
-
-(more properties from [Yelp's event endpoint](https://www.yelp.com/developers/documentation/v3/event) that can be added if extra time)
+| Property         | Type     | Description                                     |
+| ---------------- | -------- | ----------------------------------------------- |
+| objectId         | String   | unique id for event                             |
+| yelpId           | String   | yelp id for event                               |
+| name             | String   | name of event                                   |
+| placeDescription | String   | description of event                            |
+| group            | Group    | group that event is booked for                  |
+| startTime        | NSDate   | start time of event                             |
+| endTime          | NSDate   | end time of event                               |
+| location         | String   | specifies location of event                     |
+| latitude         | String   | latitude of event                               |
+| longitude        | String   | longitude of event                              |
+| imageURLString   | String   | URL to Yelp image of event                      |
+| rating           | NSString | Yelp rating out of 5 for event                  |
+| yelpURL          | String   | link to yelp page of event                      |
+| phone            | String   | phone number of event                           |
+| categories       | Array    | list of categories that describe event          |
+| priceLevel       | String   | priciness from $ to $$$$ of event               |
+| reviewCount      | String   | number of reviews on yelp                       |
+| photoURLStrings  | Array    | array of yelp photos of event                   |
+| websiteURL       | String   | link to website of event                        |
+| type             | String   | type of event - either attraction or restaurant |
 
 ### Networking
 #### List of network requests by screen
