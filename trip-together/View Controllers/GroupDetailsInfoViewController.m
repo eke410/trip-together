@@ -12,6 +12,7 @@
 @interface GroupDetailsInfoViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
 
@@ -19,6 +20,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.group.photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
+        self.imageView.image =  [UIImage imageWithData:imageData];
+    }];
 
     self.usersTableView.delegate = self;
     self.usersTableView.dataSource = self;
@@ -94,6 +99,10 @@
     self.group.photo = [Group getPFFileFromImage:resizedImage];
     [self.group save];
     [self.delegate changePhoto:resizedImage];
+    
+    [self.group.photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
+        self.imageView.image =  [UIImage imageWithData:imageData];
+    }];
 
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
