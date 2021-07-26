@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0417942026A72D92007F5448 /* EventValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0417941F26A72D92007F5448 /* EventValidation.m */; };
 		0459D61726AF161F0071376F /* EventMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0459D61626AF161F0071376F /* EventMapViewController.m */; };
+		0459D61926AF1CB10071376F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0459D61826AF1CB10071376F /* CoreLocation.framework */; };
 		049ED5FD269CD8F600F85217 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FC269CD8F600F85217 /* ProfileViewController.m */; };
 		049ED600269CDCF000F85217 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FF269CDCF000F85217 /* Group.m */; };
 		04A1867926A2371900E09A34 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A1867826A2371900E09A34 /* RegisterViewController.m */; };
@@ -63,6 +64,7 @@
 		0417941F26A72D92007F5448 /* EventValidation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventValidation.m; sourceTree = "<group>"; };
 		0459D61526AF161F0071376F /* EventMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventMapViewController.h; sourceTree = "<group>"; };
 		0459D61626AF161F0071376F /* EventMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventMapViewController.m; sourceTree = "<group>"; };
+		0459D61826AF1CB10071376F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		049ED5FB269CD8F600F85217 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		049ED5FC269CD8F600F85217 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		049ED5FE269CDCF000F85217 /* Group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0459D61926AF1CB10071376F /* CoreLocation.framework in Frameworks */,
 				04E996E526AB5DFE005E1FBE /* MapKit.framework in Frameworks */,
 				F4FAC8BB68620D9C47D55F22 /* Pods_trip_together.framework in Frameworks */,
 			);
@@ -285,6 +288,7 @@
 		208CA418504687B877EC5E98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0459D61826AF1CB10071376F /* CoreLocation.framework */,
 				04E996E426AB5DFE005E1FBE /* MapKit.framework */,
 				08321C2A08A738B3D200D575 /* Pods_trip_together.framework */,
 				55DAC9525131C5A0F00203B3 /* Pods_trip_together_trip_togetherUITests.framework */,

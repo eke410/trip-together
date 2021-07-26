@@ -8,10 +8,14 @@
 #import "EventMapViewController.h"
 #import <MapKit/MapKit.h>
 #import "UIImageView+AFNetworking.h"
+#import "CoreLocation/CoreLocation.h"
 
 @interface EventMapViewController () <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) UIAlertController *locationAlert;
+@property (nonatomic) BOOL isShowingUserLocation;
 
 @end
 
@@ -31,9 +35,22 @@
     [self.mapView addAnnotation:annotation];
     
     self.mapView.delegate = self;
+    
+    // set up user location
+    self.locationManager = [CLLocationManager new];
+    [self.locationManager requestWhenInUseAuthorization];
+    self.isShowingUserLocation = false;
+    
+    // set up location alert
+    self.locationAlert = [UIAlertController alertControllerWithTitle:@"Location not enabled" message:@"Please authorize location services for this app." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    [self.locationAlert addAction:okAction];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
     MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
         if (annotationView == nil) {
          annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
@@ -45,6 +62,29 @@
     [imageView setImageWithURL:[NSURL URLWithString:self.event.imageURLString]];
 
     return annotationView;
+}
+
+- (IBAction)tappedShowUserLocation:(id)sender {
+    
+    // location services not authorized
+    if ([self.locationManager authorizationStatus] == kCLAuthorizationStatusDenied || [self.locationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
+        [self presentViewController:self.locationAlert animated:YES completion:nil];
+        return;
+    }
+    
+    // location services authorized
+    if ([self.locationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [self.locationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+
+        if (!self.isShowingUserLocation) {
+            NSArray *annotations = [self.mapView.annotations arrayByAddingObject:self.mapView.userLocation];
+            [self.mapView showAnnotations:annotations animated:true];
+        } else {
+            CLLocationCoordinate2D eventCoord = CLLocationCoordinate2DMake([self.event.latitude floatValue], [self.event.longitude floatValue]);
+            MKCoordinateRegion mapRegion = MKCoordinateRegionMake(eventCoord, MKCoordinateSpanMake(0.01, 0.01));
+            [self.mapView setRegion:mapRegion animated:true];
+        }
+        self.isShowingUserLocation = !self.isShowingUserLocation;
+    }
 }
 
 /*
