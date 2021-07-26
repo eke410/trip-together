@@ -10,6 +10,7 @@
 #import "GroupDetailsInfoViewController.h"
 #import "EventDetailsViewController.h"
 #import "Mapkit/Mapkit.h"
+#import "EventAnnotation.h"
 
 @interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
@@ -51,11 +52,10 @@
     // adds a map marker for each event
     for (int i = 0; i < self.events.count; i++) {
         Event *event = self.events[i];
-        MKPointAnnotation *annotation = [MKPointAnnotation new];
-        CLLocationCoordinate2D eventCoord = CLLocationCoordinate2DMake([event.latitude floatValue], [event.longitude floatValue]);
-        annotation.coordinate = eventCoord;
-        annotation.title = event.name;
-        annotation.subtitle = [NSString stringWithFormat:@"%i", i+1];
+        EventAnnotation *annotation = [EventAnnotation new];
+        annotation.coordinate = CLLocationCoordinate2DMake([event.latitude floatValue], [event.longitude floatValue]);
+        annotation.event = event;
+        annotation.index = i+1;
         [self.mapView addAnnotation:annotation];
     }
     [self.mapView showAnnotations:self.mapView.annotations animated:false];
@@ -66,8 +66,8 @@
     if (annotationView == nil) {
         annotationView = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Marker"];
     }
-    [annotationView setGlyphText:annotation.subtitle];
-    [annotationView setSubtitleVisibility:MKFeatureVisibilityHidden];
+    EventAnnotation *eventAnnotation = (EventAnnotation *)annotation;
+    [annotationView setGlyphText:[NSString stringWithFormat:@"%i", eventAnnotation.index]];
     return annotationView;
 }
 
