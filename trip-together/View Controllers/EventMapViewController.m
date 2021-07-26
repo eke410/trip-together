@@ -24,11 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // set up map region, add pin at event location
+    // set up map region
     CLLocationCoordinate2D eventCoord = CLLocationCoordinate2DMake([self.event.latitude floatValue], [self.event.longitude floatValue]);
     MKCoordinateRegion mapRegion = MKCoordinateRegionMake(eventCoord, MKCoordinateSpanMake(0.01, 0.01));
     [self.mapView setRegion:mapRegion];
     
+    // add pin at event location
     MKPointAnnotation *annotation = [MKPointAnnotation new];
     annotation.coordinate = eventCoord;
     annotation.title = self.event.name;
@@ -85,7 +86,7 @@
             [request setSource:[MKMapItem mapItemForCurrentLocation]];
             CLLocationCoordinate2D eventCoord = CLLocationCoordinate2DMake([self.event.latitude floatValue], [self.event.longitude floatValue]);
             [request setDestination: [[MKMapItem alloc] initWithPlacemark: [[MKPlacemark alloc] initWithCoordinate:eventCoord]]];
-                        [request setTransportType:MKDirectionsTransportTypeWalking];
+            [request setTransportType:MKDirectionsTransportTypeWalking];
             
             // calculates and displays directions on map
             MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
