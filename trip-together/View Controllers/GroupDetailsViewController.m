@@ -49,7 +49,8 @@
 }
 
 - (void)refreshMap {
-    // adds a map marker for each event
+    // resets marker annotations
+    [self.mapView removeAnnotations:self.mapView.annotations];
     for (int i = 0; i < self.events.count; i++) {
         Event *event = self.events[i];
         EventAnnotation *annotation = [EventAnnotation new];
@@ -70,6 +71,11 @@
     }
     EventAnnotation *eventAnnotation = (EventAnnotation *)annotation;
     [annotationView setGlyphText:[NSString stringWithFormat:@"%i", eventAnnotation.index]];
+    if ([eventAnnotation.event.type isEqualToString:@"attraction"]) {
+        [annotationView setMarkerTintColor:[UIColor colorWithRed:114/255.0 green:205/255.0 blue:233/255.0 alpha:1]];
+    } else {
+        [annotationView setMarkerTintColor:[UIColor colorWithRed:185/255.0 green:157/255.0 blue:231/255.0 alpha:1]];
+    }
     return annotationView;
 }
 
@@ -122,6 +128,7 @@
             Event *event = self.events[indexPath.row];
             [self.events removeObject:event];
             [self.eventsTableView reloadData];
+            [self refreshMap];
             [event deleteInBackground];
         }];
         [deleteAction setImage:[UIImage systemImageNamed:@"trash"]];
