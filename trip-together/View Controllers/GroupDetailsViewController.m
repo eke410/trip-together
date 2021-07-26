@@ -65,10 +65,17 @@
     MKMarkerAnnotationView *annotationView = (MKMarkerAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Marker"];
     if (annotationView == nil) {
         annotationView = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Marker"];
+        annotationView.canShowCallout = true;
+        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     }
     EventAnnotation *eventAnnotation = (EventAnnotation *)annotation;
     [annotationView setGlyphText:[NSString stringWithFormat:@"%i", eventAnnotation.index]];
     return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    EventAnnotation *eventAnnotation = (EventAnnotation *)view.annotation;
+    [self performSegueWithIdentifier:@"groupEventDetailsSegue" sender:eventAnnotation.event];
 }
 
 - (void)queryEvents {
@@ -148,9 +155,13 @@
         vc.delegate = self;
     } else if ([segue.identifier isEqualToString:@"groupEventDetailsSegue"]) {
         EventDetailsViewController *vc = [segue destinationViewController];
-        NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
-        vc.event = self.events[indexPath.row];
         [vc setAllowBooking:false];
+        if ([sender isKindOfClass:[UITableViewCell class]]) { // segue from table view itinerary
+            NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
+            vc.event = self.events[indexPath.row];
+        } else if ([sender isKindOfClass:[Event class]]) { // segue from map itinerary
+            vc.event = sender;
+        }
     }
 }
 
