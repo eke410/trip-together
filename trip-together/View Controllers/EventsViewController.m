@@ -103,22 +103,34 @@
     self.dropDown.cellHeight = 32;
     self.dropDown.cornerRadius = 10;
     
-//    self.location = @"Cambridge,%20MA,%20USA";
-//    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
-//    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"restaurants" sortBy:@"best_match"];
+    self.location = @"Cambridge,%20MA,%20USA";
+    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
+    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"restaurants" sortBy:@"best_match"];
 }
 
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions.count : self.restaurants.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions.count : self.restaurants.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"EventCell"];
-    cell.event = self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions[indexPath.row] : self.restaurants[indexPath.row];
+    cell.event = self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions[indexPath.section] : self.restaurants[indexPath.section];
     [cell refreshData];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 8;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = self.view.backgroundColor;
+    return headerView;
 }
 
 - (void)changeType{
@@ -150,12 +162,12 @@
     
     // load more data if nearing bottom of tableView
     if (self.segmentedControl.selectedSegmentIndex == 0) { // displaying attractions
-        if (!self.noMoreAttractionData && indexPath.row + 3 == self.attractions.count) {
+        if (!self.noMoreAttractionData && indexPath.section + 3 == self.attractions.count) {
             NSString *offset = [NSString stringWithFormat:@"%i", (int)self.attractions.count];
             [self queryYelpWithLocation:self.location offset:offset term:@"top+tourist+attractions" sortBy:self.dropDown.selectedItem];
         }
     } else { // displaying restaurants
-        if (!self.noMoreRestaurantData && indexPath.row + 3 == self.restaurants.count) {
+        if (!self.noMoreRestaurantData && indexPath.section + 3 == self.restaurants.count) {
             NSString *offset = [NSString stringWithFormat:@"%i", (int)self.restaurants.count];
             [self queryYelpWithLocation:self.location offset:offset term:@"restaurants" sortBy:self.dropDown.selectedItem];
         }
@@ -266,7 +278,7 @@
     // Pass the selected object to the new view controller.
     EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
     NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
-    Event *event = self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions[indexPath.row] : self.restaurants[indexPath.row];
+    Event *event = self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions[indexPath.section] : self.restaurants[indexPath.section];
     eventDetailsViewController.event = event;
     [eventDetailsViewController setAllowBooking:true];
 }

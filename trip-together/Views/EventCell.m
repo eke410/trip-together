@@ -14,6 +14,12 @@
     [super awakeFromNib];
     // Initialization code
     self.categoriesTagListView.textFont = [UIFont systemFontOfSize:10];
+    
+    self.contentView.layer.cornerRadius = 10;
+    [self.contentView setClipsToBounds:YES];
+    [self.contentView.layer setBorderColor: [[UIColor systemGray5Color] CGColor]];
+    [self.contentView.layer setBorderWidth:1];
+    self.contentView.backgroundColor = [UIColor colorWithWhite:0.99 alpha:1];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
