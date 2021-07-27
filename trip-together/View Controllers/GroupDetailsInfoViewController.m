@@ -30,7 +30,7 @@
     
     self.usersTableView.layer.borderColor = [[UIColor systemGray3Color] CGColor];
     self.usersTableView.layer.borderWidth = 1;
-    self.usersTableView.layer.cornerRadius = 5;
+    self.usersTableView.layer.cornerRadius = 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
