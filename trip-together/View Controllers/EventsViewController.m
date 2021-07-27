@@ -103,9 +103,9 @@
     self.dropDown.cellHeight = 32;
     self.dropDown.cornerRadius = 10;
     
-    self.location = @"Cambridge,%20MA,%20USA";
-    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
-    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"restaurants" sortBy:@"best_match"];
+//    self.location = @"Cambridge,%20MA,%20USA";
+//    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
+//    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"restaurants" sortBy:@"best_match"];
 }
 
 
@@ -227,6 +227,9 @@
     // queries attractions and restaurants with selected location
     NSString *location = [place.formattedAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     self.location = location;
+    if (!self.dropDown.selectedItem) {
+        [self.dropDown selectRow:0 scrollPosition:UITableViewScrollPositionTop];
+    }
     [self queryYelpWithLocation:location offset:@"0" term:@"top+tourist+attractions" sortBy:self.dropDown.selectedItem];
     [self queryYelpWithLocation:location offset:@"0" term:@"restaurants" sortBy:self.dropDown.selectedItem];
     
