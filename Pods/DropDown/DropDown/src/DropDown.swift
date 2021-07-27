@@ -398,7 +398,7 @@ public final class DropDown: UIView {
 	By default, the cell's text takes the plain `dataSource` value.
 	Changing `cellConfiguration` automatically reloads the drop down.
 	*/
-	public var cellConfiguration: ConfigurationClosure? {
+	@objc public var cellConfiguration: ConfigurationClosure? {
 		didSet { reloadAllComponents() }
 	}
     

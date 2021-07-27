@@ -70,8 +70,12 @@
     // set up sorting dropDown menu
     self.dropDown = [DropDown new];
     self.dropDown.anchorView = self.sortButton;
-    self.dropDown.dataSource = @[@"best_match", @"rating", @"review_count", @"distance"];
-    self.dropDown.bottomOffset = CGPointMake(0, self.dropDown.anchorView.plainView.bounds.size.height);
+    self.dropDown.bottomOffset = CGPointMake(-4, self.dropDown.anchorView.plainView.bounds.size.height + 6);
+    self.dropDown.dataSource = @[@"best_match", @"review_count", @"rating", @"distance"];
+    NSArray *dropDownLabels = @[@"recommended", @"review count", @"rating", @"distance"];
+    self.dropDown.cellConfiguration = ^NSString * _Nonnull(NSInteger index, NSString * _Nonnull item) {
+        return dropDownLabels[index];
+    };
     [self.dropDown selectRow:0 scrollPosition:UITableViewScrollPositionTop];
     __weak EventsViewController *weakSelf = self;
     self.dropDown.selectionAction = ^(NSInteger index, NSString * _Nonnull item) {
@@ -89,9 +93,15 @@
             strongSelf.attractionsPosition = CGPointMake(0, 0);
             strongSelf.restaurantsPosition = CGPointMake(0, 0);
         }
-        [strongSelf.sortButton setTitle:item forState:UIControlStateNormal];
+        [strongSelf.sortButton setTitle:[@" " stringByAppendingString:dropDownLabels[index]] forState:UIControlStateNormal];
+        [strongSelf.sortButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
     };
     [DropDown startListeningToKeyboard];
+    
+    // styling dropDown menu
+    self.dropDown.textFont = [UIFont systemFontOfSize:13];
+    self.dropDown.cellHeight = 32;
+    self.dropDown.cornerRadius = 10;
     
     self.location = @"Cambridge,%20MA,%20USA";
     [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
