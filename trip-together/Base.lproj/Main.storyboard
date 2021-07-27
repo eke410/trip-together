@@ -329,16 +329,33 @@
                                 </segments>
                             </segmentedControl>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Type a location..." translatesAutoresizingMaskIntoConstraints="NO" id="iJe-Td-gOl">
-                                <rect key="frame" x="0.0" y="88" width="390" height="51"/>
+                                <rect key="frame" x="0.0" y="88" width="292" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f4S-P6-TRV">
-                                <rect key="frame" x="0.0" y="139" width="390" height="280"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f4S-P6-TRV">
+                                <rect key="frame" x="0.0" y="139" width="390" height="215"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="280" id="5XQ-vH-Zj9"/>
                                 </constraints>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJn-Rq-uVv">
+                                <rect key="frame" x="292" y="98.666666666666671" width="90" height="30.000000000000014"/>
+                                <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="v6N-DP-aL4"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Sort by"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tappedSortButton:" destination="4mi-Kb-Heh" eventType="touchUpInside" id="uaN-lV-CCb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZnS-Tk-ARO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -349,8 +366,10 @@
                             <constraint firstItem="iJe-Td-gOl" firstAttribute="top" secondItem="ZnS-Tk-ARO" secondAttribute="top" id="3h5-0I-Aog"/>
                             <constraint firstItem="nRQ-5C-iAj" firstAttribute="trailing" secondItem="ZnS-Tk-ARO" secondAttribute="trailing" id="KzO-HW-C1D"/>
                             <constraint firstItem="nRQ-5C-iAj" firstAttribute="leading" secondItem="ZnS-Tk-ARO" secondAttribute="leading" id="S18-AQ-H1e"/>
+                            <constraint firstItem="ZnS-Tk-ARO" firstAttribute="trailing" secondItem="LJn-Rq-uVv" secondAttribute="trailing" constant="8" id="W3i-Yv-SH7"/>
+                            <constraint firstItem="LJn-Rq-uVv" firstAttribute="centerY" secondItem="iJe-Td-gOl" secondAttribute="centerY" id="YpY-k0-8pX"/>
                             <constraint firstItem="nRQ-5C-iAj" firstAttribute="top" secondItem="tLU-Eg-Gxl" secondAttribute="bottom" id="duM-AZ-Q3v"/>
-                            <constraint firstItem="iJe-Td-gOl" firstAttribute="trailing" secondItem="ZnS-Tk-ARO" secondAttribute="trailing" id="eR2-c3-FuI"/>
+                            <constraint firstItem="iJe-Td-gOl" firstAttribute="trailing" secondItem="LJn-Rq-uVv" secondAttribute="leading" id="eR2-c3-FuI"/>
                             <constraint firstItem="ZnS-Tk-ARO" firstAttribute="trailing" secondItem="tLU-Eg-Gxl" secondAttribute="trailing" constant="8" id="eTc-wK-WfI"/>
                             <constraint firstItem="f4S-P6-TRV" firstAttribute="trailing" secondItem="ZnS-Tk-ARO" secondAttribute="trailing" id="gNe-Ce-Iug"/>
                             <constraint firstItem="nRQ-5C-iAj" firstAttribute="bottom" secondItem="ZnS-Tk-ARO" secondAttribute="bottom" id="m0Y-28-AzY"/>
@@ -363,6 +382,7 @@
                         <outlet property="eventsTableView" destination="nRQ-5C-iAj" id="D29-vS-Z0O"/>
                         <outlet property="searchBar" destination="iJe-Td-gOl" id="chd-Ii-YDH"/>
                         <outlet property="segmentedControl" destination="tLU-Eg-Gxl" id="XXH-5m-jWc"/>
+                        <outlet property="sortButton" destination="LJn-Rq-uVv" id="9Ln-a9-sJm"/>
                         <outlet property="tableView" destination="f4S-P6-TRV" id="bqj-JY-Vyy"/>
                     </connections>
                 </viewController>
@@ -1590,7 +1610,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="tEh-kS-tft"/>
+        <segue reference="cZO-Gr-Ne9"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0_star" width="162" height="30"/>
@@ -1614,6 +1634,9 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

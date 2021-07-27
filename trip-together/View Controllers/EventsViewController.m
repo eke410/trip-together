@@ -10,6 +10,7 @@
 #import "EventCell.h"
 #import "EventDetailsViewController.h"
 #import "APIManager.h"
+#import "DropDown-Swift.h"
 @import GooglePlaces;
 
 @interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UIButton *sortButton;
 @property (nonatomic, strong) NSMutableArray *attractions;
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic) CGPoint attractionsPosition;
@@ -26,6 +28,7 @@
 @property (nonatomic) BOOL isLoadingData;
 @property (nonatomic) BOOL noMoreAttractionData;
 @property (nonatomic) BOOL noMoreRestaurantData;
+@property (nonatomic, strong) DropDown *dropDown;
 
 @end
 
@@ -63,7 +66,39 @@
     self.isLoadingData = false;
     self.noMoreAttractionData = false;
     self.noMoreRestaurantData = false;
+    
+    // set up sorting dropDown menu
+    self.dropDown = [DropDown new];
+    self.dropDown.anchorView = self.sortButton;
+    self.dropDown.dataSource = @[@"best_match", @"rating", @"review_count", @"distance"];
+    self.dropDown.bottomOffset = CGPointMake(0, self.dropDown.anchorView.plainView.bounds.size.height);
+    [self.dropDown selectRow:0 scrollPosition:UITableViewScrollPositionTop];
+    __weak EventsViewController *weakSelf = self;
+    self.dropDown.selectionAction = ^(NSInteger index, NSString * _Nonnull item) {
+        __strong EventsViewController *strongSelf = weakSelf;
+        if (strongSelf && strongSelf.location) {
+            // clears current data
+            [strongSelf.attractions removeAllObjects];
+            [strongSelf.restaurants removeAllObjects];
+            strongSelf.noMoreAttractionData = false;
+            strongSelf.noMoreRestaurantData = false;
+            // sets new data
+            [strongSelf queryYelpWithLocation:strongSelf.location offset:@"0" term:@"top+tourist+attractions" sortBy:item];
+            [strongSelf queryYelpWithLocation:strongSelf.location offset:@"0" term:@"restaurants" sortBy:item];
+            // resets tableview scroll positions
+            strongSelf.attractionsPosition = CGPointMake(0, 0);
+            strongSelf.restaurantsPosition = CGPointMake(0, 0);
+        }
+        [strongSelf.sortButton setTitle:item forState:UIControlStateNormal];
+    };
+    [DropDown startListeningToKeyboard];
+    
+    self.location = @"Cambridge,%20MA,%20USA";
+    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
+    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"restaurants" sortBy:@"best_match"];
 }
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions.count : self.restaurants.count;
@@ -107,23 +142,24 @@
     if (self.segmentedControl.selectedSegmentIndex == 0) { // displaying attractions
         if (!self.noMoreAttractionData && indexPath.row + 3 == self.attractions.count) {
             NSString *offset = [NSString stringWithFormat:@"%i", (int)self.attractions.count];
-            [self queryYelpWithLocation:self.location offset:offset term:@"top+tourist+attractions"];
+            [self queryYelpWithLocation:self.location offset:offset term:@"top+tourist+attractions" sortBy:self.dropDown.selectedItem];
         }
     } else { // displaying restaurants
         if (!self.noMoreRestaurantData && indexPath.row + 3 == self.restaurants.count) {
             NSString *offset = [NSString stringWithFormat:@"%i", (int)self.restaurants.count];
-            [self queryYelpWithLocation:self.location offset:offset term:@"restaurants"];
+            [self queryYelpWithLocation:self.location offset:offset term:@"restaurants" sortBy:self.dropDown.selectedItem];
         }
     }
 }
 
-- (void)queryYelpWithLocation:(NSString *)location offset:(NSString *)offset term:(NSString *)term {
+- (void)queryYelpWithLocation:(NSString *)location offset:(NSString *)offset term:(NSString *)term sortBy:(NSString *)sortBy {
     // calls APIManager's query Yelp method and stores results
-        self.isLoadingData = true;
+    self.isLoadingData = true;
     NSDictionary *params = @{
         @"location": location,
         @"offset": offset,
         @"term": term,
+        @"sort_by": sortBy,
         @"limit": @"20",
     };
     [APIManager queryYelpEventsWithParams:params withCompletion:^(NSArray * _Nonnull dataArray, NSError * _Nonnull error) {
@@ -152,6 +188,10 @@
     }];
 }
 
+- (IBAction)tappedSortButton:(id)sender {
+    [self.dropDown show];
+}
+
 #pragma mark - GMSAutocompleteTableDataSourceDelegate
 
 - (void)didUpdateAutocompletePredictionsForTableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource {
@@ -177,8 +217,8 @@
     // queries attractions and restaurants with selected location
     NSString *location = [place.formattedAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     self.location = location;
-    [self queryYelpWithLocation:location offset:@"0" term:@"top+tourist+attractions"];
-    [self queryYelpWithLocation:location offset:@"0" term:@"restaurants"];
+    [self queryYelpWithLocation:location offset:@"0" term:@"top+tourist+attractions" sortBy:self.dropDown.selectedItem];
+    [self queryYelpWithLocation:location offset:@"0" term:@"restaurants" sortBy:self.dropDown.selectedItem];
     
     // resets tableview scroll positions 
     self.attractionsPosition = CGPointMake(0, 0);

@@ -13,6 +13,7 @@ target 'trip-together' do
   pod 'UITextView+Placeholder'
   pod 'TagListView', '~> 1.0'
   pod 'ImageSlideshow', '~> 1.9.0'
+  pod 'DropDown'
 
   target 'trip-togetherTests' do
     inherit! :search_paths
