@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *websiteButton;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIImageView *phoneIcon;
 
 @end
 
@@ -85,6 +86,10 @@
     MKPointAnnotation *annotation = [MKPointAnnotation new];
     annotation.coordinate = eventCoord;
     [self.mapView addAnnotation:annotation];
+    
+    if ([self.event.phone isEqualToString:@""]) {
+        [self.phoneIcon setHidden:true];
+    }
 }
 
 - (void)refreshPhotos {
