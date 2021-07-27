@@ -1205,14 +1205,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Skk-fN-Gmq">
-                                <rect key="frame" x="4" y="174.66666666666669" width="382" height="586.33333333333326"/>
+                                <rect key="frame" x="8" y="174.66666666666669" width="374" height="586.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupEventCell" id="1ZN-ze-oeu" customClass="GroupEventCell">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="382" height="114.33333587646484"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="374" height="114.33333587646484"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1ZN-ze-oeu" id="BMv-2s-Zkn">
-                                            <rect key="frame" x="0.0" y="0.0" width="382" height="114.33333587646484"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="114.33333587646484"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HaN-UX-Wbr">
@@ -1223,19 +1223,19 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sf2-sd-gGX">
-                                                    <rect key="frame" x="114" y="12" width="256" height="22"/>
+                                                    <rect key="frame" x="114" y="12" width="248" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eri-Z1-zAW">
-                                                    <rect key="frame" x="114" y="38" width="256" height="18"/>
+                                                    <rect key="frame" x="114" y="38" width="248" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQw-W5-Ble">
-                                                    <rect key="frame" x="114" y="60" width="256" height="18"/>
+                                                    <rect key="frame" x="114" y="60" width="248" height="18"/>
                                                     <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1295,6 +1295,11 @@
                             </segmentedControl>
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="F2M-sD-ymJ">
                                 <rect key="frame" x="8" y="178.66666666666669" width="374" height="574.33333333333326"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0IQ-M3-HBe"/>
@@ -1306,9 +1311,9 @@
                             <constraint firstItem="Skk-fN-Gmq" firstAttribute="top" secondItem="Fl8-jy-8cT" secondAttribute="bottom" constant="4" id="Hs4-Is-Ss2"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="bottom" secondItem="F2M-sD-ymJ" secondAttribute="bottom" constant="8" id="Sao-Rr-Pqx"/>
                             <constraint firstItem="QSm-jy-bkl" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="12" id="YxX-65-NZx"/>
-                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Skk-fN-Gmq" secondAttribute="trailing" constant="4" id="cEP-rh-t5J"/>
+                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Skk-fN-Gmq" secondAttribute="trailing" constant="8" id="cEP-rh-t5J"/>
                             <constraint firstItem="Fl8-jy-8cT" firstAttribute="top" secondItem="QSm-jy-bkl" secondAttribute="bottom" constant="8" id="cne-P4-1cc"/>
-                            <constraint firstItem="Skk-fN-Gmq" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="4" id="hNq-4F-MGA"/>
+                            <constraint firstItem="Skk-fN-Gmq" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="8" id="hNq-4F-MGA"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Fl8-jy-8cT" secondAttribute="trailing" constant="8" id="k8e-l5-AhM"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="bottom" secondItem="Skk-fN-Gmq" secondAttribute="bottom" id="qM1-JD-Kgh"/>
                             <constraint firstItem="Fl8-jy-8cT" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="8" id="uqM-hL-0Gc"/>
@@ -1630,7 +1635,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="cZO-Gr-Ne9"/>
+        <segue reference="tEh-kS-tft"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0_star" width="162" height="30"/>

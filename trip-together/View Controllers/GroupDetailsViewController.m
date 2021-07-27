@@ -110,22 +110,36 @@
     }
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.events.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GroupEventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"GroupEventCell"];
-    cell.event = self.events[indexPath.row];
+    cell.event = self.events[indexPath.section];
     [cell refreshData];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 8;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = self.view.backgroundColor;
+    return headerView;
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.eventsTableView) {
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             // when delete button is clicked, delete event from group
-            Event *event = self.events[indexPath.row];
+            Event *event = self.events[indexPath.section];
             [self.events removeObject:event];
             [self.eventsTableView reloadData];
             [self refreshMap];
@@ -165,7 +179,7 @@
         [vc setAllowBooking:false];
         if ([sender isKindOfClass:[UITableViewCell class]]) { // segue from table view itinerary
             NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
-            vc.event = self.events[indexPath.row];
+            vc.event = self.events[indexPath.section];
         } else if ([sender isKindOfClass:[Event class]]) { // segue from map itinerary
             vc.event = sender;
         }
