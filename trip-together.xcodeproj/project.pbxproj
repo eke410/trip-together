@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0417942026A72D92007F5448 /* EventValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0417941F26A72D92007F5448 /* EventValidation.m */; };
 		04368C6D26AF64C50033F664 /* EventAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04368C6C26AF64C50033F664 /* EventAnnotation.m */; };
+		043F888226B0B61D007CFC2E /* TimelineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F888126B0B61D007CFC2E /* TimelineCell.m */; };
 		0459D61726AF161F0071376F /* EventMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0459D61626AF161F0071376F /* EventMapViewController.m */; };
 		0459D61926AF1CB10071376F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0459D61826AF1CB10071376F /* CoreLocation.framework */; };
 		049ED5FD269CD8F600F85217 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049ED5FC269CD8F600F85217 /* ProfileViewController.m */; };
@@ -65,6 +66,8 @@
 		0417941F26A72D92007F5448 /* EventValidation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventValidation.m; sourceTree = "<group>"; };
 		04368C6B26AF64C50033F664 /* EventAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventAnnotation.h; sourceTree = "<group>"; };
 		04368C6C26AF64C50033F664 /* EventAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventAnnotation.m; sourceTree = "<group>"; };
+		043F888026B0B61D007CFC2E /* TimelineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimelineCell.h; sourceTree = "<group>"; };
+		043F888126B0B61D007CFC2E /* TimelineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimelineCell.m; sourceTree = "<group>"; };
 		0459D61526AF161F0071376F /* EventMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventMapViewController.h; sourceTree = "<group>"; };
 		0459D61626AF161F0071376F /* EventMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventMapViewController.m; sourceTree = "<group>"; };
 		0459D61826AF1CB10071376F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -246,6 +249,8 @@
 				04D24C9826A0D3DB00F9810F /* GroupEventCell.m */,
 				04368C6B26AF64C50033F664 /* EventAnnotation.h */,
 				04368C6C26AF64C50033F664 /* EventAnnotation.m */,
+				043F888026B0B61D007CFC2E /* TimelineCell.h */,
+				043F888126B0B61D007CFC2E /* TimelineCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -597,6 +602,7 @@
 				04D81921269CBF0A00C3A9D8 /* EventsViewController.m in Sources */,
 				04D24C9926A0D3DB00F9810F /* GroupEventCell.m in Sources */,
 				04D818E6269CAE8400C3A9D8 /* AppDelegate.m in Sources */,
+				043F888226B0B61D007CFC2E /* TimelineCell.m in Sources */,
 				04A1867926A2371900E09A34 /* RegisterViewController.m in Sources */,
 				04368C6D26AF64C50033F664 /* EventAnnotation.m in Sources */,
 				0417942026A72D92007F5448 /* EventValidation.m in Sources */,

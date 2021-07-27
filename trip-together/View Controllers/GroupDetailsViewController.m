@@ -11,6 +11,7 @@
 #import "EventDetailsViewController.h"
 #import "Mapkit/Mapkit.h"
 #import "EventAnnotation.h"
+#import "TimelineCell.h"
 
 @interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
@@ -101,9 +102,10 @@
 }
 
 - (void)changeType {
-    if (self.segmentedControl.selectedSegmentIndex == 0) { // show itinerary
+    if (self.segmentedControl.selectedSegmentIndex == 0 || self.segmentedControl.selectedSegmentIndex == 1) { // show itinerary or events
         [self.eventsTableView setHidden:false];
         [self.mapView setHidden:true];
+        [self.eventsTableView reloadData];
     } else { // show map
         [self.eventsTableView setHidden:true];
         [self.mapView setHidden:false];
@@ -119,14 +121,21 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    GroupEventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"GroupEventCell"];
-    cell.event = self.events[indexPath.section];
-    [cell refreshData];
-    return cell;
+    if (self.segmentedControl.selectedSegmentIndex == 0) { // itinerary
+        TimelineCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"TimelineCell"];
+        cell.event = self.events[indexPath.section];
+        [cell refreshData];
+        return cell;
+    } else { // events list
+        GroupEventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"GroupEventCell"];
+        cell.event = self.events[indexPath.section];
+        [cell refreshData];
+        return cell;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 8;
+    return self.segmentedControl.selectedSegmentIndex == 0 ? 0 : 8;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
