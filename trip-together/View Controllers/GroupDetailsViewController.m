@@ -117,7 +117,6 @@
         }
     }
     self.indexOfNextEvent = index;
-    NSLog(@"final index: %i", index);
 }
 
 - (void)changeType {
@@ -143,14 +142,15 @@
     if (self.segmentedControl.selectedSegmentIndex == 0) { // itinerary
         TimelineCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"TimelineCell"];
         cell.event = self.events[indexPath.section];
+        cell.indexLabel.text = [NSString stringWithFormat:@"%i", (int)indexPath.section + 1];
         [cell refreshData];
         // crops timeline edges for first and last cells
         if (self.events.count == 1) {
             [cell.timelineLine setHidden:true];
         } else if (indexPath.section == 0) {
-            [cell.timelineLine setFrame:CGRectMake(16, cell.contentView.frame.size.height/2, 4, cell.contentView.frame.size.height/2)];
+            [cell.timelineLine setFrame:CGRectMake(37, cell.contentView.frame.size.height/2, 4, cell.contentView.frame.size.height/2)];
         } else if (indexPath.section == self.events.count - 1) {
-            [cell.timelineLine setFrame:CGRectMake(16, 0, 4, cell.contentView.frame.size.height/2)];
+            [cell.timelineLine setFrame:CGRectMake(37, 0, 4, cell.contentView.frame.size.height/2)];
         }
         // darkens circle of next event
         if (indexPath.section == self.indexOfNextEvent) {

@@ -17,7 +17,7 @@
     self.timelinePoint.layer.borderColor = [[UIColor colorWithRed:138/255.0 green:179/255.0 blue:229/255.0 alpha:1] CGColor];
     self.timelinePoint.layer.cornerRadius = self.timelinePoint.frame.size.width/2;
     
-    [self.timelineLine setFrame:CGRectMake(16, 0, 4, self.contentView.frame.size.height)];
+    [self.timelineLine setFrame:CGRectMake(37, 0, 4, self.contentView.frame.size.height)];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -43,7 +43,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.timelinePoint setBackgroundColor:[UIColor whiteColor]];
-    [self.timelineLine setFrame:CGRectMake(16, 0, 4, self.contentView.frame.size.height)];
+    [self.timelineLine setFrame:CGRectMake(37, 0, 4, self.contentView.frame.size.height)];
 }
 
 
