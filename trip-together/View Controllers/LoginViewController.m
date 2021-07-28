@@ -8,9 +8,11 @@
 #import "LoginViewController.h"
 #import "Parse/Parse.h"
 #import "SceneDelegate.h"
+#import "Shift-Swift.h"
 
 @interface LoginViewController ()
 
+@property (weak, nonatomic) IBOutlet ShiftButton_Objc *tripTogetherButton;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
@@ -23,13 +25,10 @@
     
     [self.navigationController.navigationBar setHidden:YES];
     
-    // sets gradient background
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    gradient.startPoint = CGPointZero;
-    gradient.endPoint = CGPointMake(1, 1);
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:34.0/255.0 green:211/255.0 blue:198/255.0 alpha:1.0] CGColor],(id)[[UIColor colorWithRed:145/255.0 green:72.0/255.0 blue:203/255.0 alpha:1.0] CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    [self.tripTogetherButton setColors: @[[UIColor blueColor], [UIColor purpleColor]]];
+    [self.tripTogetherButton animationDuration:3.0];
+    [self.tripTogetherButton startTimedAnimation];
+    [self.tripTogetherButton setMaskToText:true];
 }
 
 - (IBAction)loginUser:(id)sender {

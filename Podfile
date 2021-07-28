@@ -14,6 +14,8 @@ target 'trip-together' do
   pod 'TagListView', '~> 1.0'
   pod 'ImageSlideshow', '~> 1.9.0'
   pod 'DropDown'
+  pod 'Shift'
+
 
   target 'trip-togetherTests' do
     inherit! :search_paths

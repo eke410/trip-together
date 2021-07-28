@@ -25,6 +25,7 @@ PODS:
     - Parse/Core (= 1.19.2)
   - Parse/Core (1.19.2):
     - Bolts/Tasks (= 1.9.1)
+  - Shift (0.2.2)
   - TagListView (1.4.1)
   - "UITextView+Placeholder (1.4.0)"
 
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - GooglePlaces
   - ImageSlideshow (~> 1.9.0)
   - Parse
+  - Shift
   - TagListView (~> 1.0)
   - "UITextView+Placeholder"
 
@@ -47,6 +49,7 @@ SPEC REPOS:
     - GooglePlaces
     - ImageSlideshow
     - Parse
+    - Shift
     - TagListView
     - "UITextView+Placeholder"
 
@@ -58,9 +61,10 @@ SPEC CHECKSUMS:
   GooglePlaces: 5d87ca13ed98b7a937e0d8bc7026f718c7263271
   ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
   Parse: 081fb8755c3000fd11df817eec235def233d0af3
+  Shift: 86dc634d046fc86a879dbfdb492739672cc092be
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: af0882d8d16c616c48a43b80f5765f42a6a7a75a
+PODFILE CHECKSUM: 1d9d996b36c267a979e3daff6b524b01b1e100d2
 
 COCOAPODS: 1.10.1
