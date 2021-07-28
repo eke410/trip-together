@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIButton *sortButton;
+@property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
 @property (nonatomic, strong) NSMutableArray *attractions;
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic) CGPoint attractionsPosition;
@@ -29,6 +30,7 @@
 @property (nonatomic) BOOL noMoreAttractionData;
 @property (nonatomic) BOOL noMoreRestaurantData;
 @property (nonatomic, strong) DropDown *dropDown;
+@property (nonatomic) BOOL isTypingFirstLocation;
 
 @end
 
@@ -72,7 +74,7 @@
     self.dropDown.anchorView = self.sortButton;
     self.dropDown.bottomOffset = CGPointMake(-4, self.dropDown.anchorView.plainView.bounds.size.height + 6);
     self.dropDown.dataSource = @[@"best_match", @"review_count", @"rating", @"distance"];
-    NSArray *dropDownLabels = @[@"recommended", @"review count", @"overall rating", @"distance"];
+    NSArray *dropDownLabels = @[@"recommended", @"review count", @"weighted rating", @"distance"];
     self.dropDown.cellConfiguration = ^NSString * _Nonnull(NSInteger index, NSString * _Nonnull item) {
         return dropDownLabels[index];
     };
@@ -93,8 +95,7 @@
             strongSelf.attractionsPosition = CGPointMake(0, 0);
             strongSelf.restaurantsPosition = CGPointMake(0, 0);
         }
-        [strongSelf.sortButton setTitle:[@" " stringByAppendingString:dropDownLabels[index]] forState:UIControlStateNormal];
-        [strongSelf.sortButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
+        [strongSelf.sortButton setTitle:dropDownLabels[index] forState:UIControlStateNormal];
     };
     [DropDown startListeningToKeyboard];
     
@@ -103,9 +104,14 @@
     self.dropDown.cellHeight = 32;
     self.dropDown.cornerRadius = 10;
     
-    self.location = @"Cambridge,%20MA,%20USA";
-    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
-    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"restaurants" sortBy:@"best_match"];
+    // set up start animation
+    self.isTypingFirstLocation = false;
+    self.searchBar.translatesAutoresizingMaskIntoConstraints = YES;
+    self.searchBar.frame = CGRectMake(0, self.view.frame.size.height/2-30, self.view.frame.size.width, 51);
+    
+//    self.location = @"Cambridge,%20MA,%20USA";
+//    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
+//    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"restaurants" sortBy:@"best_match"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -264,7 +270,20 @@
     if ([searchText isEqualToString:@""]) {
         [self.tableView setHidden:true];
     } else {
-        [self.tableView setHidden:false];
+        if (self.searchBar.frame.origin.y == self.view.frame.size.height/2-30) { // first time searching location -> animate
+            self.isTypingFirstLocation = true;
+            [UIView animateWithDuration:0.5 animations:^{
+                self.searchBar.frame = CGRectMake(0, 92, self.view.frame.size.width, 51);
+            } completion:^(BOOL finished) {
+                [self.tableView setHidden:false];
+                [self.segmentedControl setHidden:false];
+                [self.sortButton setHidden:false];
+                [self.sortByLabel setHidden:false];
+                self.isTypingFirstLocation = false;
+            }];
+        } else if (!self.isTypingFirstLocation) {
+            [self.tableView setHidden:false];
+        }
     }
     // Update the GMSAutocompleteTableDataSource with the search text.
     [tableDataSource sourceTextHasChanged:searchText];
