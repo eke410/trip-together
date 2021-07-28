@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) NSMutableArray *events;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property int indexOfNextEvent;
 
 @end
 
@@ -94,11 +95,29 @@
             self.events = (NSMutableArray *)events;
             [self.eventsTableView reloadData];
             [self refreshMap];
+            [self calculateInxedOfNextEvent];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
     }];
+}
+
+- (void)calculateInxedOfNextEvent {
+    NSDate *currentDate = [NSDate date];
+    int index = 0;
+    for (int i = 0; i < self.events.count; i++) {
+        Event *event = self.events[i];
+        if ([currentDate compare:event.endTime] == NSOrderedAscending) { // current date is before event's end time
+            index = i;
+            break;
+        }
+        if (i == self.events.count - 1) { // current date is after last event's end time -> all events over
+            index = (int)self.events.count;
+        }
+    }
+    self.indexOfNextEvent = index;
+    NSLog(@"final index: %i", index);
 }
 
 - (void)changeType {
@@ -133,6 +152,10 @@
         } else if (indexPath.section == self.events.count - 1) {
             [cell.timelineLine setFrame:CGRectMake(16, 0, 4, cell.contentView.frame.size.height/2)];
         }
+        // darkens circle of next event
+        if (indexPath.section == self.indexOfNextEvent) {
+            [cell.timelinePoint setBackgroundColor:[UIColor colorWithRed:138/255.0 green:179/255.0 blue:229/255.0 alpha:1]];
+        }
         return cell;
     } else { // events list
         GroupEventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"GroupEventCell"];
@@ -159,6 +182,7 @@
             Event *event = self.events[indexPath.section];
             [self.events removeObject:event];
             [self.eventsTableView reloadData];
+            [self calculateInxedOfNextEvent];
             [self refreshMap];
             [event deleteInBackground];
         }];

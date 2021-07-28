@@ -42,6 +42,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
+    [self.timelinePoint setBackgroundColor:[UIColor whiteColor]];
     [self.timelineLine setFrame:CGRectMake(16, 0, 4, self.contentView.frame.size.height)];
 }
 
