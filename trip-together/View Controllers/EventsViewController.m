@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIButton *sortButton;
 @property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
+@property (weak, nonatomic) IBOutlet UILabel *whereToLabel;
 @property (nonatomic, strong) NSMutableArray *attractions;
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic) CGPoint attractionsPosition;
@@ -274,6 +275,7 @@
             self.isTypingFirstLocation = true;
             [UIView animateWithDuration:0.5 animations:^{
                 self.searchBar.frame = CGRectMake(0, 92, self.view.frame.size.width, 51);
+                [self.whereToLabel setHidden:true];
             } completion:^(BOOL finished) {
                 [self.tableView setHidden:false];
                 [self.segmentedControl setHidden:false];
