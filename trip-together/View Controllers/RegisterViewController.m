@@ -8,9 +8,11 @@
 #import "RegisterViewController.h"
 #import "Parse/Parse.h"
 #import "SceneDelegate.h"
+#import "Shift-Swift.h"
 
 @interface RegisterViewController ()
 
+@property (weak, nonatomic) IBOutlet ShiftButton_Objc *welcomeButton;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
@@ -22,6 +24,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.welcomeButton setColors: @[
+        [UIColor colorWithRed:83/255.0 green:144/255.0 blue:217/255.0 alpha:1],
+        [UIColor colorWithRed:127/255.0 green:75/255.0 blue:210/255.0 alpha:1]
+    ]];
+    [self.welcomeButton animationDuration:1.5];
+    [self.welcomeButton startTimedAnimation];
+    [self.welcomeButton setMaskToText:true];
 }
 
 - (IBAction)registerUser:(id)sender {

@@ -25,8 +25,11 @@
     
     [self.navigationController.navigationBar setHidden:YES];
     
-    [self.tripTogetherButton setColors: @[[UIColor blueColor], [UIColor purpleColor]]];
-    [self.tripTogetherButton animationDuration:3.0];
+    [self.tripTogetherButton setColors: @[
+        [UIColor colorWithRed:83/255.0 green:144/255.0 blue:217/255.0 alpha:1],
+        [UIColor colorWithRed:127/255.0 green:75/255.0 blue:210/255.0 alpha:1]
+    ]];
+    [self.tripTogetherButton animationDuration:1.5];
     [self.tripTogetherButton startTimedAnimation];
     [self.tripTogetherButton setMaskToText:true];
 }
