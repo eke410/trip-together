@@ -72,7 +72,7 @@
     self.dropDown.anchorView = self.sortButton;
     self.dropDown.bottomOffset = CGPointMake(-4, self.dropDown.anchorView.plainView.bounds.size.height + 6);
     self.dropDown.dataSource = @[@"best_match", @"review_count", @"rating", @"distance"];
-    NSArray *dropDownLabels = @[@"recommended", @"review count", @"rating", @"distance"];
+    NSArray *dropDownLabels = @[@"recommended", @"review count", @"overall rating", @"distance"];
     self.dropDown.cellConfiguration = ^NSString * _Nonnull(NSInteger index, NSString * _Nonnull item) {
         return dropDownLabels[index];
     };
