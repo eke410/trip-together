@@ -59,6 +59,13 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.usernameField endEditing:YES];
+    [self.firstNameField endEditing:YES];
+    [self.lastNameField endEditing:YES];
+    [self.passwordField endEditing:YES];
+}
+
 /*
 #pragma mark - Navigation
 

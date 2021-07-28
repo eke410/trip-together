@@ -51,6 +51,11 @@
     }];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.usernameField endEditing:YES];
+    [self.passwordField endEditing:YES];
+}
+
 
 /*
 #pragma mark - Navigation
