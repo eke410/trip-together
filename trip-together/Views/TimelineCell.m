@@ -16,6 +16,8 @@
     self.timelinePoint.layer.borderWidth = 2;
     self.timelinePoint.layer.borderColor = [[UIColor colorWithRed:138/255.0 green:179/255.0 blue:229/255.0 alpha:1] CGColor];
     self.timelinePoint.layer.cornerRadius = self.timelinePoint.frame.size.width/2;
+    
+    [self.timelineLine setFrame:CGRectMake(16, 0, 4, self.contentView.frame.size.height)];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -36,6 +38,11 @@
         NSString *endTimeString = [self.event.endTime formattedDateWithFormat:@"MMM d, h:mm a"];
         self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startTimeString, endTimeString];
     }
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self.timelineLine setFrame:CGRectMake(16, 0, 4, self.contentView.frame.size.height)];
 }
 
 

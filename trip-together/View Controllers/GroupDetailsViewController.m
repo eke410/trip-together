@@ -125,6 +125,14 @@
         TimelineCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"TimelineCell"];
         cell.event = self.events[indexPath.section];
         [cell refreshData];
+        // crops timeline edges for first and last cells
+        if (self.events.count == 1) {
+            [cell.timelineLine setHidden:true];
+        } else if (indexPath.section == 0) {
+            [cell.timelineLine setFrame:CGRectMake(16, cell.contentView.frame.size.height/2, 4, cell.contentView.frame.size.height/2)];
+        } else if (indexPath.section == self.events.count - 1) {
+            [cell.timelineLine setFrame:CGRectMake(16, 0, 4, cell.contentView.frame.size.height/2)];
+        }
         return cell;
     } else { // events list
         GroupEventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"GroupEventCell"];
