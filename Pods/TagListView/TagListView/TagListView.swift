@@ -201,7 +201,7 @@ open class TagListView: UIView {
     
     @IBOutlet open weak var delegate: TagListViewDelegate?
     
-    open private(set) var tagViews: [TagView] = []
+    @objc open private(set) var tagViews: [TagView] = []
     private(set) var tagBackgroundViews: [UIView] = []
     private(set) var rowViews: [UIView] = []
     private(set) var tagViewHeight: CGFloat = 0
