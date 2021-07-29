@@ -31,7 +31,6 @@
     
     self.usersToAddTableView.dataSource = self;
     self.usersToAddTableView.delegate = self;
-    self.usersToAddTableView.layer.borderColor = [[UIColor systemGray3Color] CGColor];
     self.groupNameField.layer.borderColor = [[UIColor systemGray3Color] CGColor];
     
     self.usersInGroup = [[NSMutableArray alloc] initWithObjects:PFUser.currentUser, nil];
@@ -81,7 +80,6 @@
     PFUser *user = self.filteredUsersToAdd[indexPath.row];
     cell.user = user;
     [cell refreshData];
-    [cell.button setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
     cell.delegate = self;
     return cell;
 }

@@ -34,11 +34,7 @@
 }
 
 - (IBAction)clickedButton:(id)sender {
-    if (self.button.imageView.image == [UIImage systemImageNamed:@"plus"]) {
-        [self.delegate addUserToGroup:self.user];
-    } else if (self.button.imageView.image == [UIImage systemImageNamed:@"minus"]) {
-        [self.delegate removeUserFromGroup:self.user];
-    }
+    [self.delegate addUserToGroup:self.user];
 }
 
 @end
