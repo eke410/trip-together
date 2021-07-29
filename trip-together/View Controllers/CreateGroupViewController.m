@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *groupNameField;
 @property (weak, nonatomic) IBOutlet TagListView *usersTagListView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView *usersToAddTableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 
@@ -96,6 +97,11 @@
     [self.usersToAdd removeObject:user];
     [self filterUsers];
     [self.usersToAddTableView reloadData];
+    
+    if (self.scrollView.frame.size.height < self.usersTagListView.intrinsicContentSize.height) { // scroll to bottom
+        CGPoint bottomOffset = CGPointMake(0, self.usersTagListView.intrinsicContentSize.height - self.scrollView.bounds.size.height + self.scrollView.contentInset.bottom);
+        [self.scrollView setContentOffset:bottomOffset animated:YES];
+    }
 }
 
 - (void)removeUserFromGroup:(PFUser *)user {
