@@ -59,10 +59,7 @@
 
 
 - (IBAction)createGroup:(id)sender {
-    NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
-    NSSortDescriptor *lastNameSorter = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:true];
-    [self.usersInGroup sortUsingDescriptors:@[firstNameSorter, lastNameSorter]];
-
+    [self sortByName:self.usersInGroup];
     Group *newGroup = [Group postGroupWithUsers:self.usersInGroup withName:self.groupNameField.text withLocation:@"placeholder_location" withStartDate:[NSDate new] withEndDate:[NSDate new] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Failed to create group: %@", error.localizedDescription);
@@ -105,15 +102,15 @@
     [self.usersInGroup removeObject:user];
     [self.usersTagListView removeTag:[self getFullName:user]];
     [self.usersToAdd addObject:user];
+    [self sortByName:self.usersToAdd];
     [self filterUsers];
-    [self sortFilteredUsersByName];
     [self.usersToAddTableView reloadData];
 }
 
-- (void)sortFilteredUsersByName {
+- (void)sortByName:(NSMutableArray *)users {
     NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
     NSSortDescriptor *lastNameSorter = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:true];
-    self.filteredUsersToAdd = [self.filteredUsersToAdd sortedArrayUsingDescriptors:@[firstNameSorter, lastNameSorter]];
+    [users sortUsingDescriptors:@[firstNameSorter, lastNameSorter]];
 }
 
 - (IBAction)searchTextChanged:(id)sender {
