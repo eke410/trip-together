@@ -9,14 +9,16 @@
 #import "Group.h"
 #import "UserCell.h"
 
-@interface CreateGroupViewController () <UserCellDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface CreateGroupViewController () <UserCellDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *groupNameField;
 @property (weak, nonatomic) IBOutlet UITableView *usersInGroupTableView;
 @property (weak, nonatomic) IBOutlet UITableView *usersToAddTableView;
+@property (weak, nonatomic) IBOutlet UITextField *searchField;
 
 @property (strong, nonatomic) NSMutableArray *usersInGroup;
 @property (strong, nonatomic) NSMutableArray *usersToAdd;
+@property (strong, nonatomic) NSArray *filteredUsersToAdd;
 
 @end
 
@@ -44,13 +46,19 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable users, NSError * _Nullable error) {
         self.usersToAdd = (NSMutableArray *)users;
+        self.filteredUsersToAdd = users;
         [self.usersToAddTableView reloadData];
     }];
+    
+    self.searchField.delegate = self;
 }
 
 
 - (IBAction)createGroup:(id)sender {
-    [self sortByName:self.usersInGroup];
+    NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
+    NSSortDescriptor *lastNameSorter = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:true];
+    [self.usersInGroup sortUsingDescriptors:@[firstNameSorter, lastNameSorter]];
+
     Group *newGroup = [Group postGroupWithUsers:self.usersInGroup withName:self.groupNameField.text withLocation:@"placeholder_location" withStartDate:[NSDate new] withEndDate:[NSDate new] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Failed to create group: %@", error.localizedDescription);
@@ -66,7 +74,7 @@
     if (tableView == self.usersInGroupTableView) {
         return self.usersInGroup.count;
     } else {
-        return self.usersToAdd.count;
+        return self.filteredUsersToAdd.count;
     }
 }
 
@@ -84,7 +92,7 @@
         return cell;
     } else {
         UserCell *cell = [self.usersToAddTableView dequeueReusableCellWithIdentifier:@"UserCell"];
-        PFUser *user = self.usersToAdd[indexPath.row];
+        PFUser *user = self.filteredUsersToAdd[indexPath.row];
         cell.user = user;
         [cell refreshData];
         [cell.button setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
@@ -96,6 +104,7 @@
 - (void)addUserToGroup:(PFUser *)user {
     [self.usersInGroup addObject:user];
     [self.usersToAdd removeObject:user];
+    [self filterUsers];
     
     [self.usersInGroupTableView reloadData];
     [self.usersToAddTableView reloadData];
@@ -104,16 +113,39 @@
 - (void)removeUserFromGroup:(PFUser *)user {
     [self.usersInGroup removeObject:user];
     [self.usersToAdd addObject:user];
-    [self sortByName:self.usersToAdd];
+    [self filterUsers];
+    [self sortFilteredUsersByName];
         
     [self.usersInGroupTableView reloadData];
     [self.usersToAddTableView reloadData];
 }
 
-- (void)sortByName:(NSMutableArray *)users {
+- (void)sortFilteredUsersByName {
     NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
     NSSortDescriptor *lastNameSorter = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:true];
-    [users sortUsingDescriptors:@[firstNameSorter, lastNameSorter]];
+    self.filteredUsersToAdd = [self.filteredUsersToAdd sortedArrayUsingDescriptors:@[firstNameSorter, lastNameSorter]];
+}
+
+- (IBAction)searchTextChanged:(id)sender {
+    [self filterUsers];
+}
+
+- (void)filterUsers {
+    // filters users based on search field text
+    if (self.searchField.text.length != 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(PFUser *evaluatedObject, NSDictionary *bindings) {
+            NSString *fullName = [NSString stringWithFormat:@"%@ %@", evaluatedObject[@"firstName"], evaluatedObject[@"lastName"]];
+            return [[fullName lowercaseString] hasPrefix:[self.searchField.text lowercaseString]] || [[evaluatedObject[@"lastName"] lowercaseString] hasPrefix:[self.searchField.text lowercaseString]];
+        }];
+        self.filteredUsersToAdd = [self.usersToAdd filteredArrayUsingPredicate:predicate];
+    } else {
+        self.filteredUsersToAdd = [self.usersToAdd copy];
+    }
+    [self.usersToAddTableView reloadData];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.searchField endEditing:YES];
 }
 
 /*

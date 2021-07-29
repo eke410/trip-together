@@ -1569,7 +1569,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nPe-mc-Zjk">
-                                <rect key="frame" x="16" y="428" width="358" height="200"/>
+                                <rect key="frame" x="16" y="470" width="358" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="kMQ-Sm-JtR"/>
@@ -1648,14 +1648,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a name..." textAlignment="natural" minimumFontSize="17" background="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rqc-KQ-pQe">
+                                <rect key="frame" x="16" y="428" width="358" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="searchTextChanged:" destination="kaL-w8-zSK" eventType="editingChanged" id="cMr-GX-POM"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="46Q-ng-zsx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="46Q-ng-zsx" firstAttribute="trailing" secondItem="nPe-mc-Zjk" secondAttribute="trailing" constant="16" id="0JS-fA-jIN"/>
                             <constraint firstItem="DnU-Wg-oiX" firstAttribute="top" secondItem="46Q-ng-zsx" secondAttribute="top" constant="16" id="1UL-vw-jIQ"/>
+                            <constraint firstItem="46Q-ng-zsx" firstAttribute="trailing" secondItem="rqc-KQ-pQe" secondAttribute="trailing" constant="16" id="2Jl-qa-Txe"/>
                             <constraint firstItem="ICD-oL-Cz5" firstAttribute="trailing" secondItem="DnU-Wg-oiX" secondAttribute="trailing" id="DZu-fD-p7V"/>
                             <constraint firstItem="DnU-Wg-oiX" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="F4J-Ww-Sjr"/>
+                            <constraint firstItem="rqc-KQ-pQe" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="Ief-Qm-JZe"/>
                             <constraint firstItem="nPe-mc-Zjk" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="NHv-wG-zMf"/>
                             <constraint firstItem="46Q-ng-zsx" firstAttribute="trailing" secondItem="eID-bt-fn2" secondAttribute="trailing" constant="16" id="NgL-d8-zaV"/>
                             <constraint firstItem="46Q-ng-zsx" firstAttribute="bottom" secondItem="eID-bt-fn2" secondAttribute="bottom" constant="16" id="Ovp-1y-ZtD"/>
@@ -1665,8 +1675,9 @@
                             <constraint firstItem="dRh-HH-t6i" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="Ypz-Pv-zL8"/>
                             <constraint firstItem="GOO-NB-ei4" firstAttribute="trailing" secondItem="DnU-Wg-oiX" secondAttribute="trailing" id="fxW-ll-5Ed"/>
                             <constraint firstItem="ICD-oL-Cz5" firstAttribute="leading" secondItem="DnU-Wg-oiX" secondAttribute="leading" id="gYB-Ob-cKe"/>
+                            <constraint firstItem="rqc-KQ-pQe" firstAttribute="top" secondItem="GOO-NB-ei4" secondAttribute="bottom" constant="8" id="ga4-S7-WVD"/>
                             <constraint firstItem="46Q-ng-zsx" firstAttribute="trailing" secondItem="dRh-HH-t6i" secondAttribute="trailing" constant="16" id="h8C-1K-gcU"/>
-                            <constraint firstItem="nPe-mc-Zjk" firstAttribute="top" secondItem="GOO-NB-ei4" secondAttribute="bottom" constant="8" id="hpL-xH-PFg"/>
+                            <constraint firstItem="nPe-mc-Zjk" firstAttribute="top" secondItem="rqc-KQ-pQe" secondAttribute="bottom" constant="8" id="mdZ-E9-K0O"/>
                             <constraint firstItem="GOO-NB-ei4" firstAttribute="top" secondItem="dRh-HH-t6i" secondAttribute="bottom" constant="16" id="sJ4-o3-bSw"/>
                             <constraint firstItem="eID-bt-fn2" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="ulq-Pf-lEQ"/>
                             <constraint firstItem="dRh-HH-t6i" firstAttribute="top" secondItem="ICD-oL-Cz5" secondAttribute="bottom" constant="8" id="vdI-Ob-jB9"/>
@@ -1675,6 +1686,7 @@
                     <navigationItem key="navigationItem" title="Create a Group" id="0ff-uV-Otn"/>
                     <connections>
                         <outlet property="groupNameField" destination="DnU-Wg-oiX" id="9cw-kM-JQK"/>
+                        <outlet property="searchField" destination="rqc-KQ-pQe" id="36Y-Tf-Py6"/>
                         <outlet property="usersInGroupTableView" destination="dRh-HH-t6i" id="Bah-0I-Rgb"/>
                         <outlet property="usersToAddTableView" destination="nPe-mc-Zjk" id="5Kh-Q2-lwh"/>
                     </connections>
