@@ -139,16 +139,6 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 8;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[UIView alloc] init];
-    headerView.backgroundColor = self.view.backgroundColor;
-    return headerView;
-}
-
 - (void)changeType{
     // segmented control was clicked
     if (self.segmentedControl.selectedSegmentIndex == 0) { // switched from restaurants -> attractions
