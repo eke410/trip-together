@@ -1481,14 +1481,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eID-bt-fn2">
-                                <rect key="frame" x="16" y="715" width="358" height="30"/>
+                                <rect key="frame" x="24" y="709" width="342" height="36"/>
                                 <color key="backgroundColor" red="0.32549019610000002" green="0.56470588239999997" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="GZo-LP-VdO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Create Group">
                                     <color key="titleColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
+                                        <integer key="value" value="18"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1496,7 +1500,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nPe-mc-Zjk">
-                                <rect key="frame" x="16" y="338.66666666666674" width="358" height="360.33333333333326"/>
+                                <rect key="frame" x="16" y="340.66666666666674" width="358" height="352.33333333333326"/>
                                 <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" id="vV7-q6-apV" customClass="UserCell">
@@ -1561,13 +1565,13 @@
                                 </userDefinedRuntimeAttributes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="People " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ICD-oL-Cz5">
-                                <rect key="frame" x="16" y="190" width="358" height="21"/>
+                                <rect key="frame" x="16" y="192" width="358" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search users" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="rqc-KQ-pQe">
-                                <rect key="frame" x="46" y="305" width="330" height="23.333333333333314"/>
+                                <rect key="frame" x="46" y="307" width="330" height="23.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                 <connections>
@@ -1575,7 +1579,7 @@
                                 </connections>
                             </textField>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tbt-wE-Ejw">
-                                <rect key="frame" x="16" y="219" width="358" height="70"/>
+                                <rect key="frame" x="16" y="221" width="358" height="70"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daa-tf-waf" customClass="TagListView" customModule="TagListView">
                                         <rect key="frame" x="0.0" y="0.0" width="358" height="28"/>
@@ -1611,7 +1615,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="PWq-YA-BUM"/>
                             </scrollView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7xU-3A-koB">
-                                <rect key="frame" x="18" y="306" width="24" height="21.666666666666686"/>
+                                <rect key="frame" x="18" y="308" width="24" height="21.666666666666686"/>
                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="TM3-zQ-Aob"/>
@@ -1619,13 +1623,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMa-5a-50G">
-                                <rect key="frame" x="16" y="104" width="358" height="22"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <rect key="frame" x="16" y="104" width="358" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yMj-Ig-GKj">
-                                <rect key="frame" x="16" y="134" width="358" height="40"/>
+                                <rect key="frame" x="16" y="136" width="358" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DnU-Wg-oiX">
                                         <rect key="frame" x="8" y="0.0" width="342" height="40"/>
@@ -1664,7 +1668,7 @@
                             <constraint firstItem="PMa-5a-50G" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="IhA-nE-Mvt"/>
                             <constraint firstItem="PMa-5a-50G" firstAttribute="top" secondItem="46Q-ng-zsx" secondAttribute="top" constant="16" id="Kxy-hs-rTQ"/>
                             <constraint firstItem="nPe-mc-Zjk" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="NHv-wG-zMf"/>
-                            <constraint firstItem="46Q-ng-zsx" firstAttribute="trailing" secondItem="eID-bt-fn2" secondAttribute="trailing" constant="16" id="NgL-d8-zaV"/>
+                            <constraint firstItem="46Q-ng-zsx" firstAttribute="trailing" secondItem="eID-bt-fn2" secondAttribute="trailing" constant="24" id="NgL-d8-zaV"/>
                             <constraint firstItem="46Q-ng-zsx" firstAttribute="bottom" secondItem="eID-bt-fn2" secondAttribute="bottom" constant="16" id="Ovp-1y-ZtD"/>
                             <constraint firstItem="eID-bt-fn2" firstAttribute="top" secondItem="nPe-mc-Zjk" secondAttribute="bottom" constant="16" id="P70-Cv-hAe"/>
                             <constraint firstItem="ICD-oL-Cz5" firstAttribute="top" secondItem="yMj-Ig-GKj" secondAttribute="bottom" constant="16" id="QiV-cw-2n5"/>
@@ -1674,12 +1678,13 @@
                             <constraint firstItem="46Q-ng-zsx" firstAttribute="trailing" secondItem="Tbt-wE-Ejw" secondAttribute="trailing" constant="16" id="chc-Mg-hTu"/>
                             <constraint firstItem="46Q-ng-zsx" firstAttribute="trailing" secondItem="PMa-5a-50G" secondAttribute="trailing" constant="16" id="fLQ-0c-Hhn"/>
                             <constraint firstItem="rqc-KQ-pQe" firstAttribute="top" secondItem="Tbt-wE-Ejw" secondAttribute="bottom" constant="16" id="ga4-S7-WVD"/>
-                            <constraint firstItem="eID-bt-fn2" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="ulq-Pf-lEQ"/>
+                            <constraint firstItem="eID-bt-fn2" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="24" id="ulq-Pf-lEQ"/>
                             <constraint firstItem="yMj-Ig-GKj" firstAttribute="leading" secondItem="46Q-ng-zsx" secondAttribute="leading" constant="16" id="vi8-yi-B9e"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Create a Group" id="0ff-uV-Otn"/>
                     <connections>
+                        <outlet property="createGroupButton" destination="eID-bt-fn2" id="3N6-Ao-2zn"/>
                         <outlet property="groupNameField" destination="DnU-Wg-oiX" id="9cw-kM-JQK"/>
                         <outlet property="scrollView" destination="Tbt-wE-Ejw" id="dyK-FC-BPt"/>
                         <outlet property="searchField" destination="rqc-KQ-pQe" id="36Y-Tf-Py6"/>

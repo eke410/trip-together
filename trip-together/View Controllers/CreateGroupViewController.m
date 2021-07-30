@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView *usersToAddTableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
+@property (weak, nonatomic) IBOutlet UIButton *createGroupButton;
 
 @property (strong, nonatomic) NSMutableArray *usersInGroup;
 @property (strong, nonatomic) NSMutableArray *usersToAdd;
@@ -40,6 +41,15 @@
     
     TagView *firstTagView = self.usersTagListView.tagViews[0];
     firstTagView.enableRemoveButton = false;
+    [self setTagViewGradientForTagAtIndex:0];
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.createGroupButton.bounds;
+    gradient.startPoint = CGPointMake(0, 1);
+    gradient.endPoint = CGPointMake(0, 0);
+    gradient.cornerRadius = 18;
+    gradient.colors = @[(id)[[UIColor colorWithRed:78/255.0 green:168/255.0 blue:222/255.0 alpha:1] CGColor], (id)[[UIColor colorWithRed:100/255.0 green:178/255.0 blue:227/255.0 alpha:1] CGColor]];
+    [self.createGroupButton.layer insertSublayer:gradient atIndex:0];
 
     PFQuery *query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:PFUser.currentUser.objectId];
@@ -92,6 +102,7 @@
 - (void)addUserToGroup:(PFUser *)user {
     [self.usersInGroup addObject:user];
     [self.usersTagListView addTag:[self getFullName:user]];
+    [self setTagViewGradientForTagAtIndex:(int)self.usersTagListView.tagViews.count-1];
     [self.usersToAdd removeObject:user];
     [self filterUsers];
     [self.usersToAddTableView reloadData];
@@ -115,6 +126,16 @@
     NSSortDescriptor *firstNameSorter = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:true];
     NSSortDescriptor *lastNameSorter = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:true];
     [users sortUsingDescriptors:@[firstNameSorter, lastNameSorter]];
+}
+
+- (void)setTagViewGradientForTagAtIndex:(int)index {
+    TagView *tagView = self.usersTagListView.tagViews[index];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = tagView.frame;
+    gradient.startPoint = CGPointMake(0, 1);
+    gradient.endPoint = CGPointMake(0, 0);
+    gradient.colors = @[(id)[[UIColor colorWithRed:78/255.0 green:168/255.0 blue:222/255.0 alpha:1] CGColor], (id)[[UIColor colorWithRed:100/255.0 green:178/255.0 blue:227/255.0 alpha:1] CGColor]];
+    [tagView.layer insertSublayer:gradient atIndex:0];
 }
 
 - (IBAction)searchTextChanged:(id)sender {
