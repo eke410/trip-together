@@ -109,10 +109,6 @@
     self.isTypingFirstLocation = false;
     self.searchBar.translatesAutoresizingMaskIntoConstraints = YES;
     self.searchBar.frame = CGRectMake(0, self.view.frame.size.height/2-30, self.view.frame.size.width, 51);
-    
-//    self.location = @"Cambridge,%20MA,%20USA";
-//    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"top+tourist+attractions" sortBy:@"best_match"];
-//    [self queryYelpWithLocation:@"Cambridge,%20MA,%20USA" offset:@"0" term:@"restaurants" sortBy:@"best_match"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -192,28 +188,24 @@
         @"limit": @"20",
     };
     [APIManager queryYelpEventsWithParams:params withCompletion:^(NSArray * _Nonnull dataArray, NSError * _Nonnull error) {
-        if (!error) {
-            if ([term isEqualToString:@"top+tourist+attractions"]) { // store attractions data
-                [self.attractions addObjectsFromArray:[Event eventsWithArray:dataArray withType:@"attraction"]];
-                if (dataArray.count < 20) {
-                    self.noMoreAttractionData = true;
-                }
-            } else { // store restaurants data
-                [self.restaurants addObjectsFromArray:[Event eventsWithArray:dataArray withType:@"restaurant"]];
-                if (dataArray.count < 20) {
-                    self.noMoreRestaurantData = true;
-                }
-            }
-            [self.eventsTableView reloadData];
-            if ([offset isEqualToString:@"0"]) { // scroll to top if querying data from new location
-                if ((self.segmentedControl.selectedSegmentIndex == 0 && self.attractions.count > 0) || (self.segmentedControl.selectedSegmentIndex == 1 && self.restaurants.count > 0)) {
-                    [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
-                }
-            }
-            self.isLoadingData = false;
-        } else {
+        if (error) {
             NSLog(@"Error querying from Yelp: %@", error.localizedDescription);
+            return;
         }
+        if ([term isEqualToString:@"top+tourist+attractions"]) { // store attractions data
+            [self.attractions addObjectsFromArray:[Event eventsWithArray:dataArray withType:@"attraction"]];
+            self.noMoreAttractionData = dataArray.count < 20;
+        } else { // store restaurants data
+            [self.restaurants addObjectsFromArray:[Event eventsWithArray:dataArray withType:@"restaurant"]];
+            self.noMoreRestaurantData = dataArray.count < 20;
+        }
+        [self.eventsTableView reloadData];
+        if ([offset isEqualToString:@"0"]) { // scroll to top if querying data from new location
+            if ((self.segmentedControl.selectedSegmentIndex == 0 && self.attractions.count > 0) || (self.segmentedControl.selectedSegmentIndex == 1 && self.restaurants.count > 0)) {
+                [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+            }
+        }
+        self.isLoadingData = false;
     }];
 }
 
