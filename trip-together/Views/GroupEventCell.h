@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GroupEventCell : UITableViewCell
 
 @property (nonatomic, strong) Event *event;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;

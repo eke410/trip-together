@@ -11,6 +11,7 @@
 
 @interface GroupDetailsInfoViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UIView *tableContainerView;
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
@@ -28,9 +29,13 @@
     self.usersTableView.delegate = self;
     self.usersTableView.dataSource = self;
     
-    self.usersTableView.layer.borderColor = [[UIColor systemGray3Color] CGColor];
-    self.usersTableView.layer.borderWidth = 1;
-    self.usersTableView.layer.cornerRadius = 10;
+    self.usersTableView.layer.cornerRadius = 15;
+    self.tableContainerView.layer.cornerRadius = 15;
+    self.tableContainerView.layer.shadowOpacity = 0.15;
+    self.tableContainerView.layer.shadowRadius = 8;
+    self.tableContainerView.layer.shadowColor = [[UIColor darkGrayColor] CGColor];
+    self.tableContainerView.layer.shadowOffset = CGSizeZero;
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

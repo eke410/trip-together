@@ -14,11 +14,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.contentView.layer.cornerRadius = 10;
-    [self.contentView setClipsToBounds:YES];
-    [self.contentView.layer setBorderColor: [[UIColor systemGray5Color] CGColor]];
-    [self.contentView.layer setBorderWidth:1];
-    self.contentView.backgroundColor = [UIColor colorWithWhite:0.99 alpha:1];
+    self.containerView.layer.cornerRadius = 10;
+    self.containerView.layer.shadowOpacity = 0.2;
+    self.containerView.layer.shadowRadius = 4;
+    self.containerView.layer.shadowColor = [[UIColor darkGrayColor] CGColor];
+    self.containerView.layer.shadowOffset = CGSizeZero;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
