@@ -92,10 +92,10 @@
             [self.groupPicker reloadAllComponents];
             
             if (groups.count == 0) {
-                self.forGroupLabel.text = @"\nYou have no groups to book this event for. Please create a group and try again.";
+                self.forGroupLabel.text = @"You have no groups to book this event for. Please create a group and try again.";
                 [self.forGroupLabel setFont:[UIFont systemFontOfSize:17 weight:UIFontWeightRegular]];
-                [self.groupPicker setHidden:true];
-                [self.bookEventButton setHidden:true];
+                [self.groupPicker removeFromSuperview];
+                [self.bookEventButton removeFromSuperview];
             }
         } else {
             NSLog(@"%@", error.localizedDescription);

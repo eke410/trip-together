@@ -28,7 +28,7 @@
     // Do any additional setup after loading the view.
     
     PFUser *user = PFUser.currentUser;
-    self.usernameLabel.text = user.username;
+    self.usernameLabel.text = [@"@" stringByAppendingString:user.username];
     self.fullNameLabel.text = [NSString stringWithFormat:@"%@ %@", user[@"firstName"], user[@"lastName"]];
     
     PFFileObject *photo = user[@"photo"];
