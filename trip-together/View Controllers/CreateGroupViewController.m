@@ -13,6 +13,7 @@
 @interface CreateGroupViewController () <UserCellDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, TagListViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *groupNameField;
+@property (weak, nonatomic) IBOutlet UIView *groupNameView;
 @property (weak, nonatomic) IBOutlet TagListView *usersTagListView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView *usersToAddTableView;
@@ -69,6 +70,13 @@
 
 
 - (IBAction)createGroup:(id)sender {
+    // empty group name -> don't allow group creation
+    if (self.groupNameField.text.length == 0) {
+        self.groupNameView.layer.borderColor = [[UIColor redColor] CGColor];
+        self.groupNameView.layer.borderWidth = 1;
+        return;
+    }
+    // create group
     [self sortByName:self.usersInGroup];
     Group *newGroup = [Group postGroupWithUsers:self.usersInGroup withName:self.groupNameField.text withLocation:@"placeholder_location" withStartDate:[NSDate new] withEndDate:[NSDate new] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
@@ -154,6 +162,10 @@
         self.filteredUsersToAdd = [self.usersToAdd copy];
     }
     [self.usersToAddTableView reloadData];
+}
+
+- (IBAction)groupNameTextChanged:(id)sender {
+    self.groupNameView.layer.borderColor = [[UIColor clearColor] CGColor];
 }
 
 - (NSString *)getFullName:(PFUser *)user {

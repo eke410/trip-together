@@ -1708,6 +1708,9 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="groupNameTextChanged:" destination="kaL-w8-zSK" eventType="editingChanged" id="lxa-H4-8zy"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1720,7 +1723,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
+                                        <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -1758,6 +1761,7 @@
                     <connections>
                         <outlet property="createGroupButton" destination="eID-bt-fn2" id="3N6-Ao-2zn"/>
                         <outlet property="groupNameField" destination="DnU-Wg-oiX" id="9cw-kM-JQK"/>
+                        <outlet property="groupNameView" destination="yMj-Ig-GKj" id="BK0-vl-jaW"/>
                         <outlet property="scrollView" destination="Tbt-wE-Ejw" id="dyK-FC-BPt"/>
                         <outlet property="searchField" destination="rqc-KQ-pQe" id="36Y-Tf-Py6"/>
                         <outlet property="usersTagListView" destination="daa-tf-waf" id="K5j-zW-1lt"/>
@@ -1856,7 +1860,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="hnl-2w-OZC"/>
+        <segue reference="cZO-Gr-Ne9"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0_star" width="162" height="30"/>
