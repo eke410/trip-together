@@ -13,9 +13,9 @@
 #import "DropDown-Swift.h"
 @import GooglePlaces;
 
-@interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -56,8 +56,11 @@
     
     self.tableView.delegate = tableDataSource;
     self.tableView.dataSource = tableDataSource;
-    self.searchBar.delegate = self;
+    self.searchField.delegate = self;
     [self.tableView setHidden:true];
+    
+    // style autocomplete table view
+    [tableDataSource setTableCellBackgroundColor:[UIColor colorWithWhite:0.96 alpha:1]];
     
     self.eventsTableView.dataSource = self;
     self.eventsTableView.delegate = self;
@@ -110,10 +113,15 @@
     self.dropDown.cellHeight = 32;
     self.dropDown.cornerRadius = 10;
     
+    // set up search field padding
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.searchField.frame.size.height)];
+    self.searchField.leftView = paddingView;
+    self.searchField.leftViewMode = UITextFieldViewModeAlways;
+    
     // set up start animation
     self.isTypingFirstLocation = false;
-    self.searchBar.translatesAutoresizingMaskIntoConstraints = YES;
-    self.searchBar.frame = CGRectMake(0, self.self.view.frame.size.height/2-30, self.view.frame.size.width, 51);
+    self.searchField.translatesAutoresizingMaskIntoConstraints = YES;
+    self.searchField.frame = CGRectMake(8, self.self.view.frame.size.height/2-30, self.view.frame.size.width-16, 45);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -219,7 +227,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.searchBar endEditing:true];
+    [self.searchField endEditing:true];
 }
 
 #pragma mark - GMSAutocompleteTableDataSourceDelegate
@@ -234,8 +242,8 @@
 
 - (void)tableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource didAutocompleteWithPlace:(GMSPlace *)place {
     // updates UI view
-    [self.searchBar endEditing:true];
-    self.searchBar.text = place.formattedAddress;
+    [self.searchField endEditing:true];
+    self.searchField.text = place.formattedAddress;
     [self.tableView setHidden:true];
     
     // clears current data
@@ -266,16 +274,16 @@
     return YES;
 }
 
-#pragma mark - UISearchBarDelegate
+#pragma mark - Search Field
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if ([searchText isEqualToString:@""]) {
+- (IBAction)searchTextChanged:(id)sender {
+    if ([self.searchField.text isEqualToString:@""]) {
         [self.tableView setHidden:true];
     } else {
-        if (self.searchBar.frame.origin.y == self.view.frame.size.height/2-30) { // first time searching location -> animate
+        if (self.searchField.frame.origin.y == self.view.frame.size.height/2-30) { // first time searching location -> animate
             self.isTypingFirstLocation = true;
             [UIView animateWithDuration:0.5 animations:^{
-                self.searchBar.frame = CGRectMake(0, self.sortButton.frame.origin.y-self.searchBar.frame.size.height-2, self.view.frame.size.width, 51);
+                self.searchField.frame = CGRectMake(8, self.sortButton.frame.origin.y-47, self.view.frame.size.width-16, 40);
                 [self.whereToLabel setHidden:true];
             } completion:^(BOOL finished) {
                 [self.tableView setHidden:false];
@@ -289,8 +297,9 @@
         }
     }
     // Update the GMSAutocompleteTableDataSource with the search text.
-    [tableDataSource sourceTextHasChanged:searchText];
+    [tableDataSource sourceTextHasChanged:self.searchField.text];
 }
+
 
 #pragma mark - Navigation
 
