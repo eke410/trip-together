@@ -80,6 +80,9 @@
         return dropDownLabels[index];
     };
     [self.dropDown selectRow:0 scrollPosition:UITableViewScrollPositionTop];
+    [self.sortButton setTranslatesAutoresizingMaskIntoConstraints:true];
+    self.sortButton.frame = CGRectMake(self.sortButton.frame.origin.x, self.sortByLabel.frame.origin.y+2, self.sortButton.intrinsicContentSize.width+16, self.sortButton.frame.size.height);
+    
     __weak EventsViewController *weakSelf = self;
     self.dropDown.selectionAction = ^(NSInteger index, NSString * _Nonnull item) {
         __strong EventsViewController *strongSelf = weakSelf;
@@ -96,7 +99,9 @@
             strongSelf.attractionsPosition = CGPointMake(0, 0);
             strongSelf.restaurantsPosition = CGPointMake(0, 0);
         }
-        [strongSelf.sortButton setTitle:dropDownLabels[index] forState:UIControlStateNormal];
+        UIButton *sortButton = strongSelf.sortButton;
+        [sortButton setTitle:dropDownLabels[index] forState:UIControlStateNormal];
+        sortButton.frame = CGRectMake(sortButton.frame.origin.x, sortButton.frame.origin.y, sortButton.intrinsicContentSize.width+16, sortButton.frame.size.height);
     };
     [DropDown startListeningToKeyboard];
     
@@ -108,7 +113,7 @@
     // set up start animation
     self.isTypingFirstLocation = false;
     self.searchBar.translatesAutoresizingMaskIntoConstraints = YES;
-    self.searchBar.frame = CGRectMake(0, self.view.frame.size.height/2-30, self.view.frame.size.width, 51);
+    self.searchBar.frame = CGRectMake(0, self.self.view.frame.size.height/2-30, self.view.frame.size.width, 51);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -213,6 +218,10 @@
     [self.dropDown show];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.searchBar endEditing:true];
+}
+
 #pragma mark - GMSAutocompleteTableDataSourceDelegate
 
 - (void)didUpdateAutocompletePredictionsForTableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource {
@@ -266,7 +275,7 @@
         if (self.searchBar.frame.origin.y == self.view.frame.size.height/2-30) { // first time searching location -> animate
             self.isTypingFirstLocation = true;
             [UIView animateWithDuration:0.5 animations:^{
-                self.searchBar.frame = CGRectMake(0, 92, self.view.frame.size.width, 51);
+                self.searchBar.frame = CGRectMake(0, self.sortButton.frame.origin.y-self.searchBar.frame.size.height-2, self.view.frame.size.width, 51);
                 [self.whereToLabel setHidden:true];
             } completion:^(BOOL finished) {
                 [self.tableView setHidden:false];
