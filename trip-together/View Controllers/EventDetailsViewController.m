@@ -46,6 +46,15 @@
         [self.bookEventButton setHidden:true];
     }
     
+    // sets up gradient background of book event button
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.bookEventButton.bounds;
+    gradient.startPoint = CGPointMake(0, 1);
+    gradient.endPoint = CGPointMake(0, 0);
+    gradient.cornerRadius = 16;
+    gradient.colors = @[(id)[[UIColor colorWithRed:78/255.0 green:168/255.0 blue:222/255.0 alpha:1] CGColor], (id)[[UIColor colorWithRed:100/255.0 green:178/255.0 blue:227/255.0 alpha:1] CGColor]];
+    [self.bookEventButton.layer insertSublayer:gradient atIndex:0];
+    
     self.categoriesTagListView.textFont = [UIFont systemFontOfSize:14];
     [self.imageSlideshow setContentScaleMode:UIViewContentModeScaleAspectFill];
     self.morePhotosButton.layer.backgroundColor = [[UIColor colorWithWhite:0 alpha:0.7] CGColor];

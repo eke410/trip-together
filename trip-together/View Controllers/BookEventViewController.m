@@ -14,8 +14,6 @@
 @interface BookEventViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endDatePicker;
 @property (weak, nonatomic) IBOutlet UILabel *forGroupLabel;
@@ -74,6 +72,15 @@
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
     
+    // sets up gradient background of book event button
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.bookEventButton.bounds;
+    gradient.startPoint = CGPointMake(0, 1);
+    gradient.endPoint = CGPointMake(0, 0);
+    gradient.cornerRadius = 16;
+    gradient.colors = @[(id)[[UIColor colorWithRed:78/255.0 green:168/255.0 blue:222/255.0 alpha:1] CGColor], (id)[[UIColor colorWithRed:100/255.0 green:178/255.0 blue:227/255.0 alpha:1] CGColor]];
+    [self.bookEventButton.layer insertSublayer:gradient atIndex:0];
+    
     // queries groups that user is in
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
     [query orderByDescending:@"startDate"];
@@ -98,8 +105,6 @@
 
 - (void)refreshData {
     self.eventNameLabel.text = self.event.name;
-    self.locationLabel.text = self.event.location;
-    self.ratingLabel.text = [NSString stringWithFormat: @"%@/5", self.event.rating];
 }
 
 - (void)startDateChanged {
@@ -118,9 +123,16 @@
     return self.groups.count;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel *pickerLabel = (UILabel *)view;
+    if (!pickerLabel) {
+        pickerLabel = [UILabel new];
+        [pickerLabel setFont:[UIFont systemFontOfSize:17]];
+        [pickerLabel setTextAlignment:NSTextAlignmentCenter];
+    }
     Group *group = self.groups[row];
-    return group.name;
+    pickerLabel.text = group.name;
+    return pickerLabel;
 }
 
 #pragma mark - Booking Event & Event Validation
