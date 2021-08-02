@@ -12,6 +12,7 @@
 #import "Mapkit/Mapkit.h"
 #import "EventAnnotation.h"
 #import "TimelineCell.h"
+@import PopupDialog;
 
 @interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
@@ -23,6 +24,7 @@
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property int indexOfNextEvent;
 @property (strong, nonatomic) UIAlertController *deleteEventAlert;
+@property (strong, nonatomic) PopupDialog *deleteEventPopup;
 @property int indexOfEventToBeDeleted;
 
 @end
@@ -60,6 +62,17 @@
     }];
     [self.deleteEventAlert addAction:cancelAction];
     [self.deleteEventAlert addAction:deleteAction];
+    
+    self.deleteEventPopup = [[PopupDialog alloc] initWithTitle:@"Delete event" message:@"Are you sure you would like to delete this event?" image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleBounceUp preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:NO hideStatusBar:NO completion:nil];
+    DefaultButton *cancel = [[DefaultButton alloc] initWithTitle:@"Cancel" height:45 dismissOnTap:YES action:nil];
+    DefaultButton *delete = [[DefaultButton alloc] initWithTitle:@"Delete" height:45 dismissOnTap:YES action:^{
+        NSLog(@"deleting");
+    }];
+    [self.deleteEventPopup addButtons:@[cancel, delete]];
+    
+    PopupDialogContainerView *appearance = [PopupDialogContainerView appearance];
+    appearance.cornerRadius = 20;
+    
 }
 
 - (void)refreshData {
@@ -187,7 +200,7 @@
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             // if trash button clicked, present confirmation
             self.indexOfEventToBeDeleted = (int)indexPath.section;
-            [self presentViewController:self.deleteEventAlert animated:true completion:nil];
+            [self presentViewController:self.deleteEventPopup animated:YES completion:nil];
         }];
         [deleteAction setImage:[UIImage systemImageNamed:@"trash"]];
 
