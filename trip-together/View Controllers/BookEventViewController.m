@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *forGroupLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *groupPicker;
 @property (weak, nonatomic) IBOutlet UIButton *bookEventButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (strong, nonatomic) NSArray *groups;
 @property (strong, nonatomic) UIAlertController *invalidDateAlert;
 @property (strong, nonatomic) UIAlertController *conflictAlert;
@@ -72,7 +73,7 @@
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
     
-    // sets up gradient background of book event button
+    // sets up gradient background of book event button, border of cancel button
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.bookEventButton.bounds;
     gradient.startPoint = CGPointMake(0, 1);
@@ -80,6 +81,9 @@
     gradient.cornerRadius = 16;
     gradient.colors = @[(id)[[UIColor colorWithRed:78/255.0 green:168/255.0 blue:222/255.0 alpha:1] CGColor], (id)[[UIColor colorWithRed:100/255.0 green:178/255.0 blue:227/255.0 alpha:1] CGColor]];
     [self.bookEventButton.layer insertSublayer:gradient atIndex:0];
+    
+    self.cancelButton.layer.borderWidth = 1;
+    self.cancelButton.layer.borderColor = [[UIColor colorWithRed:83/255.0 green:144/255.0 blue:217/255.0 alpha:1] CGColor];
     
     // queries groups that user is in
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
@@ -133,6 +137,10 @@
     Group *group = self.groups[row];
     pickerLabel.text = group.name;
     return pickerLabel;
+}
+
+- (IBAction)tappedCancelButton:(id)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - Booking Event & Event Validation

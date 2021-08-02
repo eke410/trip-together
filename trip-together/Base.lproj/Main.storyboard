@@ -724,13 +724,12 @@
                                 <rect key="frame" x="32" y="187.66666666666666" width="326" height="414.66666666666674"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWE-Jj-pLB">
-                                        <rect key="frame" x="16" y="358.66666666666674" width="294" height="32"/>
+                                        <rect key="frame" x="169" y="358.66666666666674" width="145" height="32"/>
                                         <color key="backgroundColor" red="0.28235294117647058" green="0.74901960784313726" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="YzM-jn-xxU"/>
                                             <constraint firstAttribute="height" constant="32" id="aPS-rS-zJP"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Book">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -785,6 +784,21 @@
                                             <constraint firstAttribute="width" constant="230" id="xx2-yx-TO1"/>
                                         </constraints>
                                     </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bB9-9I-EHS">
+                                        <rect key="frame" x="12" y="358.66666666666674" width="145" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.32549019607843138" green="0.56470588235294117" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="tappedCancelButton:" destination="P1i-Dv-zUR" eventType="touchUpInside" id="Rar-gm-sW8"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -792,22 +806,28 @@
                                     <constraint firstAttribute="trailing" secondItem="oYN-6w-Vc6" secondAttribute="trailing" constant="24" id="AfQ-RS-K5l"/>
                                     <constraint firstItem="APX-Sw-P28" firstAttribute="leading" secondItem="9oQ-4B-WYI" secondAttribute="leading" id="DMh-gv-5bm"/>
                                     <constraint firstItem="9oQ-4B-WYI" firstAttribute="leading" secondItem="oYN-6w-Vc6" secondAttribute="leading" id="Dci-0Q-PSd"/>
+                                    <constraint firstAttribute="width" constant="326" id="HGg-WB-CTs"/>
+                                    <constraint firstItem="gWE-Jj-pLB" firstAttribute="leading" secondItem="GdD-oL-o7M" secondAttribute="centerX" constant="6" id="MLN-gJ-f90"/>
+                                    <constraint firstItem="gWE-Jj-pLB" firstAttribute="height" secondItem="bB9-9I-EHS" secondAttribute="height" id="N2O-m7-zo6"/>
                                     <constraint firstItem="9oQ-4B-WYI" firstAttribute="top" secondItem="oYN-6w-Vc6" secondAttribute="bottom" constant="24" id="NVh-C6-XqM"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YWB-So-cG4" secondAttribute="bottom" constant="24" id="NvJ-fv-auM"/>
+                                    <constraint firstItem="bB9-9I-EHS" firstAttribute="leading" secondItem="GdD-oL-o7M" secondAttribute="leading" constant="12" id="Ob4-Pt-LeY"/>
                                     <constraint firstItem="oYN-6w-Vc6" firstAttribute="leading" secondItem="GdD-oL-o7M" secondAttribute="leading" constant="24" id="Qlv-Ec-pmf"/>
                                     <constraint firstItem="YVc-kq-yAa" firstAttribute="top" secondItem="a2L-cx-zV5" secondAttribute="bottom" constant="16" id="SYB-Rs-COm"/>
                                     <constraint firstAttribute="trailing" secondItem="vij-iE-w60" secondAttribute="trailing" constant="8" id="T3F-gW-p9D"/>
                                     <constraint firstItem="YWB-So-cG4" firstAttribute="trailing" secondItem="oYN-6w-Vc6" secondAttribute="trailing" id="UEp-ke-hkS"/>
+                                    <constraint firstItem="gWE-Jj-pLB" firstAttribute="top" secondItem="bB9-9I-EHS" secondAttribute="top" id="Y5p-mr-sdY"/>
                                     <constraint firstAttribute="bottom" secondItem="gWE-Jj-pLB" secondAttribute="bottom" constant="24" id="an6-HR-ITd"/>
-                                    <constraint firstAttribute="trailing" secondItem="gWE-Jj-pLB" secondAttribute="trailing" constant="16" id="h2C-eM-SFa"/>
+                                    <constraint firstItem="bB9-9I-EHS" firstAttribute="trailing" secondItem="GdD-oL-o7M" secondAttribute="centerX" constant="-6" id="d7W-7p-q3z"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="326" id="f0c-5E-cj0"/>
                                     <constraint firstItem="APX-Sw-P28" firstAttribute="centerY" secondItem="YVc-kq-yAa" secondAttribute="centerY" id="hjv-EB-CAi"/>
                                     <constraint firstItem="oYN-6w-Vc6" firstAttribute="top" secondItem="GdD-oL-o7M" secondAttribute="top" constant="24" id="kSY-Va-NSn"/>
                                     <constraint firstItem="gWE-Jj-pLB" firstAttribute="top" secondItem="vij-iE-w60" secondAttribute="bottom" id="mgP-q3-PVK"/>
+                                    <constraint firstAttribute="trailing" secondItem="gWE-Jj-pLB" secondAttribute="trailing" constant="12" id="nyv-rc-Q3r"/>
                                     <constraint firstItem="YVc-kq-yAa" firstAttribute="trailing" secondItem="a2L-cx-zV5" secondAttribute="trailing" id="oPN-g5-E91"/>
                                     <constraint firstItem="vij-iE-w60" firstAttribute="top" secondItem="YWB-So-cG4" secondAttribute="bottom" id="rMV-ea-yCM"/>
                                     <constraint firstItem="a2L-cx-zV5" firstAttribute="trailing" secondItem="oYN-6w-Vc6" secondAttribute="trailing" id="su4-Dq-L3Q"/>
                                     <constraint firstItem="vij-iE-w60" firstAttribute="leading" secondItem="GdD-oL-o7M" secondAttribute="leading" constant="8" id="t3c-Fu-Jis"/>
-                                    <constraint firstItem="gWE-Jj-pLB" firstAttribute="leading" secondItem="GdD-oL-o7M" secondAttribute="leading" constant="16" id="wXC-cC-ah7"/>
                                     <constraint firstItem="YWB-So-cG4" firstAttribute="leading" secondItem="oYN-6w-Vc6" secondAttribute="leading" id="wbA-ls-a73"/>
                                     <constraint firstItem="a2L-cx-zV5" firstAttribute="centerY" secondItem="9oQ-4B-WYI" secondAttribute="centerY" id="ysO-pZ-uhg"/>
                                 </constraints>
@@ -829,6 +849,7 @@
                     <navigationItem key="navigationItem" title="Book Event" id="UlE-Nq-CTW"/>
                     <connections>
                         <outlet property="bookEventButton" destination="gWE-Jj-pLB" id="ps5-Ul-ojV"/>
+                        <outlet property="cancelButton" destination="bB9-9I-EHS" id="Fon-HM-TTp"/>
                         <outlet property="endDatePicker" destination="YVc-kq-yAa" id="a7p-tA-K6u"/>
                         <outlet property="eventNameLabel" destination="oYN-6w-Vc6" id="rkg-xG-Tub"/>
                         <outlet property="forGroupLabel" destination="YWB-So-cG4" id="A2y-uf-TNY"/>
