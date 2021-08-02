@@ -15,6 +15,7 @@ target 'trip-together' do
   pod 'ImageSlideshow', '~> 1.9.0'
   pod 'DropDown'
   pod 'Shift'
+  pod 'PopupDialog', '~> 1.1'
 
 
   target 'trip-togetherTests' do
