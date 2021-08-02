@@ -14,14 +14,13 @@
     
     self.contentView.layer.cornerRadius = 10;
     [self.contentView setClipsToBounds:YES];
-}
-
-- (UIColor *)colorWithHexString:(NSString *)str_HEX  alpha:(CGFloat)alpha_range{
-    int red = 0;
-    int green = 0;
-    int blue = 0;
-    sscanf([str_HEX UTF8String], "#%02X%02X%02X", &red, &green, &blue);
-    return  [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:alpha_range];
+    
+    // set gradient layer
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.contentView.frame;
+    gradient.cornerRadius = 10;
+    gradient.colors = @[(id)[[UIColor colorWithRed:100/255.0 green:178/255.0 blue:227/255.0 alpha:1] CGColor], (id)[[UIColor colorWithRed:78/255.0 green:168/255.0 blue:222/255.0 alpha:1] CGColor]];
+    self.gradientLayer = gradient;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -34,7 +33,12 @@
     self.groupNameLabel.text = self.group.name;
     
     if (self.group.photo) {
-        // if group photo exists, set photo as background
+        // if group photo exists, remove any gradient layers and set photo as background
+        for (CALayer *layer in [self.contentView.layer.sublayers copy]) {
+            if ([layer isKindOfClass:[CAGradientLayer class]]) {
+                [layer removeFromSuperlayer];
+            }
+        }
         [self.group.photo getDataInBackgroundWithBlock:^(NSData * _Nullable imageData, NSError * _Nullable error) {
             self.photoView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:imageData]];
             self.photoView.alpha = 0.85;
@@ -45,6 +49,7 @@
         // if no group photo, set gradient as background
         [self.contentView.layer insertSublayer:self.gradientLayer atIndex:0];
     }
+    
 }
 
 - (void)prepareForReuse {
