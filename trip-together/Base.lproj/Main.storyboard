@@ -876,7 +876,7 @@
                                     <color key="titleColor" red="0.30588235294117649" green="0.6588235294117647" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="leaveGroup:" destination="n0F-Uy-08q" eventType="touchUpInside" id="r6f-kv-lQc"/>
+                                    <action selector="tappedLeaveGroupButton:" destination="n0F-Uy-08q" eventType="touchUpInside" id="r6f-kv-lQc"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GaC-cW-5vD">
@@ -983,7 +983,7 @@
                                     <color key="titleColor" red="0.30588235294117649" green="0.6588235294117647" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="deleteGroup:" destination="n0F-Uy-08q" eventType="touchUpInside" id="PZT-nF-U2F"/>
+                                    <action selector="tappedDeleteGroupButton:" destination="n0F-Uy-08q" eventType="touchUpInside" id="PZT-nF-U2F"/>
                                 </connections>
                             </button>
                         </subviews>

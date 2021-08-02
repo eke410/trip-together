@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIView *tableContainerView;
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) UIAlertController *leaveGroupAlert;
+@property (strong, nonatomic) UIAlertController *deleteGroupAlert;
 
 @end
 
@@ -29,6 +31,7 @@
     self.usersTableView.delegate = self;
     self.usersTableView.dataSource = self;
     
+    // style users table view
     self.usersTableView.layer.cornerRadius = 15;
     self.tableContainerView.layer.cornerRadius = 15;
     self.tableContainerView.layer.shadowOpacity = 0.15;
@@ -36,24 +39,27 @@
     self.tableContainerView.layer.shadowColor = [[UIColor darkGrayColor] CGColor];
     self.tableContainerView.layer.shadowOffset = CGSizeZero;
     
+    // set up confirmation alerts
+    self.leaveGroupAlert = [UIAlertController alertControllerWithTitle:@"Leave group" message:@"Are you sure you would like to leave this group?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *leaveAction = [UIAlertAction actionWithTitle:@"Leave" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self leaveGroup];
+    }];
+    [self.leaveGroupAlert addAction:cancelAction];
+    [self.leaveGroupAlert addAction:leaveAction];
+    
+    self.deleteGroupAlert = [UIAlertController alertControllerWithTitle:@"Delete group" message:@"Are you sure you would like to delete this group?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteGroup];
+    }];
+    [self.deleteGroupAlert addAction:cancelAction];
+    [self.deleteGroupAlert addAction:deleteAction];
+    
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.group.users.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserCell *cell = [self.usersTableView dequeueReusableCellWithIdentifier:@"UserCell"];
-    PFUser *user = self.group.users[indexPath.row];
-    cell.user = user;
-    [cell refreshData];
-    [cell.button setHidden:true];
-    return cell;
-}
-
-- (IBAction)leaveGroup:(id)sender {
+- (void)leaveGroup {
     if (self.group.users.count == 1) { // if only 1 user, delete group
-        [self deleteGroup:sender];
+        [self deleteGroup];
     } else { // if more than 1 user, remove user from group
         [self.navigationController popToRootViewControllerAnimated:YES];
         [self.delegate removeGroup:self.group];
@@ -68,7 +74,7 @@
     }
 }
 
-- (IBAction)deleteGroup:(id)sender {
+- (void)deleteGroup {
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self.delegate removeGroup:self.group];
     [self.group deleteInBackground];
@@ -85,6 +91,27 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.group.users.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UserCell *cell = [self.usersTableView dequeueReusableCellWithIdentifier:@"UserCell"];
+    PFUser *user = self.group.users[indexPath.row];
+    cell.user = user;
+    [cell refreshData];
+    [cell.button setHidden:true];
+    return cell;
+}
+
+- (IBAction)tappedLeaveGroupButton:(id)sender {
+    [self presentViewController:self.leaveGroupAlert animated:true completion:nil];
+}
+
+- (IBAction)tappedDeleteGroupButton:(id)sender {
+    [self presentViewController:self.deleteGroupAlert animated:true completion:nil];
 }
 
 - (IBAction)selectPhoto:(id)sender {
