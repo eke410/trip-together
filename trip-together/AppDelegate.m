@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 @import GooglePlaces;
+@import PopupDialog;
 
 @interface AppDelegate ()
 
@@ -33,6 +34,19 @@
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     NSString *googleAPIKey= [dict objectForKey: @"googleAPIKey"];
     [GMSPlacesClient provideAPIKey:googleAPIKey];
+    
+    // customizes design of alert popups
+    PopupDialogDefaultView *dialogAppearance = [PopupDialogDefaultView appearance];
+    dialogAppearance.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
+    dialogAppearance.titleColor = [UIColor blackColor];
+    dialogAppearance.messageFont = [UIFont systemFontOfSize:15];
+
+    PopupDialogContainerView *containerAppearance = [PopupDialogContainerView appearance];
+    containerAppearance.cornerRadius = 20;
+
+    PopupDialogOverlayView *overlayAppearance = [PopupDialogOverlayView appearance];
+    overlayAppearance.blurEnabled = false;
+    overlayAppearance.opacity = 0.5;
 
     return YES;
 }

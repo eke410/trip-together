@@ -44,10 +44,6 @@
     [self.eventsTableView insertSubview:self.refreshControl atIndex:0];
     
     self.mapView.delegate = self;
-    
-    // styles alert popups
-    PopupDialogContainerView *appearance = [PopupDialogContainerView appearance];
-    appearance.cornerRadius = 20;
 }
 
 - (void)refreshData {
