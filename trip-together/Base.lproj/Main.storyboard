@@ -44,7 +44,7 @@
                                     <constraint firstAttribute="width" constant="300" id="H99-wL-IEY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nV7-aE-rHX">
                                 <rect key="frame" x="45" y="398" width="300" height="34"/>
@@ -136,7 +136,7 @@
                                     <constraint firstAttribute="height" constant="34" id="9T1-aQ-MDH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="see-ce-fgd">
                                 <rect key="frame" x="45" y="360" width="300" height="34"/>
@@ -1728,7 +1728,7 @@
                                         <rect key="frame" x="8" y="0.0" width="342" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                         <connections>
                                             <action selector="groupNameTextChanged:" destination="kaL-w8-zSK" eventType="editingChanged" id="lxa-H4-8zy"/>
                                         </connections>
