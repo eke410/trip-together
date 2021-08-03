@@ -9,12 +9,12 @@
 #import <MapKit/MapKit.h>
 #import "UIImageView+AFNetworking.h"
 #import "CoreLocation/CoreLocation.h"
+@import PopupDialog;
 
 @interface EventMapViewController () <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) UIAlertController *locationAlert;
 @property (nonatomic) BOOL isShowingUserLocation;
 
 @end
@@ -41,11 +41,6 @@
     self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];
     self.isShowingUserLocation = false;
-    
-    // set up location alert
-    self.locationAlert = [UIAlertController alertControllerWithTitle:@"Location not enabled" message:@"Please authorize location services for this app." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-    [self.locationAlert addAction:okAction];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -69,7 +64,9 @@
     
     // location services not authorized
     if ([self.locationManager authorizationStatus] == kCLAuthorizationStatusDenied || [self.locationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
-        [self presentViewController:self.locationAlert animated:YES completion:nil];
+        PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Location not enabled" message:@"Please authorize location services for this app." image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleZoomIn preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+        [popup addButtons:@[[[DefaultButton alloc] initWithTitle:@"Ok" height:45 dismissOnTap:YES action:nil]]];
+        [self presentViewController:popup animated:YES completion:nil];
         return;
     }
     

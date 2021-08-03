@@ -10,6 +10,7 @@
 #import "Group.h"
 #import "DateTools.h"
 #import "EventValidation.h"
+@import PopupDialog;
 
 @interface BookEventViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -21,10 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *bookEventButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (strong, nonatomic) NSArray *groups;
-@property (strong, nonatomic) UIAlertController *invalidDateAlert;
-@property (strong, nonatomic) UIAlertController *conflictAlert;
-@property (strong, nonatomic) UIAlertController *groupDeletedAlert;
-@property (strong, nonatomic) UIAlertController *generalErrorAlert;
 
 @end
 
@@ -48,28 +45,8 @@
     NSDate *startDate = [calendar dateFromComponents:components];
     [self.startDatePicker setDate:startDate];
     [self.endDatePicker setDate:[NSDate dateWithTimeInterval:3600 sinceDate:startDate]];
-    
     [self.startDatePicker addTarget:self action:@selector(startDateChanged) forControlEvents:UIControlEventValueChanged];
-    
-    // initializes alerts
-    self.invalidDateAlert = [UIAlertController alertControllerWithTitle:@"Invalid times" message:@"Please choose an end time after the start time." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-    [self.invalidDateAlert addAction:okAction];
-    
-    self.conflictAlert = [UIAlertController alertControllerWithTitle:@"Event time conflict" message:@"Some users in group have conflicts" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
-    UIAlertAction *bookAction = [UIAlertAction actionWithTitle:@"Book" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self bookEventWithoutUserValidation];
-    }];
-    [self.conflictAlert addAction:cancelAction];
-    [self.conflictAlert addAction:bookAction];
-    
-    self.groupDeletedAlert = [UIAlertController alertControllerWithTitle:@"Group does not exist anymore" message:@"Please select a different group." preferredStyle:UIAlertControllerStyleAlert];
-    [self.groupDeletedAlert addAction:okAction];
-    
-    self.generalErrorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Please try again." preferredStyle:UIAlertControllerStyleAlert];
-    [self.generalErrorAlert addAction:okAction];
-    
+        
     self.groupPicker.delegate = self;
     self.groupPicker.dataSource = self;
     
@@ -146,11 +123,11 @@
 #pragma mark - Booking Event & Event Validation
 
 - (IBAction)bookEvent:(id)sender {
-    
     // checks that event is not null
     if (!self.event || [self.event isEqual:[NSNull null]]) {
-        self.generalErrorAlert.title = @"Error selecting event";
-        [self presentViewController:self.generalErrorAlert animated:YES completion:nil];
+        PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Error selecting event" message:@"Please try again" image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleZoomIn preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+        [popup addButtons:@[[[DefaultButton alloc] initWithTitle:@"Ok" height:45 dismissOnTap:YES action:nil]]];
+        [self presentViewController:popup animated:YES completion:nil];
         return;
     }
     
@@ -163,14 +140,17 @@
     
     // checks that start time is before end time
     if ([newEvent.startTime compare:newEvent.endTime] != NSOrderedAscending) {
-        [self presentViewController:self.invalidDateAlert animated:YES completion:nil];
+        PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Invalid times selected" message:@"Please choose an end time after the start time" image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleZoomIn preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+        [popup addButtons:@[[[DefaultButton alloc] initWithTitle:@"Ok" height:45 dismissOnTap:YES action:nil]]];
+        [self presentViewController:popup animated:YES completion:nil];
         return;
     }
     
     // checks that a group is selected
     if (!newEvent.group || [newEvent.group isEqual:[NSNull null]]) {
-        self.generalErrorAlert.title = @"Error selecting group";
-        [self presentViewController:self.generalErrorAlert animated:YES completion:nil];
+        PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Error selecting group" message:@"Please try again" image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleZoomIn preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+        [popup addButtons:@[[[DefaultButton alloc] initWithTitle:@"Ok" height:45 dismissOnTap:YES action:nil]]];
+        [self presentViewController:popup animated:YES completion:nil];
         return;
     }
     
@@ -179,7 +159,9 @@
     [query whereKey:@"objectId" equalTo:newEvent.group.objectId];
     NSArray *groups = [query findObjects];
     if ([groups count] == 0) {
-        [self presentViewController:self.groupDeletedAlert animated:YES completion:nil];
+        PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Group does not exist anymore" message:@"Please select a different group" image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleZoomIn preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+        [popup addButtons:@[[[DefaultButton alloc] initWithTitle:@"Ok" height:45 dismissOnTap:YES action:nil]]];
+        [self presentViewController:popup animated:YES completion:nil];
         return;
     }
     
@@ -191,8 +173,15 @@
             userConflictString = [userConflictString stringByAppendingString:[NSString stringWithFormat:@"%@, ", user[@"firstName"]]];
         }
         userConflictString = [userConflictString substringToIndex:[userConflictString length]-2];
-        self.conflictAlert.message = userConflictString;
-        [self presentViewController:self.conflictAlert animated:YES completion:nil];
+        
+        // present conflict popup
+        PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Event time conflict" message:userConflictString image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleZoomIn preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+        CancelButton *cancel = [[CancelButton alloc] initWithTitle:@"Cancel" height:45 dismissOnTap:YES action:nil];
+        DefaultButton *book = [[DefaultButton alloc] initWithTitle:@"Book anyways" height:45 dismissOnTap:YES action:^{
+            [self bookEventWithoutUserValidation];
+        }];
+        [popup addButtons:@[cancel, book]];
+        [self presentViewController:popup animated:YES completion:nil];
         return;
     }
     
@@ -216,7 +205,9 @@
     [query whereKey:@"objectId" equalTo:newEvent.group.objectId];
     NSArray *groups = [query findObjects];
     if ([groups count] == 0) {
-        [self presentViewController:self.groupDeletedAlert animated:YES completion:nil];
+        PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Group does not exist anymore" message:@"Please select a different group" image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleZoomIn preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+        [popup addButtons:@[[[DefaultButton alloc] initWithTitle:@"Ok" height:45 dismissOnTap:YES action:nil]]];
+        [self presentViewController:popup animated:YES completion:nil];
         return;
     }
     

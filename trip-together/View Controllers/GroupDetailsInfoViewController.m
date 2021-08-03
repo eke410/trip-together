@@ -8,14 +8,13 @@
 #import "GroupDetailsInfoViewController.h"
 #import "UserCell.h"
 #import "Event.h"
+@import PopupDialog;
 
 @interface GroupDetailsInfoViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIView *tableContainerView;
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) UIAlertController *leaveGroupAlert;
-@property (strong, nonatomic) UIAlertController *deleteGroupAlert;
 
 @end
 
@@ -38,23 +37,6 @@
     self.tableContainerView.layer.shadowRadius = 8;
     self.tableContainerView.layer.shadowColor = [[UIColor darkGrayColor] CGColor];
     self.tableContainerView.layer.shadowOffset = CGSizeZero;
-    
-    // set up confirmation alerts
-    self.leaveGroupAlert = [UIAlertController alertControllerWithTitle:@"Leave group" message:@"Are you sure you would like to leave this group?" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
-    UIAlertAction *leaveAction = [UIAlertAction actionWithTitle:@"Leave" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self leaveGroup];
-    }];
-    [self.leaveGroupAlert addAction:cancelAction];
-    [self.leaveGroupAlert addAction:leaveAction];
-    
-    self.deleteGroupAlert = [UIAlertController alertControllerWithTitle:@"Delete group" message:@"Are you sure you would like to delete this group?" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self deleteGroup];
-    }];
-    [self.deleteGroupAlert addAction:cancelAction];
-    [self.deleteGroupAlert addAction:deleteAction];
-    
 }
 
 - (void)leaveGroup {
@@ -107,11 +89,23 @@
 }
 
 - (IBAction)tappedLeaveGroupButton:(id)sender {
-    [self presentViewController:self.leaveGroupAlert animated:true completion:nil];
+    PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Leave group" message:@"Are you sure you would like to leave this group?" image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleBounceUp preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+    CancelButton *cancel = [[CancelButton alloc] initWithTitle:@"Cancel" height:45 dismissOnTap:YES action:nil];
+    DestructiveButton *leave = [[DestructiveButton alloc] initWithTitle:@"Leave" height:45 dismissOnTap:YES action:^{
+        [self leaveGroup];
+    }];
+    [popup addButtons:@[cancel, leave]];
+    [self presentViewController:popup animated:YES completion:nil];
 }
 
 - (IBAction)tappedDeleteGroupButton:(id)sender {
-    [self presentViewController:self.deleteGroupAlert animated:true completion:nil];
+    PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Delete group" message:@"Are you sure you would like to delete this group?" image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleBounceUp preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
+    CancelButton *cancel = [[CancelButton alloc] initWithTitle:@"Cancel" height:45 dismissOnTap:YES action:nil];
+    DestructiveButton *delete = [[DestructiveButton alloc] initWithTitle:@"Delete" height:45 dismissOnTap:YES action:^{
+        [self deleteGroup];
+    }];
+    [popup addButtons:@[cancel, delete]];
+    [self presentViewController:popup animated:YES completion:nil];
 }
 
 - (IBAction)selectPhoto:(id)sender {
