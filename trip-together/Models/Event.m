@@ -51,7 +51,7 @@
         self.priceLevel = dictionary[@"price"] ? dictionary[@"price"] : @"";
         self.reviewCount = [NSString stringWithFormat:@"%@", dictionary[@"review_count"]];
         self.placeDescription = @"not queried yet";
-        self.websiteURL = @"";
+        self.websiteURL = @"not queried yet";
         self.type = type;
     }
     return self;

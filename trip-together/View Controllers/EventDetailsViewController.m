@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImageView;
-@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UIButton *phoneButton;
 @property (weak, nonatomic) IBOutlet UILabel *priceLevelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reviewCountLabel;
 @property (weak, nonatomic) IBOutlet TagListView *categoriesTagListView;
@@ -29,7 +29,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *websiteButton;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UIImageView *phoneIcon;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *locationContainerView;
+@property (weak, nonatomic) IBOutlet UIView *infoContainerView;
 
 @end
 
@@ -43,7 +45,7 @@
     }
     
     if (!self.allowBooking) {
-        [self.bookEventButton setHidden:true];
+        [self.bookEventButton removeFromSuperview];
     }
     
     // sets up gradient background of book event button
@@ -58,12 +60,19 @@
     self.categoriesTagListView.textFont = [UIFont systemFontOfSize:14];
     [self.imageSlideshow setContentScaleMode:UIViewContentModeScaleAspectFill];
     self.morePhotosButton.layer.backgroundColor = [[UIColor colorWithWhite:0 alpha:0.7] CGColor];
+    
+    // style container view
+    self.containerView.layer.cornerRadius = 20;
+    self.containerView.layer.shadowOpacity = 0.3;
+    self.containerView.layer.shadowRadius = 3;
+    self.containerView.layer.shadowColor = [[UIColor darkGrayColor] CGColor];
+    self.containerView.layer.shadowOffset = CGSizeZero;
 }
 
 - (void)refreshData {
     self.nameLabel.text = self.event.name;
     self.locationLabel.text = self.event.location;
-    self.phoneLabel.text = self.event.phone;
+    [self.phoneButton setTitle:[@" " stringByAppendingString:self.event.phone] forState:UIControlStateNormal];
     self.priceLevelLabel.text = self.event.priceLevel;
     self.reviewCountLabel.text = [NSString stringWithFormat:@"(%@)", self.event.reviewCount];
     
@@ -83,8 +92,10 @@
         self.descriptionLabel.text = self.event.placeDescription;
     }
     
-    if (![self.event.websiteURL isEqualToString:@""]) {
-        [self.websiteButton setHidden:false];
+    if ([self.event.websiteURL isEqualToString:@"not queried yet"]) {
+        [self.websiteButton setHidden:true];
+    } else if ([self.event.websiteURL isEqualToString:@""]) {
+        [self.websiteButton removeFromSuperview];
     }
     
     // set up map region, add pin at event location
@@ -97,7 +108,7 @@
     [self.mapView addAnnotation:annotation];
     
     if ([self.event.phone isEqualToString:@""]) {
-        [self.phoneIcon setHidden:true];
+        [self.phoneButton removeFromSuperview];
     }
 }
 
@@ -145,6 +156,8 @@
                     [self.websiteButton setHidden:false];
                     self.websiteButton.alpha = 1.0f;
                 }];
+            } else {
+                [self.websiteButton removeFromSuperview];
             }
         } else {
             NSLog(@"Error getting event details from Foursquare: %@", error.localizedDescription);
@@ -158,10 +171,12 @@
     [[UIApplication sharedApplication] openURL:phoneNumber options:@{} completionHandler:nil];
 }
 
-- (IBAction)tappedMapButton:(id)sender {
-    [UIView transitionWithView:self.mapView duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        [self.mapView setHidden:!self.mapView.hidden];
-    } completion:nil];
+- (IBAction)tappedLocationButton:(id)sender {
+    [self.locationContainerView setHidden:!self.locationContainerView.hidden];
+}
+
+- (IBAction)tappedInfoButton:(id)sender {
+    [self.infoContainerView setHidden:!self.infoContainerView.hidden];
 }
 
 - (IBAction)tappedYelpURLButton:(id)sender {
@@ -197,6 +212,11 @@
 
 - (IBAction)tappedMapView:(id)sender {
     [self performSegueWithIdentifier:@"mapSegue" sender:nil];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.locationContainerView setHidden:true];
+    [self.infoContainerView setHidden:true];
 }
 
 #pragma mark - Navigation
