@@ -635,7 +635,7 @@
                                     <constraint firstAttribute="width" constant="31" id="bI7-Yq-E9S"/>
                                 </constraints>
                                 <color key="tintColor" red="0.54117647058823526" green="0.70196078431372544" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button">
+                                <state key="normal">
                                     <imageReference key="image" image="camera" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
@@ -649,7 +649,7 @@
                                     <constraint firstAttribute="height" constant="29" id="uor-Po-Bht"/>
                                 </constraints>
                                 <color key="tintColor" red="0.54117647058823526" green="0.70196078431372544" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button">
+                                <state key="normal">
                                     <imageReference key="image" image="photo.on.rectangle.angled" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>

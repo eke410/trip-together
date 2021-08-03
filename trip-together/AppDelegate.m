@@ -37,7 +37,7 @@
     
     // customizes design of alert popups
     PopupDialogDefaultView *dialogAppearance = [PopupDialogDefaultView appearance];
-    dialogAppearance.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
+    dialogAppearance.titleFont = [UIFont systemFontOfSize:17 weight:UIFontWeightMedium];
     dialogAppearance.titleColor = [UIColor blackColor];
     dialogAppearance.messageFont = [UIFont systemFontOfSize:15];
 
@@ -47,7 +47,17 @@
     PopupDialogOverlayView *overlayAppearance = [PopupDialogOverlayView appearance];
     overlayAppearance.blurEnabled = false;
     overlayAppearance.opacity = 0.5;
+    
+    DefaultButton *defaultButtonAppearance = [DefaultButton appearance];
+    defaultButtonAppearance.titleFont = [UIFont systemFontOfSize:15];
+    defaultButtonAppearance.titleColor = [UIColor darkGrayColor];
+    
+    CancelButton *cancelButtonAppearance = [CancelButton appearance];
+    cancelButtonAppearance.titleFont = [UIFont systemFontOfSize:15];
 
+    DestructiveButton *destructiveButtonAppearance = [DestructiveButton appearance];
+    destructiveButtonAppearance.titleFont = [UIFont systemFontOfSize:15];
+    
     return YES;
 }
 
