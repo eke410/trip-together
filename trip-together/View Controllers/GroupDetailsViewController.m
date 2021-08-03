@@ -149,8 +149,10 @@
         if (self.events.count == 1) {
             [cell.timelineLine setHidden:true];
         } else if (indexPath.section == 0) {
+            [cell.timelineLine setHidden:false];
             [cell.timelineLine setFrame:CGRectMake(37, cell.contentView.frame.size.height/2, 4, cell.contentView.frame.size.height/2)];
         } else if (indexPath.section == self.events.count - 1) {
+            [cell.timelineLine setHidden:false];
             [cell.timelineLine setFrame:CGRectMake(37, 0, 4, cell.contentView.frame.size.height/2)];
         }
         // darkens circle of next event
