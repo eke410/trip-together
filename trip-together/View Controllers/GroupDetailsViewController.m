@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSMutableArray *events;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property int indexOfNextEvent;
+@property BOOL isQueryingEvents;
 
 @end
 
@@ -32,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.isQueryingEvents = true;
     [self refreshData];
     
     [self.segmentedControl addTarget:self action:@selector(changeType) forControlEvents:UIControlEventValueChanged];
@@ -91,19 +93,21 @@
 }
 
 - (void)queryEvents {
+    self.isQueryingEvents = true;
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     [query orderByAscending:@"startTime"];
     [query whereKey:@"group" equalTo:self.group];
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
         if (events != nil) {
             self.events = (NSMutableArray *)events;
-            [self.eventsTableView reloadData];
             [self refreshMap];
             [self calculateInxedOfNextEvent];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
+        self.isQueryingEvents = false;
+        [self.eventsTableView reloadData];
     }];
 }
 
@@ -210,10 +214,16 @@
 #pragma mark - Empty Table View Customization
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    if (self.isQueryingEvents) {
+        return nil;
+    }
     return [UIImage imageNamed:@"itinerary_icon"];
 }
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    if (self.isQueryingEvents) {
+        return nil;
+    }
     NSString *text = @"\nNo events scheduled";
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -221,6 +231,9 @@
 }
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
+    if (self.isQueryingEvents) {
+        return nil;
+    }
     NSString *text = @"Visit the explore section to get started.";
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
                                  NSForegroundColorAttributeName: [UIColor lightGrayColor]};
