@@ -16,6 +16,7 @@ target 'trip-together' do
   pod 'DropDown'
   pod 'Shift'
   pod 'PopupDialog', '~> 1.1'
+  pod 'DZNEmptyDataSet'
 
 
   target 'trip-togetherTests' do
