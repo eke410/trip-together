@@ -275,7 +275,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nRQ-5C-iAj">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nRQ-5C-iAj">
                                 <rect key="frame" x="8" y="436" width="374" height="325"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -458,6 +458,9 @@
                                     <action selector="searchTextChanged:" destination="4mi-Kb-Heh" eventType="editingChanged" id="Jhw-PY-rsw"/>
                                 </connections>
                             </textField>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="mXY-yv-TzM">
+                                <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZnS-Tk-ARO"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -465,6 +468,7 @@
                             <constraint firstItem="tLU-Eg-Gxl" firstAttribute="leading" secondItem="ZnS-Tk-ARO" secondAttribute="leading" constant="8" id="0Za-30-3Ld"/>
                             <constraint firstItem="f4S-P6-TRV" firstAttribute="leading" secondItem="ZnS-Tk-ARO" secondAttribute="leading" constant="8" id="0qm-2j-2dP"/>
                             <constraint firstItem="tIi-K8-rKT" firstAttribute="centerY" secondItem="FEy-25-fMi" secondAttribute="centerY" constant="-60" id="4r7-LH-hC6"/>
+                            <constraint firstItem="mXY-yv-TzM" firstAttribute="centerX" secondItem="FEy-25-fMi" secondAttribute="centerX" id="8y7-kZ-3ac"/>
                             <constraint firstItem="tIi-K8-rKT" firstAttribute="centerX" secondItem="FEy-25-fMi" secondAttribute="centerX" id="A6d-Am-0oQ"/>
                             <constraint firstItem="Sds-gu-JiC" firstAttribute="top" secondItem="ZnS-Tk-ARO" secondAttribute="top" constant="5" id="Emm-lx-Zs8"/>
                             <constraint firstItem="nRQ-5C-iAj" firstAttribute="trailing" secondItem="ZnS-Tk-ARO" secondAttribute="trailing" constant="-6" id="KzO-HW-C1D"/>
@@ -480,11 +484,13 @@
                             <constraint firstItem="LJn-Rq-uVv" firstAttribute="centerY" secondItem="iL9-Nl-8e1" secondAttribute="centerY" id="mxZ-zM-Dxq"/>
                             <constraint firstItem="LJn-Rq-uVv" firstAttribute="leading" secondItem="iL9-Nl-8e1" secondAttribute="trailing" constant="6" id="nI6-vA-MHm"/>
                             <constraint firstItem="f4S-P6-TRV" firstAttribute="top" secondItem="Sds-gu-JiC" secondAttribute="bottom" constant="6" id="oLy-TU-44T"/>
+                            <constraint firstItem="mXY-yv-TzM" firstAttribute="centerY" secondItem="FEy-25-fMi" secondAttribute="centerY" id="y7s-X9-me4"/>
                             <constraint firstItem="ZnS-Tk-ARO" firstAttribute="trailing" secondItem="Sds-gu-JiC" secondAttribute="trailing" constant="10" id="zEn-O5-0Qa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Explore" id="9pY-Fd-1j0"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="mXY-yv-TzM" id="rkI-Vb-jtn"/>
                         <outlet property="eventsTableView" destination="nRQ-5C-iAj" id="D29-vS-Z0O"/>
                         <outlet property="searchField" destination="Sds-gu-JiC" id="77x-iU-i0q"/>
                         <outlet property="segmentedControl" destination="tLU-Eg-Gxl" id="XXH-5m-jWc"/>
@@ -1981,7 +1987,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="hnl-2w-OZC"/>
+        <segue reference="cZO-Gr-Ne9"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0_star" width="162" height="30"/>

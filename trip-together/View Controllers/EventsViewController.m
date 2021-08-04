@@ -11,9 +11,10 @@
 #import "EventDetailsViewController.h"
 #import "APIManager.h"
 #import "DropDown-Swift.h"
+#import "UIScrollView+EmptyDataSet.h"
 @import GooglePlaces;
 
-@interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -22,12 +23,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *sortButton;
 @property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
 @property (weak, nonatomic) IBOutlet UILabel *whereToLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSMutableArray *attractions;
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic) CGPoint attractionsPosition;
 @property (nonatomic) CGPoint restaurantsPosition;
 @property (strong, nonatomic) NSString *location;
 @property (nonatomic) BOOL isLoadingData;
+@property (nonatomic) BOOL isSwitchingType;
 @property (nonatomic) BOOL noMoreAttractionData;
 @property (nonatomic) BOOL noMoreRestaurantData;
 @property (nonatomic, strong) DropDown *dropDown;
@@ -64,12 +67,15 @@
     
     self.eventsTableView.dataSource = self;
     self.eventsTableView.delegate = self;
+    self.eventsTableView.emptyDataSetSource = self;
+    self.eventsTableView.emptyDataSetDelegate = self;
     
     [self.segmentedControl addTarget:self action:@selector(changeType) forControlEvents:UIControlEventValueChanged];
     self.attractionsPosition = CGPointMake(0, 0);
     self.restaurantsPosition = CGPointMake(0, 0);
     
     self.isLoadingData = false;
+    self.isSwitchingType = false;
     self.noMoreAttractionData = false;
     self.noMoreRestaurantData = false;
     
@@ -146,11 +152,11 @@
     } else { // switched from attractions -> restaurants
         self.attractionsPosition = self.eventsTableView.contentOffset;
     }
-    self.isLoadingData = true;
+    self.isSwitchingType = true;
     [self.eventsTableView reloadData];
     [self.eventsTableView layoutIfNeeded];
     [self.eventsTableView setContentOffset:(self.segmentedControl.selectedSegmentIndex == 0 ? self.attractionsPosition : self.restaurantsPosition) animated:NO];
-    self.isLoadingData = false;
+    self.isSwitchingType = false;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -162,7 +168,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.isLoadingData) {
+    if (self.isLoadingData || self.isSwitchingType) {
         return;
     }
     
@@ -183,6 +189,10 @@
 - (void)queryYelpWithLocation:(NSString *)location offset:(NSString *)offset term:(NSString *)term sortBy:(NSString *)sortBy {
     // calls APIManager's query Yelp method and stores results
     self.isLoadingData = true;
+    if ([offset isEqualToString:@"0"]) { // querying new location
+        [self.activityIndicator startAnimating];
+        [self.eventsTableView setHidden:true];
+    }
     NSDictionary *params = @{
         @"location": location,
         @"offset": offset,
@@ -209,6 +219,8 @@
             }
         }
         self.isLoadingData = false;
+        [self.activityIndicator stopAnimating];
+        [self.eventsTableView setHidden:false];
     }];
 }
 
@@ -290,6 +302,38 @@
     [tableDataSource sourceTextHasChanged:self.searchField.text];
 }
 
+#pragma mark - Empty Table View Customization
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    if (self.isLoadingData) {
+        return [[NSAttributedString alloc] initWithString:@""];
+    }
+    // only show title if finished loading & there are no results
+    NSString *type = self.segmentedControl.selectedSegmentIndex == 0 ? @"attraction" : @"restaurant";
+    NSString *text = [NSString stringWithFormat:@"No %@ results", type];
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
+    if (self.isLoadingData) {
+        return [[NSAttributedString alloc] initWithString:@""];
+    }
+    // only show description if finished loading & there are no results
+    NSString *text = @"Try searching another location.";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
+                                 NSForegroundColorAttributeName: [UIColor lightGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return -40.0f;
+}
+
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView {
+    return 8.0f;
+}
 
 #pragma mark - Navigation
 
