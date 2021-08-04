@@ -217,14 +217,14 @@
     if (self.isQueryingEvents) {
         return nil;
     }
-    return [UIImage imageNamed:@"itinerary_icon"];
+    return [UIImage imageNamed:@"map_image"];
 }
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
     if (self.isQueryingEvents) {
         return nil;
     }
-    NSString *text = @"\nNo events scheduled";
+    NSString *text = @"\nNo events scheduled yet";
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];

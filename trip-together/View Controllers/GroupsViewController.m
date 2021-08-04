@@ -111,7 +111,7 @@
     if (self.isQueryingGroups) {
         return nil;
     }
-    NSString *text = @"You're not part of any groups yet.";
+    NSString *text = @"You're not part of any groups yet";
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
@@ -121,7 +121,7 @@
     if (self.isQueryingGroups) {
         return nil;
     }
-    NSString *text = @"Create a group to get started!";
+    NSString *text = @"Create a group to get started.";
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
                                  NSForegroundColorAttributeName: [UIColor lightGrayColor]};
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
