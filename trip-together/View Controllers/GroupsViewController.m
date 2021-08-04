@@ -9,12 +9,14 @@
 #import "GroupCell.h"
 #import "GroupDetailsViewController.h"
 #import "CreateGroupViewController.h"
+#import "UIScrollView+EmptyDataSet.h"
 
-@interface GroupsViewController () <CreateGroupViewControllerDelegate, GroupDetailsViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface GroupsViewController () <CreateGroupViewControllerDelegate, GroupDetailsViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (strong, nonatomic) NSMutableArray *groups;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property BOOL isQueryingGroups;
 
 @end
 
@@ -23,10 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.isQueryingGroups = true;
     [self refreshGroups];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshGroups) forControlEvents:UIControlEventValueChanged];
@@ -34,6 +39,7 @@
 }
 
 - (void)refreshGroups {
+    self.isQueryingGroups = true;
     PFQuery *query = [PFQuery queryWithClassName:@"Group"];
     [query orderByDescending:@"startDate"];
     [query includeKey:@"users"];
@@ -41,11 +47,12 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *groups, NSError *error) {
         if (groups != nil) {
             self.groups = (NSMutableArray *)groups;
-            [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
+        self.isQueryingGroups = false;
+        [self.tableView reloadData];
     }];
 }
 
@@ -91,6 +98,46 @@
     [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 }
 
+#pragma mark - Empty Table View Customization
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    if (self.isQueryingGroups) {
+        return nil;
+    }
+    return [UIImage imageNamed:@"group_image"];
+}
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    if (self.isQueryingGroups) {
+        return nil;
+    }
+    NSString *text = @"You're not part of any groups yet.";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
+    if (self.isQueryingGroups) {
+        return nil;
+    }
+    NSString *text = @"Create a group to get started!";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
+                                 NSForegroundColorAttributeName: [UIColor lightGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return -50.0f;
+}
+
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView {
+    return 8.0f;
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
 
 #pragma mark - Navigation
 
