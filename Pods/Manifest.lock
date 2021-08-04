@@ -23,6 +23,7 @@ PODS:
   - ImageSlideshow (1.9.2):
     - ImageSlideshow/Core (= 1.9.2)
   - ImageSlideshow/Core (1.9.2)
+  - LUNSegmentedControl (1.0.7)
   - Parse (1.19.2):
     - Parse/Core (= 1.19.2)
   - Parse/Core (1.19.2):
@@ -40,6 +41,7 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - GooglePlaces
   - ImageSlideshow (~> 1.9.0)
+  - LUNSegmentedControl
   - Parse
   - PopupDialog (~> 1.1)
   - Shift
@@ -56,6 +58,7 @@ SPEC REPOS:
     - DZNEmptyDataSet
     - GooglePlaces
     - ImageSlideshow
+    - LUNSegmentedControl
     - Parse
     - PopupDialog
     - Shift
@@ -71,12 +74,13 @@ SPEC CHECKSUMS:
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   GooglePlaces: 5d87ca13ed98b7a937e0d8bc7026f718c7263271
   ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
+  LUNSegmentedControl: f868b1ea740f9917f05dbcb4cded85c33ec606e6
   Parse: 081fb8755c3000fd11df817eec235def233d0af3
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   Shift: 86dc634d046fc86a879dbfdb492739672cc092be
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: e2ec5bfa5991c9d43bf3333d4fa005f1907b4926
+PODFILE CHECKSUM: 7259d774605f4daf2f0fa9322beef4538e58ca85
 
 COCOAPODS: 1.10.1
