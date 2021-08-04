@@ -82,7 +82,7 @@
     self.textFont = [UIFont systemFontOfSize:14];
     self.transitionStyle = LUNSegmentedControlTransitionStyleFade;
     self.shapeStyle = LUNSegmentedControlShapeStyleLiquid;
-    self.applyCornerRadiusToSelectorView = NO;
+    self.applyCornerRadiusToSelectorView = YES;
     self.gradientBounceColor = [UIColor redColor];
     self.gradientBackVelocity = 1;
     self.shadowsEnabled = YES;

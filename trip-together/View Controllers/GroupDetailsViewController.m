@@ -13,12 +13,13 @@
 #import "EventAnnotation.h"
 #import "TimelineCell.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "LUNSegmentedControl.h"
 @import PopupDialog;
 
-@interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, MKMapViewDelegate>
+@interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, MKMapViewDelegate, LUNSegmentedControlDataSource, LUNSegmentedControlDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet LUNSegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) NSMutableArray *events;
@@ -36,7 +37,12 @@
     self.isQueryingEvents = true;
     [self refreshData];
     
-    [self.segmentedControl addTarget:self action:@selector(changeType) forControlEvents:UIControlEventValueChanged];
+    // sets up and customizes segmented control
+    self.segmentedControl.dataSource = self;
+    self.segmentedControl.delegate = self;
+    self.segmentedControl.backgroundColor = [UIColor systemGray6Color];
+    self.segmentedControl.selectorViewColor = [UIColor colorWithRed:140/255.0 green:200/255.0 blue:235/255.0 alpha:1];
+    self.segmentedControl.shadowsEnabled = false;
     
     // sets up table view & refresh control
     self.eventsTableView.dataSource = self;
@@ -127,8 +133,8 @@
     self.indexOfNextEvent = index;
 }
 
-- (void)changeType {
-    if (self.segmentedControl.selectedSegmentIndex == 0 || self.segmentedControl.selectedSegmentIndex == 1) { // show itinerary or events
+- (void)segmentedControl:(LUNSegmentedControl *)segmentedControl didChangeStateFromStateAtIndex:(NSInteger)fromIndex toStateAtIndex:(NSInteger)toIndex {
+    if (self.segmentedControl.currentState == 0 || self.segmentedControl.currentState == 1) { // show itinerary or events
         [self.eventsTableView setHidden:false];
         [self.mapView setHidden:true];
         [self.eventsTableView reloadData];
@@ -147,7 +153,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.segmentedControl.selectedSegmentIndex == 0) { // itinerary
+    if (self.segmentedControl.currentState == 0) { // itinerary
         TimelineCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"TimelineCell"];
         cell.event = self.events[indexPath.section];
         cell.indexLabel.text = [NSString stringWithFormat:@"%i", (int)indexPath.section + 1];
@@ -209,6 +215,20 @@
 
 - (void)changePhoto:(UIImage *)photo {
     [self.delegate updateCellForGroup:self.group];
+}
+
+#pragma mark - Segmented Control Customization
+
+- (NSInteger)numberOfStatesInSegmentedControl:(LUNSegmentedControl *)segmentedControl {
+    return 3;
+}
+
+- (NSAttributedString *)segmentedControl:(LUNSegmentedControl *)segmentedControl attributedTitleForStateAtIndex:(NSInteger)index {
+    NSArray *titles = @[@"Itinerary", @"Events", @"Map"];
+    
+    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",titles[index]] attributes:@{
+        NSFontAttributeName : [UIFont systemFontOfSize:16 weight:UIFontWeightMedium]
+    }];
 }
 
 #pragma mark - Empty Table View Customization

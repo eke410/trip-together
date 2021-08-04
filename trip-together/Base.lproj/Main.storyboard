@@ -1468,17 +1468,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fl8-jy-8cT">
-                                <rect key="frame" x="12" y="154.66666666666666" width="366" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Xnh-X0-ph6"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Itinerary"/>
-                                    <segment title="Events"/>
-                                    <segment title="Map"/>
-                                </segments>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Skk-fN-Gmq">
                                 <rect key="frame" x="10" y="190.66666666666669" width="370" height="570.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1633,23 +1622,35 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQf-v4-TaK" customClass="LUNSegmentedControl">
+                                <rect key="frame" x="12" y="154.66666666666666" width="366" height="30"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3jz-jP-DmH"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0IQ-M3-HBe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="F2M-sD-ymJ" secondAttribute="trailing" constant="12" id="55a-wY-nWd"/>
-                            <constraint firstItem="F2M-sD-ymJ" firstAttribute="top" secondItem="Fl8-jy-8cT" secondAttribute="bottom" constant="12" id="ARq-Il-kuh"/>
+                            <constraint firstItem="F2M-sD-ymJ" firstAttribute="top" secondItem="oQf-v4-TaK" secondAttribute="bottom" constant="12" id="ARq-Il-kuh"/>
                             <constraint firstItem="QSm-jy-bkl" firstAttribute="top" secondItem="0IQ-M3-HBe" secondAttribute="top" constant="20" id="BVN-rn-8s2"/>
-                            <constraint firstItem="Skk-fN-Gmq" firstAttribute="top" secondItem="Fl8-jy-8cT" secondAttribute="bottom" constant="6" id="Hs4-Is-Ss2"/>
+                            <constraint firstItem="Skk-fN-Gmq" firstAttribute="top" secondItem="oQf-v4-TaK" secondAttribute="bottom" constant="6" id="Hs4-Is-Ss2"/>
+                            <constraint firstItem="oQf-v4-TaK" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="12" id="Q2d-F5-nMD"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="bottom" secondItem="F2M-sD-ymJ" secondAttribute="bottom" constant="12" id="Sao-Rr-Pqx"/>
                             <constraint firstItem="QSm-jy-bkl" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="16" id="YxX-65-NZx"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Skk-fN-Gmq" secondAttribute="trailing" constant="10" id="cEP-rh-t5J"/>
-                            <constraint firstItem="Fl8-jy-8cT" firstAttribute="top" secondItem="QSm-jy-bkl" secondAttribute="bottom" constant="18" id="cne-P4-1cc"/>
+                            <constraint firstItem="oQf-v4-TaK" firstAttribute="top" secondItem="QSm-jy-bkl" secondAttribute="bottom" constant="18" id="fl4-5U-pLR"/>
                             <constraint firstItem="Skk-fN-Gmq" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="10" id="hNq-4F-MGA"/>
-                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Fl8-jy-8cT" secondAttribute="trailing" constant="12" id="k8e-l5-AhM"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="bottom" secondItem="Skk-fN-Gmq" secondAttribute="bottom" id="qM1-JD-Kgh"/>
-                            <constraint firstItem="Fl8-jy-8cT" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="12" id="uqM-hL-0Gc"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="QSm-jy-bkl" secondAttribute="trailing" constant="16" id="w5J-iU-qAY"/>
+                            <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="oQf-v4-TaK" secondAttribute="trailing" constant="12" id="yoP-ET-lof"/>
                             <constraint firstItem="F2M-sD-ymJ" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="12" id="zx3-vR-iK8"/>
                         </constraints>
                     </view>
@@ -1664,7 +1665,7 @@
                         <outlet property="eventsTableView" destination="Skk-fN-Gmq" id="1bH-Oe-7Jb"/>
                         <outlet property="groupName" destination="QSm-jy-bkl" id="tcP-JL-Xhk"/>
                         <outlet property="mapView" destination="F2M-sD-ymJ" id="iaQ-X2-8ma"/>
-                        <outlet property="segmentedControl" destination="Fl8-jy-8cT" id="xxv-CK-1C9"/>
+                        <outlet property="segmentedControl" destination="oQf-v4-TaK" id="Ink-Zx-wgO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4wa-gy-V7a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1987,7 +1988,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="cZO-Gr-Ne9"/>
+        <segue reference="tEh-kS-tft"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0_star" width="162" height="30"/>
