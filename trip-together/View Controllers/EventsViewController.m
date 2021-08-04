@@ -75,7 +75,7 @@
     self.segmentedControl.dataSource = self;
     self.segmentedControl.delegate = self;
     self.segmentedControl.backgroundColor = [UIColor systemGray6Color];
-    self.segmentedControl.selectorViewColor = self.sortButton.backgroundColor;
+    self.segmentedControl.selectorViewColor = [UIColor colorWithRed:135/255.0 green:181/255.0 blue:225/255.0 alpha:1];
     self.segmentedControl.shadowsEnabled = false;
     
     self.attractionsPosition = CGPointMake(0, 0);
@@ -125,6 +125,8 @@
     self.dropDown.textFont = [UIFont systemFontOfSize:13];
     self.dropDown.cellHeight = 32;
     self.dropDown.cornerRadius = 10;
+    self.dropDown.backgroundColor = [UIColor systemGray6Color];
+    self.dropDown.selectionBackgroundColor = [UIColor systemGray5Color];
     
     // set up search field padding
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.searchField.frame.size.height)];
