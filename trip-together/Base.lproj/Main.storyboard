@@ -550,16 +550,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57P-qP-zu1">
-                                                    <rect key="frame" x="8" y="8.0000000000000018" width="342" height="21.666666666666671"/>
+                                                    <rect key="frame" x="12" y="12.000000000000002" width="334" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="57P-qP-zu1" firstAttribute="top" secondItem="eLe-bJ-a4F" secondAttribute="top" constant="8" id="ioU-ML-oo3"/>
-                                                <constraint firstItem="57P-qP-zu1" firstAttribute="leading" secondItem="eLe-bJ-a4F" secondAttribute="leading" constant="8" id="j5b-Q7-Ord"/>
-                                                <constraint firstAttribute="trailing" secondItem="57P-qP-zu1" secondAttribute="trailing" constant="8" id="rYU-Im-oKS"/>
+                                                <constraint firstItem="57P-qP-zu1" firstAttribute="top" secondItem="eLe-bJ-a4F" secondAttribute="top" constant="12" id="ioU-ML-oo3"/>
+                                                <constraint firstItem="57P-qP-zu1" firstAttribute="leading" secondItem="eLe-bJ-a4F" secondAttribute="leading" constant="12" id="j5b-Q7-Ord"/>
+                                                <constraint firstAttribute="trailing" secondItem="57P-qP-zu1" secondAttribute="trailing" constant="12" id="rYU-Im-oKS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
