@@ -177,7 +177,7 @@
         // present conflict popup
         PopupDialog *popup = [[PopupDialog alloc] initWithTitle:@"Event time conflict" message:userConflictString image:nil buttonAlignment:UILayoutConstraintAxisHorizontal transitionStyle:PopupDialogTransitionStyleZoomIn preferredWidth:200 tapGestureDismissal:YES panGestureDismissal:YES hideStatusBar:NO completion:nil];
         CancelButton *cancel = [[CancelButton alloc] initWithTitle:@"Cancel" height:45 dismissOnTap:YES action:nil];
-        DefaultButton *book = [[DefaultButton alloc] initWithTitle:@"Book anyways" height:45 dismissOnTap:YES action:^{
+        DefaultButton *book = [[DefaultButton alloc] initWithTitle:@"Schedule anyways" height:45 dismissOnTap:YES action:^{
             [self bookEventWithoutUserValidation];
         }];
         [popup addButtons:@[cancel, book]];

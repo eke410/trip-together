@@ -730,7 +730,7 @@
                                             <constraint firstAttribute="height" constant="32" id="aPS-rS-zJP"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Book">
+                                        <state key="normal" title="Schedule">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -1107,7 +1107,7 @@
                                     <constraint firstAttribute="height" constant="32" id="m7g-N4-zXH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Book">
+                                <state key="normal" title="Schedule Event">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>

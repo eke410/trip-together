@@ -33,8 +33,8 @@
     // style users table view
     self.usersTableView.layer.cornerRadius = 15;
     self.tableContainerView.layer.cornerRadius = 15;
-    self.tableContainerView.layer.shadowOpacity = 0.15;
-    self.tableContainerView.layer.shadowRadius = 8;
+    self.tableContainerView.layer.shadowOpacity = 0.25;
+    self.tableContainerView.layer.shadowRadius = 2;
     self.tableContainerView.layer.shadowColor = [[UIColor darkGrayColor] CGColor];
     self.tableContainerView.layer.shadowOffset = CGSizeZero;
 }

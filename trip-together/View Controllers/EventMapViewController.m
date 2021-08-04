@@ -33,6 +33,7 @@
     MKPointAnnotation *annotation = [MKPointAnnotation new];
     annotation.coordinate = eventCoord;
     annotation.title = self.event.name;
+    annotation.subtitle = self.event.location;
     [self.mapView addAnnotation:annotation];
     
     self.mapView.delegate = self;

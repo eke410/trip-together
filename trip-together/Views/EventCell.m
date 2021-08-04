@@ -16,8 +16,8 @@
     self.categoriesTagListView.textFont = [UIFont systemFontOfSize:10];
     
     self.containerView.layer.cornerRadius = 10;
-    self.containerView.layer.shadowOpacity = 0.2;
-    self.containerView.layer.shadowRadius = 4;
+    self.containerView.layer.shadowOpacity = 0.3;
+    self.containerView.layer.shadowRadius = 2;
     self.containerView.layer.shadowColor = [[UIColor darkGrayColor] CGColor];
     self.containerView.layer.shadowOffset = CGSizeZero;
 }
