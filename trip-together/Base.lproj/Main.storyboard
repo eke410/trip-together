@@ -1449,21 +1449,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="F2M-sD-ymJ">
-                                <rect key="frame" x="12" y="188.66666666666669" width="366" height="560.33333333333326"/>
+                                <rect key="frame" x="12" y="196.66666666666669" width="366" height="552.33333333333326"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSm-jy-bkl">
-                                <rect key="frame" x="16" y="104" width="358" height="28.666666666666657"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSm-jy-bkl">
+                                <rect key="frame" x="16" y="108" width="358" height="28.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fl8-jy-8cT">
-                                <rect key="frame" x="12" y="146.66666666666666" width="366" height="31"/>
+                                <rect key="frame" x="12" y="154.66666666666666" width="366" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Xnh-X0-ph6"/>
                                 </constraints>
@@ -1474,7 +1474,7 @@
                                 </segments>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Skk-fN-Gmq">
-                                <rect key="frame" x="10" y="182.66666666666669" width="370" height="578.33333333333326"/>
+                                <rect key="frame" x="10" y="190.66666666666669" width="370" height="570.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupEventCell" id="1ZN-ze-oeu" customClass="GroupEventCell">
@@ -1633,12 +1633,12 @@
                         <constraints>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="F2M-sD-ymJ" secondAttribute="trailing" constant="12" id="55a-wY-nWd"/>
                             <constraint firstItem="F2M-sD-ymJ" firstAttribute="top" secondItem="Fl8-jy-8cT" secondAttribute="bottom" constant="12" id="ARq-Il-kuh"/>
-                            <constraint firstItem="QSm-jy-bkl" firstAttribute="top" secondItem="0IQ-M3-HBe" secondAttribute="top" constant="16" id="BVN-rn-8s2"/>
+                            <constraint firstItem="QSm-jy-bkl" firstAttribute="top" secondItem="0IQ-M3-HBe" secondAttribute="top" constant="20" id="BVN-rn-8s2"/>
                             <constraint firstItem="Skk-fN-Gmq" firstAttribute="top" secondItem="Fl8-jy-8cT" secondAttribute="bottom" constant="6" id="Hs4-Is-Ss2"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="bottom" secondItem="F2M-sD-ymJ" secondAttribute="bottom" constant="12" id="Sao-Rr-Pqx"/>
                             <constraint firstItem="QSm-jy-bkl" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="16" id="YxX-65-NZx"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Skk-fN-Gmq" secondAttribute="trailing" constant="10" id="cEP-rh-t5J"/>
-                            <constraint firstItem="Fl8-jy-8cT" firstAttribute="top" secondItem="QSm-jy-bkl" secondAttribute="bottom" constant="14" id="cne-P4-1cc"/>
+                            <constraint firstItem="Fl8-jy-8cT" firstAttribute="top" secondItem="QSm-jy-bkl" secondAttribute="bottom" constant="18" id="cne-P4-1cc"/>
                             <constraint firstItem="Skk-fN-Gmq" firstAttribute="leading" secondItem="0IQ-M3-HBe" secondAttribute="leading" constant="10" id="hNq-4F-MGA"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="trailing" secondItem="Fl8-jy-8cT" secondAttribute="trailing" constant="12" id="k8e-l5-AhM"/>
                             <constraint firstItem="0IQ-M3-HBe" firstAttribute="bottom" secondItem="Skk-fN-Gmq" secondAttribute="bottom" id="qM1-JD-Kgh"/>

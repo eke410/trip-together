@@ -12,9 +12,10 @@
 #import "Mapkit/Mapkit.h"
 #import "EventAnnotation.h"
 #import "TimelineCell.h"
+#import "UIScrollView+EmptyDataSet.h"
 @import PopupDialog;
 
-@interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
+@interface GroupDetailsViewController () <GroupDetailsInfoViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *groupName;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -38,6 +39,8 @@
     // sets up table view & refresh control
     self.eventsTableView.dataSource = self;
     self.eventsTableView.delegate = self;
+    self.eventsTableView.emptyDataSetSource = self;
+    self.eventsTableView.emptyDataSetDelegate = self;
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(queryEvents) forControlEvents:UIControlEventValueChanged];
@@ -204,6 +207,37 @@
     [self.delegate updateCellForGroup:self.group];
 }
 
+#pragma mark - Empty Table View Customization
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIImage imageNamed:@"itinerary_icon"];
+}
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    NSString *text = @"\nNo events scheduled";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
+    NSString *text = @"Visit the explore section to get started.";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
+                                 NSForegroundColorAttributeName: [UIColor lightGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return -40.0f;
+}
+
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView {
+    return 8.0f;
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
 
 #pragma mark - Navigation
 
