@@ -12,14 +12,15 @@
 #import "APIManager.h"
 #import "DropDown-Swift.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "LUNSegmentedControl.h"
 @import GooglePlaces;
 
-@interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface EventsViewController () <GMSAutocompleteTableDataSourceDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, LUNSegmentedControlDataSource, LUNSegmentedControlDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet LUNSegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIButton *sortButton;
 @property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
 @property (weak, nonatomic) IBOutlet UILabel *whereToLabel;
@@ -70,7 +71,13 @@
     self.eventsTableView.emptyDataSetSource = self;
     self.eventsTableView.emptyDataSetDelegate = self;
     
-    [self.segmentedControl addTarget:self action:@selector(changeType) forControlEvents:UIControlEventValueChanged];
+    // sets up and customizes segmented control
+    self.segmentedControl.dataSource = self;
+    self.segmentedControl.delegate = self;
+    self.segmentedControl.backgroundColor = [UIColor systemGray6Color];
+    self.segmentedControl.selectorViewColor = self.sortButton.backgroundColor;
+    self.segmentedControl.shadowsEnabled = false;
+    
     self.attractionsPosition = CGPointMake(0, 0);
     self.restaurantsPosition = CGPointMake(0, 0);
     
@@ -131,7 +138,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions.count : self.restaurants.count;
+    return self.segmentedControl.currentState == 0 ? self.attractions.count : self.restaurants.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -140,14 +147,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"EventCell"];
-    cell.event = self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions[indexPath.section] : self.restaurants[indexPath.section];
+    cell.event = self.segmentedControl.currentState == 0 ? self.attractions[indexPath.section] : self.restaurants[indexPath.section];
     [cell refreshData];
     return cell;
 }
 
-- (void)changeType{
+- (void)segmentedControl:(LUNSegmentedControl *)segmentedControl didChangeStateFromStateAtIndex:(NSInteger)fromIndex toStateAtIndex:(NSInteger)toIndex {
     // segmented control was clicked
-    if (self.segmentedControl.selectedSegmentIndex == 0) { // switched from restaurants -> attractions
+    if (self.segmentedControl.currentState == 0) { // switched from restaurants -> attractions
         self.restaurantsPosition = self.eventsTableView.contentOffset;
     } else { // switched from attractions -> restaurants
         self.attractionsPosition = self.eventsTableView.contentOffset;
@@ -155,7 +162,7 @@
     self.isSwitchingType = true;
     [self.eventsTableView reloadData];
     [self.eventsTableView layoutIfNeeded];
-    [self.eventsTableView setContentOffset:(self.segmentedControl.selectedSegmentIndex == 0 ? self.attractionsPosition : self.restaurantsPosition) animated:NO];
+    [self.eventsTableView setContentOffset:(self.segmentedControl.currentState == 0 ? self.attractionsPosition : self.restaurantsPosition) animated:NO];
     self.isSwitchingType = false;
 }
 
@@ -173,7 +180,7 @@
     }
     
     // load more data if nearing bottom of tableView
-    if (self.segmentedControl.selectedSegmentIndex == 0) { // displaying attractions
+    if (self.segmentedControl.currentState == 0) { // displaying attractions
         if (!self.noMoreAttractionData && indexPath.section + 3 == self.attractions.count) {
             NSString *offset = [NSString stringWithFormat:@"%i", (int)self.attractions.count];
             [self queryYelpWithLocation:self.location offset:offset term:@"top+tourist+attractions" sortBy:self.dropDown.selectedItem];
@@ -214,7 +221,7 @@
         }
         [self.eventsTableView reloadData];
         if ([offset isEqualToString:@"0"]) { // scroll to top if querying data from new location
-            if ((self.segmentedControl.selectedSegmentIndex == 0 && self.attractions.count > 0) || (self.segmentedControl.selectedSegmentIndex == 1 && self.restaurants.count > 0)) {
+            if ((self.segmentedControl.currentState == 0 && self.attractions.count > 0) || (self.segmentedControl.currentState == 1 && self.restaurants.count > 0)) {
                 [self.eventsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
             }
         }
@@ -309,7 +316,7 @@
         return [[NSAttributedString alloc] initWithString:@""];
     }
     // only show title if finished loading & there are no results
-    NSString *type = self.segmentedControl.selectedSegmentIndex == 0 ? @"attraction" : @"restaurant";
+    NSString *type = self.segmentedControl.currentState == 0 ? @"attraction" : @"restaurant";
     NSString *text = [NSString stringWithFormat:@"No %@ results", type];
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -335,6 +342,20 @@
     return 8.0f;
 }
 
+#pragma  mark - Segmented Control Customization
+
+- (NSInteger)numberOfStatesInSegmentedControl:(LUNSegmentedControl *)segmentedControl {
+    return 2;
+}
+
+- (NSAttributedString *)segmentedControl:(LUNSegmentedControl *)segmentedControl attributedTitleForStateAtIndex:(NSInteger)index {
+    NSArray *titles = @[@"Places to Visit", @"Restaurants"];
+    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",titles[index]] attributes:@{
+        NSFontAttributeName : [UIFont systemFontOfSize:16]
+    }];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -343,7 +364,7 @@
     // Pass the selected object to the new view controller.
     EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
     NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:sender];
-    Event *event = self.segmentedControl.selectedSegmentIndex == 0 ? self.attractions[indexPath.section] : self.restaurants[indexPath.section];
+    Event *event = self.segmentedControl.currentState == 0 ? self.attractions[indexPath.section] : self.restaurants[indexPath.section];
     eventDetailsViewController.event = event;
     [eventDetailsViewController setAllowBooking:true];
 }
