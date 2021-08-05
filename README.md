@@ -1,7 +1,7 @@
 # Trip Together
 
 ## Demo
-https://user-images.githubusercontent.com/32204411/126238446-edb222b1-00e8-45f1-b044-6336cc2dc8e0.mp4
+https://user-images.githubusercontent.com/32204411/128400505-ebd554aa-32ea-4657-9599-592b51eb3f76.mp4
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -11,7 +11,7 @@ https://user-images.githubusercontent.com/32204411/126238446-edb222b1-00e8-45f1-
 
 ## Overview
 ### Description
-Social Travel organizer where users can plan trips with friends. Users can form groups with fellow travelers, book times to visit restaurants and tourist attractions, and see a shared group itinerary. The app will warn users if they attempt to book an event at a time where another group member already has plans.
+TripTogether is a social travel app designed to help users plan trips with friends. Users can form groups with other people, schedule visits to tourist attractions and restaurants, and see shared group itineraries. The app will warn users if they attempt to schedule an event at a time where another group member already has plans.
 
 ### App Evaluation
 - **Category:** Travel & social
